@@ -1,0 +1,28 @@
+(16/09/22) TUBES-1
+Mendaftarkan dan mengelist fungsi-fungsi
+yang dibutuhkan untuk tubes.
+
+LIST PRIMITIF
+- Create Matriks            Done
+- Isi Matriks               Done
+- Get Component             Done
+- Tulis matriks             Done
+
+OBE
+- Tuker baris
+- Mengkali / membagi baris
+- Tambah kelipatan baris
+
+MATRIKS
+- Kali Matriks
+- Tambah matriks
+- Transpose Matriks
+
+LIST FUNGSI UTAMA:
+- OBE
+- Gauss
+- Gauss-Jordan
+- Determinan
+- Matriks Balikan
+
+｢
