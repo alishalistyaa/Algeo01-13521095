@@ -1,5 +1,7 @@
 /* Kelas ADT Matriks */
+// Import library
 import java.util.*;
+import java.io.*; 
 
 public class matriks {
     
@@ -7,7 +9,7 @@ public class matriks {
     // Atribut
     Scanner in = new Scanner (System.in);
     int CAPACITY = 100;
-    int[][] Mat = new int[CAPACITY][CAPACITY];
+    double[][] Mat = new double[CAPACITY][CAPACITY];
     
     
     int panjangRow = 0;
@@ -26,13 +28,51 @@ public class matriks {
 
         for(i=0; i<m; i++){
             for(j=0; j<n; j++) {
-                this.Mat[i][j] = in.nextInt();
+                this.Mat[i][j] = in.nextDouble();
             }
         }
     }
 
+    /* Baca Matriks dari File */
+    void bacaFileMatriks(String filename){
+        // Kamus Lokal
+        File file = new File(filename);
+        int i,j;
+
+        // Algoritma
+        
+        try{ // Untuk validasi dan dapat error message
+        Scanner bacafile = new Scanner (file);
+
+        // Menghitung banyaknya kolom dan baris
+        while(bacafile.hasNextLine()){
+            this.panjangRow++;
+            Scanner bacakolom = new Scanner(bacafile.nextLine());
+                while(bacakolom.hasNextDouble()){
+                    this.panjangCol++;
+                }
+            }
+
+        // close scanner
+        bacafile.close();
+
+        // Membaca integer dari file
+        bacafile = new Scanner (file); // refresh dr atas
+        for(i=0; i<this.panjangRow; i++){
+            for(j=0; j<this.panjangCol; j++){
+                if(bacafile.hasNextDouble()){
+                    this.Mat[i][j] = bacafile.nextDouble();
+                }
+            }
+        }
+
+        // Jika file tidak ditemukan, maka output error mess
+        } catch (FileNotFoundException e) {
+        System.out.println(e.getMessage());}
+    }
+
     /* sebenernya ini gaperlu sih */
-    int getComponent(int n, int m){
+    double getComponent(int n, int m){
         /* Fungsi untuk mendapatkan komponen matriks */
         // Kamus Lokal
 
@@ -42,10 +82,10 @@ public class matriks {
 
     /* Apakah matriks penuh */
     boolean penuhRow() {
-        return (panjangRow == CAPACITY);
+        return (this.panjangRow == CAPACITY);
     }
     boolean penuhCol() {
-        return (panjangCol == CAPACITY);
+        return (this.panjangCol == CAPACITY);
     }
     
     void tulisMatriks(){
@@ -63,44 +103,4 @@ public class matriks {
             System.out.print("|\n");
         }  
     }  
-
-    
-    void pertambahanMatriks(matriks M1, matriks M2){
-        //prekondisi ukuran M1 == ukuran M2
-        // Kamus Lokal
-        int i,j;
-        // Algoritma
-        for(i = 0; i < M1.panjangCol; i++){
-            for(j = 0; j < M1.panjangRow; j++) {
-                this.Mat[i][j] = M1.Mat[i][j] + M2.Mat[i][j];
-            }
-        }
-    }
-
-    void penguranganMatriks(matriks M1, matriks M2){
-        //prekondisi ukuran M1 == ukuran M2
-        // Kamus Lokal
-        int i,j;
-        // Algoritma
-        for(i = 0; i < M1.panjangCol; i++){
-            for(j = 0; j < M1.panjangRow; j++) {
-                this.Mat[i][j] = M1.Mat[i][j] - M2.Mat[i][j];
-            }
-        }
-    }
-
-    void perkalianMatriks(matriks M1, matriks M2){
-
-    }
-
-    // boolean isEqual(){
-    //     // Kamus Lokal
-    //     boolean equal;
-    //     int i;
-    //     // Algoritma
-    //         for(i = 0; i<10; i++){
-
-    //         }
-    //     return equal;
-    // }
 }

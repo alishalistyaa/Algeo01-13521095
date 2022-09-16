@@ -14,15 +14,16 @@ OBE
 - Tambah kelipatan baris
 
 MATRIKS
-- Kali Matriks
-- Tambah matriks
-- Transpose Matriks
+- Kali Matriks              Done
+- Clone Matriks             Done
+- Tambah matriks            Done
+- Transpose Matriks         Done
 
 LIST FUNGSI UTAMA:
-- OBE
-- Gauss
-- Gauss-Jordan
-- Determinan
+- OBE                       Done
+- Gauss                     Done
+- Gauss-Jordan              Done
+- Determinan                Done
 - Matriks Balikan
 
 ｢
