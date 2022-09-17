@@ -329,5 +329,84 @@ public class operasiMatriks{
         det = Math.round(det *10000) / 10000;
         return det;
     }
- 
+
+    // for finding inverse w adj method and determinant w cofactor expansion method
+    static matriks slice(matriks MIn, int i, int j) {
+        // BELOM SELESEEE NYUSULL
+        // mengambil elemen matriks yang BUKAN berbaris i atau BUKAN berkolom j
+        matriks MOut = new matriks();
+        MOut.panjangRow = MIn.panjangRow - 1;
+        MOut.panjangCol = MIn.panjangCol - 1;
+        // int a = 0, b = 0, c = 0, d = 0;
+        // for (a = 0; a < MIn.panjangRow; a++) {
+        //     for (b = 0; b < MIn.panjangCol; b++) {
+        //         if (!(a == i || b == j)) {
+        //             MOut.Mat[c][d] = MIn.Mat[a][b];
+        //             c++;
+        //             d++;
+        //         }
+        //         if (b == j) {
+                    
+        //         }
+        //         if (a == i)
+
+        //     }
+        // }
+        return MOut;
+    }
+    
+    static double cof(matriks MIn, int i, int j) {
+        // cof dari mat minor, MIn harus matriks persegi
+        double cof;
+        cof = determinan(slice(MIn, i, j));
+        if ((i + j) % 2 != 0) {
+            cof *= (-1);
+        }
+        return cof;
+    }
+
+    static matriks matCof(matriks MIn) {
+        matriks MOut = new matriks();
+        MOut.panjangRow = MIn.panjangRow;
+        MOut.panjangCol = MIn.panjangCol;
+        for (int i = 0; i < MIn.panjangRow; i++){
+            for (int j = 0; j < MIn.panjangCol; j++) {
+                MOut.Mat[i][j] = cof(MIn, i, j);
+            }
+        }
+        return MOut;
+    }
+
+    static double detExCofRow (matriks MIn, int rowIdx) {
+        // rowIdx: [0..(nRow-1)]
+        double det = 0;
+        for (int j = 0; j < MIn.panjangCol; j++) {
+            det += MIn.Mat[rowIdx][j] * cof(MIn, rowIdx, j);
+        }
+        return det;
+    }
+
+    static double detExCofCol (matriks MIn, int colIdx) {
+        // colIdx: [0..(nCol-1)]
+        double det = 0;
+        for (int i = 0; i < MIn.panjangRow; i++) {
+            det += MIn.Mat[i][colIdx] * cof(MIn, i, colIdx);
+        }
+        return det;
+    }
+
+    static matriks inverseAdj(matriks MIn) {
+        // PREKONDISI: DET MIn != 0
+        matriks MOut = new matriks();
+        MOut.panjangRow = MIn.panjangRow;
+        MOut.panjangCol = MIn.panjangCol;
+        MOut = transpose(matCof(MIn));
+        for (int i = 0; i < MIn.panjangRow; i++){
+            for (int j = 0; j < MIn.panjangCol; j++) {
+                MOut.Mat[i][j] /= determinan(MIn);
+            }
+        }
+        return MOut;
+    }
+    // nitip aja biar inget : static matriks inverseGJ(matriks MIn) {}
 }
