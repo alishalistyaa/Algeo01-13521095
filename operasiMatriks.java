@@ -332,34 +332,27 @@ public class operasiMatriks{
 
     // for finding inverse w adj method and determinant w cofactor expansion method
     static matriks slice(matriks MIn, int i, int j) {
-        // BELOM SELESEEE NYUSULL
         // mengambil elemen matriks yang BUKAN berbaris i atau BUKAN berkolom j
         matriks MOut = new matriks();
         MOut.panjangRow = MIn.panjangRow - 1;
         MOut.panjangCol = MIn.panjangCol - 1;
-        // int a = 0, b = 0, c = 0, d = 0;
-        // for (a = 0; a < MIn.panjangRow; a++) {
-        //     for (b = 0; b < MIn.panjangCol; b++) {
-        //         if (!(a == i || b == j)) {
-        //             MOut.Mat[c][d] = MIn.Mat[a][b];
-        //             c++;
-        //             d++;
-        //         }
-        //         if (b == j) {
-                    
-        //         }
-        //         if (a == i)
-
-        //     }
-        // }
+        int count = 0;
+        for (int a = 0; a < MIn.panjangRow; a++) {
+            for (int b = 0; b < MIn.panjangCol; b++) {
+                if (!(a == i || b == j)) {
+                    count++;
+                    MOut.Mat[(count - 1) / MOut.panjangCol][(count - 1) % MOut.panjangCol] = MIn.Mat[a][b];
+                }
+            }
+        }
         return MOut;
     }
     
     static double cof(matriks MIn, int i, int j) {
         // cof dari mat minor, MIn harus matriks persegi
         double cof;
-        cof = determinan(slice(MIn, i, j));
-        if ((i + j) % 2 != 0) {
+        cof = determinan(slice(MIn, i, j)); //ril quesyen: utk ekspansi kofaktor brti determinannya gblh pake ini
+        if ((i + j) % 2 != 0) { // sbnrny i + 1 + j + 1 karna i j di mtk itu mulai dr 1, tp 2 % 2 = 0 jd g ngaruh
             cof *= (-1);
         }
         return cof;
@@ -377,7 +370,56 @@ public class operasiMatriks{
         return MOut;
     }
 
+    /* kenapa row 0 doang? jadi buat nyari determinan pake ekspansi kofaktor itu kan rekursif ya
+       (coba aja sendiri kalo matriksnya 4 x 4), sedangkan di sini untuk setiap determinan harus pake ekspansi kofaktor.
+       sedangkan si fungsi slice() itu bakal ngebuang bbrp baris dan kolom. satu2nya yang bisa dipastiin dari setiap matriks
+       yang diinput ke fungsi ini ya yang pasti punya baris 0 (gabisa milih baris mana karna takutnya dia ngakses baris di luar 
+       indeks yang valid) */
+    static double detExCofRow0 (matriks MIn) {
+        // PREKONDISI: MIn matriks persegi
+        double det;
+        if (MIn.panjangRow == 1) {
+            det = MIn.Mat[0][0];
+        } else if (MIn.panjangRow == 2) {
+            det = MIn.Mat[0][0] * MIn.Mat[1][1] - MIn.Mat[1][0] * MIn.Mat[0][1];
+        } else {
+            det = 0;
+            for (int j = 0; j < MIn.panjangRow; j++) {
+                if (j % 2 == 0) {
+                    det += MIn.Mat[0][j] * detExCofRow0(slice(MIn, 0, j));
+                } else {
+                    det += (-1) * MIn.Mat[0][j] * detExCofRow0(slice(MIn, 0, j));
+                }
+            }
+        }
+        return det;
+    }
+
+    static double detExCofCol0 (matriks MIn) {
+        // PREKONDISI: MIn matriks persegi
+        double det;
+        if (MIn.panjangCol == 1) {
+            det = MIn.Mat[0][0];
+        } else if (MIn.panjangCol == 2) {
+            det = MIn.Mat[0][0] * MIn.Mat[1][1] - MIn.Mat[1][0] * MIn.Mat[0][1];
+        } else {
+            det = 0;
+            for (int i = 0; i < MIn.panjangCol; i++) {
+                if (i % 2 == 0) {
+                    det += MIn.Mat[i][0] * detExCofRow0(slice(MIn, i, 0));
+                } else {
+                    det += (-1) * MIn.Mat[i][0] * detExCofRow0(slice(MIn, i, 0));
+                }
+            }
+        }
+        return det;
+    }
+
+    /* buat detExCofRow sm detExCofCol ini gw masih bingung sebnernya harus bisa milih baris/kolom atau ngga,
+    tp case terbaik ttp di kalo pilih baris 0 atau kolom 0 (ini sepertinya harus ditanyakan ke asisten)
+    
     static double detExCofRow (matriks MIn, int rowIdx) {
+        // PREKONDISI: MIn matriks persegi
         // rowIdx: [0..(nRow-1)]
         double det = 0;
         for (int j = 0; j < MIn.panjangCol; j++) {
@@ -387,6 +429,7 @@ public class operasiMatriks{
     }
 
     static double detExCofCol (matriks MIn, int colIdx) {
+        // PREKONDISI: MIn matriks persegi
         // colIdx: [0..(nCol-1)]
         double det = 0;
         for (int i = 0; i < MIn.panjangRow; i++) {
@@ -394,9 +437,10 @@ public class operasiMatriks{
         }
         return det;
     }
+    */
 
     static matriks inverseAdj(matriks MIn) {
-        // PREKONDISI: DET MIn != 0
+        // PREKONDISI: MIn matriks persegi, DET MIn != 0
         matriks MOut = new matriks();
         MOut.panjangRow = MIn.panjangRow;
         MOut.panjangCol = MIn.panjangCol;
