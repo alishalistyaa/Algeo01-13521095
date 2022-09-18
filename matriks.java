@@ -33,6 +33,7 @@ public class matriks {
         }
     }
 
+    // blm jadi
     /* Baca Matriks dari File */
     void bacaFileMatriks(String filename){
         // Kamus Lokal

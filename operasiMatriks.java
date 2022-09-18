@@ -146,7 +146,7 @@ public class operasiMatriks{
 
         MOut = cloneMatriks(MIn);
 
-        while ((lenNon0 < MOut.jumlahBaris) || (kolom < MOut.jumlahKolom)) {
+        while ((lenNon0 < MOut.jumlahBaris) && (kolom < MOut.jumlahKolom)) {
             adaNon0 = false;
 
             if (MOut.Mat[lenNon0][kolom] == 0) {
@@ -184,7 +184,6 @@ public class operasiMatriks{
         int i;
 
         MOut = compact0(MIn);
-
         while (kolom < MOut.jumlahKolom-1) {
             if (MOut.Mat[baris][kolom] == 0) {
                 kolom += 1;
@@ -197,6 +196,7 @@ public class operasiMatriks{
                 MOut = barisXkonstanta(MOut, baris, 1/MOut.Mat[baris][kolom]);
 
                 MOut = compact0(MOut);
+
                 kolom += 1;
                 baris += 1;
             }
@@ -204,6 +204,7 @@ public class operasiMatriks{
 
         return MOut;
     }
+
 
 
     static matriks gaussJordan(matriks MIn){
@@ -236,9 +237,143 @@ public class operasiMatriks{
     }
 
 
-    static double determinan(matriks MIn){
+    static matriks invIdentitas(matriks MIn){
+        matriks MTemp = new matriks();
+        matriks MId = new matriks();
+        double cache = 0;
+        int lenNon0 = 0;
+        int kolom = 0;
+        int kolom2 = 0;
+        int kolomSearch = 0;
+        int baris = 0;
+        int i = 0;
+        int j = 0;
+        boolean adaNon0;
+
+        MTemp = cloneMatriks(MIn);
+
+        //Bikin matriks identitas
+        MId.jumlahBaris = MIn.jumlahBaris;
+        MId.jumlahKolom = MIn.jumlahKolom;
+        for (i = 0; i <MId.jumlahBaris; i++){
+            for (j = 0; j < MId.jumlahKolom; j++){
+                if (i == j){
+                    MId.Mat[i][j] = 1;
+                }
+                else {
+                    MId.Mat[i][j] = 0;
+                }
+            }
+        }
+
+        //gauss
+        //compact 0 pertama
+        while ((lenNon0 < MTemp.jumlahBaris) && (kolom < MTemp.jumlahKolom)) {
+            adaNon0 = false;
+            if (MTemp.Mat[lenNon0][kolom] == 0) {
+                kolomSearch = lenNon0 + 1;
+                while ((kolomSearch < MTemp.jumlahBaris) && (!adaNon0)) {
+                    if (MTemp.Mat[kolomSearch][kolom] != 0) {
+                        adaNon0 = true;
+                        MTemp = swapBaris(MTemp, kolomSearch, lenNon0);
+                        MId = swapBaris(MId, kolomSearch, lenNon0);
+                        lenNon0 += 1;
+                    }
+                    else{
+                        kolomSearch += 1;
+                    }
+                }
+                if (!adaNon0) {
+                    kolom += 1;
+                }
+            }
+            else{
+                lenNon0 += 1;
+            }
+        }
+        //endcompact 0 pertama
+
+        kolom = 0;
+        baris = 0;
+        while (kolom < MTemp.jumlahKolom) {
+            if (MTemp.Mat[baris][kolom] == 0) {
+                kolom += 1;
+            }
+            else{
+                for(i = baris + 1; i < MTemp.jumlahBaris; i++){
+                    cache = MTemp.Mat[i][kolom]/MTemp.Mat[baris][kolom];
+                    MTemp = barisMinKaliBaris(MTemp, i, baris, cache);
+                    MId = barisMinKaliBaris(MId, i, baris, cache);
+                }
+
+                cache = 1/MTemp.Mat[baris][kolom];
+
+                MTemp = barisXkonstanta(MTemp, baris, cache);
+                MId = barisXkonstanta(MId, baris, cache);
+
+                //compact 0 kedua
+                lenNon0 = 0;
+                kolom2 = 0;
+                kolomSearch = 0;
+                while ((lenNon0 < MTemp.jumlahBaris) && (kolom2 < MTemp.jumlahKolom)) {
+                    adaNon0 = false;
+                    if (MTemp.Mat[lenNon0][kolom2] == 0) {
+                        kolomSearch = lenNon0 + 1;
+                        while ((kolomSearch < MTemp.jumlahBaris) && (!adaNon0)) {
+                            if (MTemp.Mat[kolomSearch][kolom2] != 0) {
+                                adaNon0 = true;
+                                MTemp = swapBaris(MTemp, kolomSearch, lenNon0);
+                                MId = swapBaris(MId, kolomSearch, lenNon0);
+                                lenNon0 += 1;
+                            }
+                            else{
+                                kolomSearch += 1;
+                            }
+                        }
+                        if (!adaNon0) {
+                            kolom2 += 1;
+                        }
+                    }
+                    else{
+                        lenNon0 += 1;
+                    }
+                }
+                //endcompact 0 kedua
+                kolom += 1;
+                baris += 1;
+            }
+        }
+        //endgauss
+
+        //jordan
+        kolom = 0;
+        baris = 0;
+        while (kolom < MTemp.jumlahKolom) {
+            if (MTemp.Mat[baris][kolom] == 0) {
+                kolom += 1;
+            }
+            else{
+                for(i = 0; i < baris; i++){
+                    if (i != baris){
+                        cache = MTemp.Mat[i][kolom]/MTemp.Mat[baris][kolom];
+                        MTemp = barisMinKaliBaris(MTemp, i, baris, cache);
+                        MId = barisMinKaliBaris(MId, i, baris, cache);
+                    }
+                }
+                kolom += 1;
+                baris += 1;
+            }
+        }
+        //endjordan
+
+        return MId;
+    }
+
+
+    static double detOBE(matriks MIn){
     /* Mengembalikan determinan matriks */
         //prekondisi berukuran aXa
+        //determinan dicari menggunakan metode segitiga atas
         
         // Kamus Lokal
         double det = 1;
@@ -254,7 +389,7 @@ public class operasiMatriks{
         MTemp = cloneMatriks(MIn);
         
         //Padetin 0 dulu
-        while ((lenNon0 < MTemp.jumlahBaris) || (kolom < MTemp.jumlahKolom)) {
+        while ((lenNon0 < MTemp.jumlahBaris) && (kolom < MTemp.jumlahKolom)) {
             adaNon0 = false;
 
             if (MTemp.Mat[lenNon0][kolom] == 0) {
@@ -296,8 +431,9 @@ public class operasiMatriks{
                 //Padetin 0 lagi
                 kolom = 0;
                 lenNon0 = 0;
-                while ((lenNon0 < MTemp.jumlahBaris) || (kolom < MTemp.jumlahKolom)) {
+                while ((lenNon0 < MTemp.jumlahBaris) && (kolom < MTemp.jumlahKolom)) {
                     adaNon0 = false;
+                    
                     if (MTemp.Mat[lenNon0][kolom] == 0) {
                         kolomSearch = lenNon0 + 1;
                         while ((kolomSearch < MTemp.jumlahBaris) && (!adaNon0)) {
@@ -330,18 +466,42 @@ public class operasiMatriks{
         return det;
     }
 
+    static matriks sliceLastCol(matriks MIn) {
+        // buang kolom terakhir
+        matriks MOut = new matriks();
+        MOut.jumlahBaris = MIn.jumlahBaris;
+        MOut.jumlahKolom = MIn.jumlahKolom - 1;
+        for (int i = 0; i < MOut.jumlahBaris; i++) {
+            for (int j = 0; j < MOut.jumlahKolom; j++) {
+                MOut.Mat[i][j] = MIn.Mat[i][j];
+            }
+        }
+        return MOut;
+    }
+
+    static matriks takeLastCol(matriks MIn) {
+        // ambil kolom terakhir
+        matriks MOut = new matriks();
+        MOut.jumlahBaris = MIn.jumlahBaris;
+        MOut.jumlahKolom = 1;
+        for (int i = 0; i < MOut.jumlahBaris; i++) {
+            MOut.Mat[i][0] = MIn.Mat[i][0];
+        }
+        return MOut;
+    }
+    
     // for finding inverse w adj method and determinant w cofactor expansion method
     static matriks slice(matriks MIn, int i, int j) {
         // mengambil elemen matriks yang BUKAN berbaris i atau BUKAN berkolom j
         matriks MOut = new matriks();
-        MOut.panjangRow = MIn.panjangRow - 1;
-        MOut.panjangCol = MIn.panjangCol - 1;
+        MOut.jumlahBaris = MIn.jumlahBaris - 1;
+        MOut.jumlahKolom = MIn.jumlahKolom - 1;
         int count = 0;
-        for (int a = 0; a < MIn.panjangRow; a++) {
-            for (int b = 0; b < MIn.panjangCol; b++) {
+        for (int a = 0; a < MIn.jumlahBaris; a++) {
+            for (int b = 0; b < MIn.jumlahKolom; b++) {
                 if (!(a == i || b == j)) {
                     count++;
-                    MOut.Mat[(count - 1) / MOut.panjangCol][(count - 1) % MOut.panjangCol] = MIn.Mat[a][b];
+                    MOut.Mat[(count - 1) / MOut.jumlahKolom][(count - 1) % MOut.jumlahKolom] = MIn.Mat[a][b];
                 }
             }
         }
@@ -351,7 +511,7 @@ public class operasiMatriks{
     static double cof(matriks MIn, int i, int j) {
         // cof dari mat minor, MIn harus matriks persegi
         double cof;
-        cof = determinan(slice(MIn, i, j)); //ril quesyen: utk ekspansi kofaktor brti determinannya gblh pake ini
+        cof = detOBE(slice(MIn, i, j)); //ril quesyen: utk ekspansi kofaktor brti determinannya gblh pake ini
         if ((i + j) % 2 != 0) { // sbnrny i + 1 + j + 1 karna i j di mtk itu mulai dr 1, tp 2 % 2 = 0 jd g ngaruh
             cof *= (-1);
         }
@@ -359,11 +519,12 @@ public class operasiMatriks{
     }
 
     static matriks matCof(matriks MIn) {
+        // matriks isinya matriks kofaktor tiap elemen i, j
         matriks MOut = new matriks();
-        MOut.panjangRow = MIn.panjangRow;
-        MOut.panjangCol = MIn.panjangCol;
-        for (int i = 0; i < MIn.panjangRow; i++){
-            for (int j = 0; j < MIn.panjangCol; j++) {
+        MOut.jumlahBaris = MIn.jumlahBaris;
+        MOut.jumlahKolom = MIn.jumlahKolom;
+        for (int i = 0; i < MIn.jumlahBaris; i++){
+            for (int j = 0; j < MIn.jumlahKolom; j++) {
                 MOut.Mat[i][j] = cof(MIn, i, j);
             }
         }
@@ -378,13 +539,13 @@ public class operasiMatriks{
     static double detExCofRow0 (matriks MIn) {
         // PREKONDISI: MIn matriks persegi
         double det;
-        if (MIn.panjangRow == 1) {
+        if (MIn.jumlahBaris == 1) {
             det = MIn.Mat[0][0];
-        } else if (MIn.panjangRow == 2) {
+        } else if (MIn.jumlahBaris == 2) {
             det = MIn.Mat[0][0] * MIn.Mat[1][1] - MIn.Mat[1][0] * MIn.Mat[0][1];
         } else {
             det = 0;
-            for (int j = 0; j < MIn.panjangRow; j++) {
+            for (int j = 0; j < MIn.jumlahBaris; j++) {
                 if (j % 2 == 0) {
                     det += MIn.Mat[0][j] * detExCofRow0(slice(MIn, 0, j));
                 } else {
@@ -398,13 +559,13 @@ public class operasiMatriks{
     static double detExCofCol0 (matriks MIn) {
         // PREKONDISI: MIn matriks persegi
         double det;
-        if (MIn.panjangCol == 1) {
+        if (MIn.jumlahKolom == 1) {
             det = MIn.Mat[0][0];
-        } else if (MIn.panjangCol == 2) {
+        } else if (MIn.jumlahKolom == 2) {
             det = MIn.Mat[0][0] * MIn.Mat[1][1] - MIn.Mat[1][0] * MIn.Mat[0][1];
         } else {
             det = 0;
-            for (int i = 0; i < MIn.panjangCol; i++) {
+            for (int i = 0; i < MIn.jumlahKolom; i++) {
                 if (i % 2 == 0) {
                     det += MIn.Mat[i][0] * detExCofRow0(slice(MIn, i, 0));
                 } else {
@@ -415,42 +576,18 @@ public class operasiMatriks{
         return det;
     }
 
-    /* buat detExCofRow sm detExCofCol ini gw masih bingung sebnernya harus bisa milih baris/kolom atau ngga,
-    tp case terbaik ttp di kalo pilih baris 0 atau kolom 0 (ini sepertinya harus ditanyakan ke asisten)
-    
-    static double detExCofRow (matriks MIn, int rowIdx) {
-        // PREKONDISI: MIn matriks persegi
-        // rowIdx: [0..(nRow-1)]
-        double det = 0;
-        for (int j = 0; j < MIn.panjangCol; j++) {
-            det += MIn.Mat[rowIdx][j] * cof(MIn, rowIdx, j);
-        }
-        return det;
-    }
-
-    static double detExCofCol (matriks MIn, int colIdx) {
-        // PREKONDISI: MIn matriks persegi
-        // colIdx: [0..(nCol-1)]
-        double det = 0;
-        for (int i = 0; i < MIn.panjangRow; i++) {
-            det += MIn.Mat[i][colIdx] * cof(MIn, i, colIdx);
-        }
-        return det;
-    }
-    */
-
-    static matriks inverseAdj(matriks MIn) {
+    static matriks invAdj(matriks MIn) {
         // PREKONDISI: MIn matriks persegi, DET MIn != 0
         matriks MOut = new matriks();
-        MOut.panjangRow = MIn.panjangRow;
-        MOut.panjangCol = MIn.panjangCol;
+        MOut.jumlahKolom = MIn.jumlahKolom;
+        MOut.jumlahBaris = MIn.jumlahBaris;
         MOut = transpose(matCof(MIn));
-        for (int i = 0; i < MIn.panjangRow; i++){
-            for (int j = 0; j < MIn.panjangCol; j++) {
-                MOut.Mat[i][j] /= determinan(MIn);
+        for (int i = 0; i < MIn.jumlahKolom; i++){
+            for (int j = 0; j < MIn.jumlahBaris; j++) {
+                MOut.Mat[i][j] /= detOBE(MIn);
             }
         }
         return MOut;
     }
-    // nitip aja biar inget : static matriks inverseGJ(matriks MIn) {}
+
 }
