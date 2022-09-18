@@ -6,7 +6,7 @@ public class basreng {
         // Atribut
         Scanner in = new Scanner (System.in);
         int a , b;
-        double det;
+        double det, detExCof;
 
         // Method
         matriks M2 = new matriks();
@@ -24,12 +24,13 @@ public class basreng {
 
         M3.bacaMatriks(a , b);
         M3.tulisMatriks();
-        System.out.print("\n");
 
-        M3 = operasiMatriks.perkalianMatriks(M2, M3);
-        M3.tulisMatriks();
-        System.out.print("\n");
+        detExCof = operasiMatriks.detExCofRow0(M2);
+        System.out.println(detExCof);
 
+        det = operasiMatriks.determinan(M2);
+        System.out.print("\n");
+        System.out.print(det);
 
         // Menutup scanner
         in.close();

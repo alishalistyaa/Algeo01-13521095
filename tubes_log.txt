@@ -23,7 +23,11 @@ LIST FUNGSI UTAMA:
 - OBE                       Done
 - Gauss                     Done
 - Gauss-Jordan              Done
-- Determinan                Done
+- Determinan                
+    - OBE                   Done
+    - Ekspansi Kofaktor     Done (Untuk case ekspansi baris/kolom pertama)
 - Matriks Balikan
+    - Adjoin                Ada pertanyaan, nunggu konfirmasi dari asisten
+    - OBE                   
 
 ｢
