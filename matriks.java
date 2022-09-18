@@ -12,19 +12,19 @@ public class matriks {
     double[][] Mat = new double[CAPACITY][CAPACITY];
     
     
-    int panjangRow = 0;
-    int panjangCol = 0;
+    int jumlahKolom = 0;
+    int jumlahBaris = 0;
 
 
     // Method:
-    void bacaMatriks(int n, int m){
+    void bacaMatriks(int m, int n){
         /* Fungsi untuk mengisi elemen Matriks */
         // Kamus Lokal
         int i, j;
         // Algoritma
         
-        this.panjangRow = n;
-        this.panjangCol = m;
+        this.jumlahBaris = m;
+        this.jumlahKolom = n;
 
         for(i=0; i<m; i++){
             for(j=0; j<n; j++) {
@@ -46,10 +46,10 @@ public class matriks {
 
         // Menghitung banyaknya kolom dan baris
         while(bacafile.hasNextLine()){
-            this.panjangRow++;
+            this.jumlahKolom++;
             Scanner bacakolom = new Scanner(bacafile.nextLine());
                 while(bacakolom.hasNextDouble()){
-                    this.panjangCol++;
+                    this.jumlahBaris++;
                 }
             }
 
@@ -58,8 +58,8 @@ public class matriks {
 
         // Membaca integer dari file
         bacafile = new Scanner (file); // refresh dr atas
-        for(i=0; i<this.panjangRow; i++){
-            for(j=0; j<this.panjangCol; j++){
+        for(i=0; i<this.jumlahKolom; i++){
+            for(j=0; j<this.jumlahBaris; j++){
                 if(bacafile.hasNextDouble()){
                     this.Mat[i][j] = bacafile.nextDouble();
                 }
@@ -82,10 +82,10 @@ public class matriks {
 
     /* Apakah matriks penuh */
     boolean penuhRow() {
-        return (this.panjangRow == CAPACITY);
+        return (this.jumlahKolom == CAPACITY);
     }
     boolean penuhCol() {
-        return (this.panjangCol == CAPACITY);
+        return (this.jumlahBaris == CAPACITY);
     }
     
     void tulisMatriks(){
@@ -94,9 +94,9 @@ public class matriks {
         // Kamus Lokal
         int i, j;
         // Algoritma
-        for(i = 0; i < this.panjangCol; i++) {
+        for(i = 0; i < this.jumlahBaris; i++) {
             System.out.print("| ");
-            for (j = 0; j < this.panjangRow; j++) {
+            for (j = 0; j < this.jumlahKolom; j++) {
                 System.out.print(this.Mat[i][j]);
                 System.out.print(" ");
             }

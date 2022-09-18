@@ -6,18 +6,18 @@ public class operasiMatriks{
     /*** VALIDASI MATRIKS ***/
     static boolean isEqual(matriks M1, matriks M2){
     /* Mendapatkan true jika Matriks 1 berdimensi sama dengan Matriks 2 */
-        return ((M1.panjangCol == M2.panjangCol) && (M1.panjangRow == M2.panjangRow));
+        return ((M1.jumlahBaris == M2.jumlahBaris) && (M1.jumlahKolom == M2.jumlahKolom));
     }
 
     static matriks cloneMatriks(matriks MIn){
     /* Menduplikasi matriks */
         // Kamus Lokal
         matriks MOut = new matriks();
-        MOut.panjangRow = MIn.panjangRow;
-        MOut.panjangCol = MIn.panjangCol;
+        MOut.jumlahKolom = MIn.jumlahKolom;
+        MOut.jumlahBaris = MIn.jumlahBaris;
         // Algoritma
-        for(int i=0; i<MIn.panjangCol; i++){
-            for(int j=0; j<MIn.panjangRow; j++) {
+        for(int i=0; i<MIn.jumlahBaris; i++){
+            for(int j=0; j<MIn.jumlahKolom; j++) {
                 MOut.Mat[i][j] = MIn.Mat[i][j];
             }
         }
@@ -34,8 +34,8 @@ public class operasiMatriks{
         // Algoritma
         MOut = cloneMatriks(M1);
 
-        for(i = 0; i < M1.panjangCol; i++){
-            for(j = 0; j < M1.panjangRow; j++) {
+        for(i = 0; i < M1.jumlahBaris; i++){
+            for(j = 0; j < M1.jumlahKolom; j++) {
                 MOut.Mat[i][j] = M1.Mat[i][j] + M2.Mat[i][j];
             }
         }
@@ -49,8 +49,8 @@ public class operasiMatriks{
         matriks MOut = new matriks();
         int i,j;
         // Algoritma
-        for(i = 0; i < M1.panjangCol; i++){
-            for(j = 0; j < M1.panjangRow; j++) {
+        for(i = 0; i < M1.jumlahBaris; i++){
+            for(j = 0; j < M1.jumlahKolom; j++) {
                 MOut.Mat[i][j] = M1.Mat[i][j] - M2.Mat[i][j];
             }
         }
@@ -59,21 +59,21 @@ public class operasiMatriks{
 
     static matriks perkalianMatriks(matriks M1, matriks M2){
     /* Perkalian dua matriks*/
-        //prekondisi ukuran M1 aXb == ukuran M2 cXa
+        //prekondisi ukuran M1 aXb == ukuran M2 bXc
         //jumlah kolom M1 = jumlah baris M2
-        //Hasilnya matrix cXb
+        //Hasilnya matrix aXc
         
         // Kamus Lokal
         matriks MOut = new matriks();
         int i, j, k, sum;
         //Algoritma
-        MOut.panjangRow = M2.panjangRow;
-        MOut.panjangCol = M1.panjangCol;
-        for (i = 0; i < M1.panjangCol; i++){
-            for (j =0; j < M2.panjangRow; j++){
+        MOut.jumlahKolom = M2.jumlahKolom;
+        MOut.jumlahBaris = M1.jumlahBaris;
+        for (i = 0; i < M1.jumlahBaris; i++){
+            for (j =0; j < M2.jumlahKolom; j++){
                 sum = 0;
 
-                for (k = 0; k < M1.panjangRow; k++){
+                for (k = 0; k < M1.jumlahKolom; k++){
                     sum += M1.Mat[i][k] * M2.Mat[k][j];
                 }   
                 MOut.Mat[i][j] = sum;
@@ -86,12 +86,12 @@ public class operasiMatriks{
     /* Mengeluarkan matriks transpose */
         // Kamus Lokal
         matriks MOut = new matriks();
-        MOut.panjangRow = MIn.panjangRow;
-        MOut.panjangCol = MIn.panjangCol;
+        MOut.jumlahKolom = MIn.jumlahKolom;
+        MOut.jumlahBaris = MIn.jumlahBaris;
 
         // Algoritma
-        for(int i=0; i<MIn.panjangCol; i++){
-            for(int j=0; j<MIn.panjangRow; j++) {
+        for(int i=0; i<MIn.jumlahBaris; i++){
+            for(int j=0; j<MIn.jumlahKolom; j++) {
                 MOut.Mat[j][i] = MIn.Mat[i][j];
             }
         }
@@ -116,7 +116,7 @@ public class operasiMatriks{
 
         MOut = cloneMatriks(MIn);
 
-        for (int i = 0; i < MOut.panjangRow; i++){
+        for (int i = 0; i < MOut.jumlahKolom; i++){
             MOut.Mat[baris][i] *= konstanta;
         }
 
@@ -128,7 +128,7 @@ public class operasiMatriks{
 
         MOut = cloneMatriks(MIn);
 
-        for (int i = 0; i < MOut.panjangRow; i++){
+        for (int i = 0; i < MOut.jumlahKolom; i++){
             MOut.Mat[barisTujuan][i] -= konstanta*MOut.Mat[barisPengurang][i];
         }
 
@@ -146,13 +146,13 @@ public class operasiMatriks{
 
         MOut = cloneMatriks(MIn);
 
-        while ((lenNon0 < MOut.panjangCol) || (kolom < MOut.panjangRow)) {
+        while ((lenNon0 < MOut.jumlahBaris) || (kolom < MOut.jumlahKolom)) {
             adaNon0 = false;
 
             if (MOut.Mat[lenNon0][kolom] == 0) {
                 
                 kolomSearch = lenNon0 + 1;
-                while ((kolomSearch < MOut.panjangCol) && (!adaNon0)) {
+                while ((kolomSearch < MOut.jumlahBaris) && (!adaNon0)) {
                     if (MOut.Mat[kolomSearch][kolom] != 0) {
                         adaNon0 = true;
                         MOut = swapBaris(MOut, kolomSearch, lenNon0);
@@ -185,12 +185,12 @@ public class operasiMatriks{
 
         MOut = compact0(MIn);
 
-        while (kolom < MOut.panjangRow-1) {
+        while (kolom < MOut.jumlahKolom-1) {
             if (MOut.Mat[baris][kolom] == 0) {
                 kolom += 1;
             }
             else{
-                for(i = baris + 1; i < MOut.panjangCol; i++){
+                for(i = baris + 1; i < MOut.jumlahBaris; i++){
                     MOut = barisMinKaliBaris(MOut, i, baris, MOut.Mat[i][kolom]/MOut.Mat[baris][kolom]);
                 }
 
@@ -214,7 +214,7 @@ public class operasiMatriks{
 
         MOut = gauss(MIn);
 
-        while (kolom < MOut.panjangRow-1) {
+        while (kolom < MOut.jumlahKolom-1) {
 
             if (MOut.Mat[baris][kolom] == 0) {
                 kolom += 1;
@@ -254,13 +254,13 @@ public class operasiMatriks{
         MTemp = cloneMatriks(MIn);
         
         //Padetin 0 dulu
-        while ((lenNon0 < MTemp.panjangCol) || (kolom < MTemp.panjangRow)) {
+        while ((lenNon0 < MTemp.jumlahBaris) || (kolom < MTemp.jumlahKolom)) {
             adaNon0 = false;
 
             if (MTemp.Mat[lenNon0][kolom] == 0) {
                 
                 kolomSearch = lenNon0 + 1;
-                while ((kolomSearch < MTemp.panjangCol) && (!adaNon0)) {
+                while ((kolomSearch < MTemp.jumlahBaris) && (!adaNon0)) {
                     if (MTemp.Mat[kolomSearch][kolom] != 0) {
                         adaNon0 = true;
                         MTemp = swapBaris(MTemp, kolomSearch, lenNon0);
@@ -288,19 +288,19 @@ public class operasiMatriks{
 
         //Kalo engga diubah jadi matriks segitiga
         else{
-            for (int i = 0; i < MTemp.panjangRow; i++){
-                for (int j = i+1; j < MTemp.panjangCol; j++){                    
+            for (int i = 0; i < MTemp.jumlahKolom; i++){
+                for (int j = i+1; j < MTemp.jumlahBaris; j++){                    
                     MTemp = barisMinKaliBaris(MTemp, j, i, MTemp.Mat[j][i]/MTemp.Mat[i][i]);
                 }
 
                 //Padetin 0 lagi
                 kolom = 0;
                 lenNon0 = 0;
-                while ((lenNon0 < MTemp.panjangCol) || (kolom < MTemp.panjangRow)) {
+                while ((lenNon0 < MTemp.jumlahBaris) || (kolom < MTemp.jumlahKolom)) {
                     adaNon0 = false;
                     if (MTemp.Mat[lenNon0][kolom] == 0) {
                         kolomSearch = lenNon0 + 1;
-                        while ((kolomSearch < MTemp.panjangCol) && (!adaNon0)) {
+                        while ((kolomSearch < MTemp.jumlahBaris) && (!adaNon0)) {
                             if (MTemp.Mat[kolomSearch][kolom] != 0) {
                                 adaNon0 = true;
                                 MTemp = swapBaris(MTemp, kolomSearch, lenNon0);

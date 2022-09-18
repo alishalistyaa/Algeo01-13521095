@@ -17,13 +17,18 @@ public class basreng {
 
         M2.bacaMatriks(a , b);
         M2.tulisMatriks();
-
         System.out.print("\n");
-        M3 = operasiMatriks.gaussJordan(M2);
-        M3.tulisMatriks();
 
-        det = operasiMatriks.determinan(M2);
-        System.out.print(det);
+        a = in.nextInt();
+        b = in.nextInt();
+
+        M3.bacaMatriks(a , b);
+        M3.tulisMatriks();
+        System.out.print("\n");
+
+        M3 = operasiMatriks.perkalianMatriks(M2, M3);
+        M3.tulisMatriks();
+        System.out.print("\n");
 
 
         // Menutup scanner
