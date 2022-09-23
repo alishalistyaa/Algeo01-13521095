@@ -9,9 +9,9 @@ LIST PRIMITIF
 - Tulis matriks             Done
 
 OBE
-- Tuker baris
-- Mengkali / membagi baris
-- Tambah kelipatan baris
+- Tuker baris               Done
+- Mengkali / membagi baris  Done
+- Tambah kelipatan baris    Done
 
 MATRIKS
 - Kali Matriks              Done
@@ -29,5 +29,11 @@ LIST FUNGSI UTAMA:
 - Matriks Balikan
     - Adjoin                Ada pertanyaan, nunggu konfirmasi dari asisten
     - OBE                   
+- Kaidah Cramer
+
+- Interpolasi Polinom
+- Interpolasi Bicubic
+- Regresi Linear Berganda
+
 
 ｢
