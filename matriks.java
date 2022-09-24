@@ -88,6 +88,19 @@ public class matriks {
     boolean penuhCol() {
         return (this.jumlahBaris == CAPACITY);
     }
+
+    boolean isAllZero() {
+        // Mengecek apakah semua elemen dalam matriks bernilai nol
+        int i, j;
+        boolean foundNonZero;
+        foundNonZero = false;
+        for (i = 0; i < this.jumlahBaris && !foundNonZero; i++) {
+            for (j = 0; j < this.jumlahKolom && !foundNonZero; j++) {
+                foundNonZero = (this.Mat[i][j] != 0);
+            }
+        }
+        return !foundNonZero;
+    }
     
     void tulisMatriks(){
         /* I.S. Matriks terdefinisi */

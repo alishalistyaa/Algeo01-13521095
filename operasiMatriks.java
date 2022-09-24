@@ -541,8 +541,6 @@ public class operasiMatriks{
         double det;
         if (MIn.jumlahBaris == 1) {
             det = MIn.Mat[0][0];
-        } else if (MIn.jumlahBaris == 2) {
-            det = MIn.Mat[0][0] * MIn.Mat[1][1] - MIn.Mat[1][0] * MIn.Mat[0][1];
         } else {
             det = 0;
             for (int j = 0; j < MIn.jumlahBaris; j++) {
@@ -561,8 +559,6 @@ public class operasiMatriks{
         double det;
         if (MIn.jumlahKolom == 1) {
             det = MIn.Mat[0][0];
-        } else if (MIn.jumlahKolom == 2) {
-            det = MIn.Mat[0][0] * MIn.Mat[1][1] - MIn.Mat[1][0] * MIn.Mat[0][1];
         } else {
             det = 0;
             for (int i = 0; i < MIn.jumlahKolom; i++) {
