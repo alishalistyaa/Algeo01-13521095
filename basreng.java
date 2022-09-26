@@ -5,7 +5,7 @@ public class basreng {
     public static void main(String[] args) {
         // Atribut
         Scanner in = new Scanner (System.in);
-        int a , b;
+        int a , b, x;
 
         // Method
         matriks M2 = new matriks();
@@ -21,8 +21,10 @@ public class basreng {
         M2.tulisMatriks();
         System.out.print("\n");
 
+        SPL.solveSPL(M2);
 
-        SPL.SolusiBanyak(M2);
+        x = SPL.checkSPL(M2);
+        System.out.println(x);
 
         // Menutup scanner
         in.close();

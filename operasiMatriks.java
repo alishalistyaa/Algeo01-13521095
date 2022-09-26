@@ -65,7 +65,8 @@ public class operasiMatriks{
         
         // Kamus Lokal
         matriks MOut = new matriks();
-        int i, j, k, sum;
+        int i, j, k;
+        double sum;
         //Algoritma
         MOut.jumlahKolom = M2.jumlahKolom;
         MOut.jumlahBaris = M1.jumlahBaris;
@@ -479,13 +480,26 @@ public class operasiMatriks{
         return MOut;
     }
 
+    static matriks sliceLastRow(matriks MIn) {
+        // buang kolom terakhir
+        matriks MOut = new matriks();
+        MOut.jumlahBaris = MIn.jumlahBaris - 1;
+        MOut.jumlahKolom = MIn.jumlahKolom;
+        for (int i = 0; i < MOut.jumlahBaris; i++) {
+            for (int j = 0; j < MOut.jumlahKolom; j++) {
+                MOut.Mat[i][j] = MIn.Mat[i][j];
+            }
+        }
+        return MOut;
+    }
+
     static matriks takeLastCol(matriks MIn) {
         // ambil kolom terakhir
         matriks MOut = new matriks();
         MOut.jumlahBaris = MIn.jumlahBaris;
         MOut.jumlahKolom = 1;
         for (int i = 0; i < MOut.jumlahBaris; i++) {
-            MOut.Mat[i][0] = MIn.Mat[i][0];
+            MOut.Mat[i][0] = MIn.Mat[i][MIn.jumlahKolom-1];
         }
         return MOut;
     }
@@ -586,4 +600,14 @@ public class operasiMatriks{
         return MOut;
     }
 
+    static matriks cramerSwap(matriks a, matriks fx, int col){
+        matriks temp = new matriks();
+        temp = cloneMatriks(a);
+
+        for (int i = 0; i < a.jumlahBaris; i++){
+            temp.Mat[i][col] = fx.Mat[i][0];
+        }
+
+        return temp;
+    }
 }
