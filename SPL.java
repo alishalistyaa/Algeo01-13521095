@@ -33,7 +33,7 @@ public class SPL {
         int x = -999;
         boolean unik;
 
-        if (semua0(m)) {
+        if (m.isAllZero()) {
             x = 0;
         }
         else if (!solvable(m)){
@@ -290,23 +290,6 @@ public class SPL {
         }
 
         return temp;
-    }
-
-    static boolean semua0 (matriks MIn){
-        //buat deteksi matriks isinya semuanya 0 atau tidak
-        //kepake di check spl
-        boolean semua0 = true;
-        int i = 0;
-        while (i < MIn.jumlahKolom && semua0){
-
-            if (MIn.Mat[0][i] != 0){
-                semua0 = false;
-            }
-
-            i += 1;
-        }
-
-        return semua0;
     }
 
     static boolean solvable(matriks MIn){
