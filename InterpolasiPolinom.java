@@ -9,6 +9,7 @@ public class InterpolasiPolinom {
                 2                        -3                         2^0  2^1  2^2                        a1
                 3                        -4                         3^0  3^1  3^2                        a2  
     
+    METODE PENCARIAN matriks ai: GAUSS
     Matriks ai dipake lagi buat ngitung f(a)
 
     Yang belom:
@@ -29,12 +30,35 @@ public class InterpolasiPolinom {
         return xi;
     }
 
-    static matriks ai (matriks fx, matriks xi) {
+    static matriks ai (matriks xi, matriks fx) {
         /* Membuat matriks ai */ 
-        return operasiMatriks.perkalianMatriks(operasiMatriks.invAdj(xi), fx);
+        matriks ai = new matriks();
+        ai.jumlahBaris = fx.jumlahBaris;
+        ai.jumlahKolom = 1;
+        matriks augmented = operasiMatriks.concatKolom(xi, fx);
+        matriks gaussed = operasiMatriks.gauss(augmented);
+        
+        int i, j;
+        double cache;
+        
+        for(i = 0; i < gaussed.jumlahKolom - 1; i++){
+            ai.Mat[i][0] = 0;
+        }
+
+        for(i = gaussed.jumlahBaris - 1; i >= 0; i--){
+
+            cache = gaussed.Mat[i][gaussed.jumlahKolom-1];
+            for(j = i; j < gaussed.jumlahKolom-1; j++){
+                cache -= ai.Mat[j][0] * gaussed.Mat[i][j];
+            }
+
+            ai.Mat[i][0] = cache;
+        }
+
+        return ai;
     }
 
-    void printFx(matriks ai) {
+    static void printFx(matriks ai) {
         /* Ngeprint fx, contohnya f(x) = -0.0064x^2 + 0.2266x - 0.6762  
         Beberapa constraint untuk koefisien:
         - Kalo semua koefisiennya bernilai nol, maka ditulis f(x) = 0

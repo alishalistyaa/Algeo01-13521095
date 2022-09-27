@@ -489,6 +489,25 @@ public class operasiMatriks{
         }
         return MOut;
     }
+
+    static matriks concatKolom (matriks m1, matriks m2) {
+        // Menyatukan m1 dan m2
+        // PREKONDISI: m1.jumlahBaris = m2.jumlahBaris
+        matriks m3 = new matriks();
+        m3.jumlahBaris = m1.jumlahBaris;
+        m3.jumlahKolom = m1.jumlahKolom + m2.jumlahKolom;
+        int i, j;
+        for (i = 0; i <= m3.jumlahBaris; i++) {
+            for (j = 0; j <= m3.jumlahKolom; j++) {
+                if (j < m1.jumlahKolom) {
+                    m3.Mat[i][j] = m1.Mat[i][j];
+                } else {
+                    m3.Mat[i][j] = m2.Mat[i][j - m1.jumlahKolom];
+                }
+            }
+        }
+        return m3;
+    }
     
     // for finding inverse w adj method and determinant w cofactor expansion method
     static matriks slice(matriks MIn, int i, int j) {
