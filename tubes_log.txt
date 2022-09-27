@@ -28,8 +28,8 @@ LIST FUNGSI UTAMA:
     - Ekspansi Kofaktor     Done (Untuk case ekspansi baris/kolom pertama)
 - Matriks Balikan
     - Adjoin                Ada pertanyaan, nunggu konfirmasi dari asisten
-    - OBE                   
-- Kaidah Cramer
+    - OBE                   Done
+- Kaidah Cramer             Done
 
 - Interpolasi Polinom
 - Interpolasi Bicubic

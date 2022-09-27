@@ -39,28 +39,36 @@ public class matriks {
         // Kamus Lokal
         File file = new File(filename);
         int i,j;
+        int countElmt;
 
         // Algoritma
         
         try{ // Untuk validasi dan dapat error message
         Scanner bacafile = new Scanner (file);
+        countElmt = 0;
 
         // Menghitung banyaknya kolom dan baris
         while(bacafile.hasNextLine()){
-            this.jumlahKolom++;
+            this.jumlahBaris++;
+            
+            // Membaca banyak double
             Scanner bacakolom = new Scanner(bacafile.nextLine());
                 while(bacakolom.hasNextDouble()){
-                    this.jumlahBaris++;
+                    countElmt++;
+                    bacakolom.nextDouble();
                 }
             }
+
+        // Testing
+        this.jumlahKolom = (countElmt + this.jumlahBaris -1) / this.jumlahBaris ;
 
         // close scanner
         bacafile.close();
 
         // Membaca integer dari file
         bacafile = new Scanner (file); // refresh dr atas
-        for(i=0; i<this.jumlahKolom; i++){
-            for(j=0; j<this.jumlahBaris; j++){
+        for(i=0; i<this.jumlahBaris; i++){
+            for(j=0; j<this.jumlahKolom; j++){
                 if(bacafile.hasNextDouble()){
                     this.Mat[i][j] = bacafile.nextDouble();
                 }
