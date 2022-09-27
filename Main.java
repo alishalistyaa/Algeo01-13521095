@@ -16,9 +16,9 @@ import java.util.*;
 
 
 public class Main {
+    static Scanner in = new Scanner (System.in);
     public static void main(String[] args){
         boolean jalan = true;
-        Scanner in = new Scanner (System.in);
         int input = 0;
 
         while (jalan) {
@@ -50,7 +50,7 @@ public class Main {
 
                 do{
                     input = in.nextInt();
-                    if (input <= 0 && input > 7) {
+                    if (input <= 0 && input > 5) {
                         System.out.println("Input tidak valid");
                     } 
                 } while (input <= 0 && input > 5);
@@ -87,15 +87,16 @@ public class Main {
                 case 2:
                 System.out.println("\nPilih metode:");
                 System.out.println("1. Metode OBE (Segitiga Atas)");
-                System.out.println("2. Metode Kofaktor");
-                System.out.println("3. Kembali ke menu");
+                System.out.println("2. Metode Kofaktor baris 0");
+                System.out.println("3. Metode Kofaktor kolom 0");
+                System.out.println("4. Kembali ke menu");
 
                 do{
                     input = in.nextInt();
-                    if (input <= 0 && input > 7) {
+                    if (input <= 0 && input > 4) {
                         System.out.println("Input tidak valid");
                     } 
-                } while (input <= 0 && input > 5);
+                } while (input <= 0 && input > 4);
                 
                 switch (input){
                     //Metode OBE
@@ -103,13 +104,18 @@ public class Main {
                     DeterminanOBE();
                     break;
 
-                    //Metode Kofaktor
+                    //Metode Kofaktor baris 0
                     case 2:
-                    DeterminanCof();
+                    DeterminanCofRow0();
+                    break;
+
+                    //Metode Kofaktor kolom 0
+                    case 3:
+                    DeterminanCofCol0();
                     break;
 
                     //Kembali ke menu
-                    case 3:
+                    case 4:
                     System.out.println("\nKembali ke menu utama...\n");
                     break;
                 }
@@ -176,39 +182,327 @@ public class Main {
     //Nah ini fungsi antara yang diomongin di atas
     //SPL
     public static void SPLGauss(){
+        matriks M = new matriks();
+        int baris, kolom, input;
 
+        System.out.print("\nMasukkan jumlah persamaan: ");
+        baris = in.nextInt();
+
+        System.out.print("Masukkan jumlah variabel: ");
+        kolom = in.nextInt() + 1;
+
+        System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
+        M.bacaMatriks(baris , kolom);
+
+        M = operasiMatriks.gauss(M);
+        SPL.solveSPL(M);
+
+        System.out.println("Apakah ingin dalam bentuk file?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        do{
+            input = in.nextInt();
+            if (input <= 0 && input > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (input <= 0 && input > 2);
+
+        switch (input){
+            case 1:
+            //belum jadi
+            break;
+
+            case 2:
+            break;
+        }
     }
 
     public static void SPLGaussJordan(){
-        
+        matriks M = new matriks();
+        int baris, kolom, input;
+
+        System.out.print("\nMasukkan jumlah persamaan: ");
+        baris = in.nextInt();
+
+        System.out.print("Masukkan jumlah variabel: ");
+        kolom = in.nextInt() + 1;
+
+        System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
+        M.bacaMatriks(baris , kolom);
+
+        M = operasiMatriks.gaussJordan(M);
+        SPL.solveSPL(M);
+
+        System.out.println("Apakah ingin dalam bentuk file?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        do{
+            input = in.nextInt();
+            if (input <= 0 && input > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (input <= 0 && input > 2);
+
+        switch (input){
+            case 1:
+            //belum jadi
+            break;
+
+            case 2:
+            break;
+        }
     }
 
     public static void SPLInverse(){
+        matriks M = new matriks();
+        int dimensi, input;
 
+        System.out.print("\nMasukkan jumlah persamaan: ");
+        dimensi = in.nextInt();
+
+        System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
+        M.bacaMatriks(dimensi, dimensi+1);
+
+        SPL.SolveInverse(M);
+
+        System.out.println("Apakah ingin dalam bentuk file?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        do{
+            input = in.nextInt();
+            if (input <= 0 && input > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (input <= 0 && input > 2);
+
+        switch (input){
+            case 1:
+            //belum jadi
+            break;
+
+            case 2:
+            break;
+        }
     }
 
     public static void SPLCramer(){
+        matriks M = new matriks();
+        int dimensi, input;
 
+        System.out.print("\nMasukkan jumlah persamaan: ");
+        dimensi = in.nextInt();
+
+        System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
+        M.bacaMatriks(dimensi, dimensi+1);
+
+        SPL.SolveCramer(M);
+
+        System.out.println("Apakah ingin dalam bentuk file?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        do{
+            input = in.nextInt();
+            if (input <= 0 && input > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (input <= 0 && input > 2);
+
+        switch (input){
+            case 1:
+            //belum jadi
+            break;
+
+            case 2:
+            break;
+        }
     }
 
 
     //DETERMINAN
     public static void DeterminanOBE(){
+        matriks M = new matriks();
+        int dimensi, input;
+        double det;
 
+        System.out.print("\nMasukkan dimensi matriks: ");
+        dimensi = in.nextInt();
+
+        System.out.print("Masukkan nilai elemen pada matriks: \n");
+        M.bacaMatriks(dimensi, dimensi);
+
+        det = operasiMatriks.detOBE(M);
+        System.out.print("\nDeterminannya adalah: ");
+        System.out.println(det);
+
+        System.out.println("Apakah ingin dalam bentuk file?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        do{
+            input = in.nextInt();
+            if (input <= 0 && input > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (input <= 0 && input > 2);
+
+        switch (input){
+            case 1:
+            //belum jadi
+            break;
+
+            case 2:
+            break;
+        }
     }
 
-    public static void DeterminanCof(){
+    public static void DeterminanCofRow0(){
+        matriks M = new matriks();
+        int dimensi, input;
+        double det;
 
+        System.out.print("\nMasukkan dimensi matriks: ");
+        dimensi = in.nextInt();
+
+        System.out.print("Masukkan nilai elemen pada matriks: \n");
+        M.bacaMatriks(dimensi, dimensi);
+
+        det = operasiMatriks.detExCofRow0(M);
+        System.out.print("\nDeterminannya adalah: ");
+        System.out.println(det);
+
+        System.out.println("Apakah ingin dalam bentuk file?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        do{
+            input = in.nextInt();
+            if (input <= 0 && input > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (input <= 0 && input > 2);
+
+        switch (input){
+            case 1:
+            //belum jadi
+            break;
+
+            case 2:
+            break;
+        }
     }
 
+    public static void DeterminanCofCol0(){
+        matriks M = new matriks();
+        int dimensi, input;
+        double det;
+
+        System.out.print("\nMasukkan dimensi matriks: ");
+        dimensi = in.nextInt();
+
+        System.out.print("Masukkan nilai elemen pada matriks: \n");
+        M.bacaMatriks(dimensi, dimensi);
+
+        det = operasiMatriks.detExCofCol0(M);
+        System.out.print("\nDeterminannya adalah: ");
+        System.out.println(det);
+
+        System.out.println("Apakah ingin dalam bentuk file?");
+        System.out.println("1. Ya");
+        System.out.println("2. Tidak");
+        do{
+            input = in.nextInt();
+            if (input <= 0 && input > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (input <= 0 && input > 2);
+
+        switch (input){
+            case 1:
+            //belum jadi
+            break;
+
+            case 2:
+            break;
+        }
+    }
 
     //INVERSE
     public static void InverseId(){
+        matriks M = new matriks();
+        matriks inverse = new matriks();
+        int dimensi, input;
 
+        System.out.print("\nMasukkan dimensi matriks: ");
+        dimensi = in.nextInt();
+
+        System.out.print("Masukkan nilai elemen pada matriks: \n");
+        M.bacaMatriks(dimensi, dimensi);
+
+        if (operasiMatriks.detExCofRow0(M) == 0){
+            System.out.println("Matriks tidak memiliki balikan.");
+        }
+        else{
+            inverse = operasiMatriks.invIdentitas(M);
+            System.out.print("\nBalikannya adalah: \n");
+            inverse.tulisMatriks();
+    
+            System.out.println("Apakah ingin dalam bentuk file?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            do{
+                input = in.nextInt();
+                if (input <= 0 && input > 2) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (input <= 0 && input > 2);
+    
+            switch (input){
+                case 1:
+                //belum jadi
+                break;
+    
+                case 2:
+                break;
+            }
+        }
     }
 
     public static void InverseAdj(){
+        matriks M = new matriks();
+        matriks inverse = new matriks();
+        int dimensi, input;
 
+        System.out.print("\nMasukkan dimensi matriks: ");
+        dimensi = in.nextInt();
+
+        System.out.print("Masukkan nilai elemen pada matriks: \n");
+        M.bacaMatriks(dimensi, dimensi);
+
+        if (operasiMatriks.detExCofRow0(M) == 0){
+            System.out.println("Matriks tidak memiliki balikan.");
+        }
+        else{
+            inverse = operasiMatriks.invAdj(M);
+            System.out.print("\nBalikannya adalah: \n");
+            inverse.tulisMatriks();
+    
+            System.out.println("Apakah ingin dalam bentuk file?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            do{
+                input = in.nextInt();
+                if (input <= 0 && input > 2) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (input <= 0 && input > 2);
+    
+            switch (input){
+                case 1:
+                //belum jadi
+                break;
+    
+                case 2:
+                break;
+            }
+        }
     }
 
     //interpolasi polinom

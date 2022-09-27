@@ -65,7 +65,8 @@ public class operasiMatriks{
         
         // Kamus Lokal
         matriks MOut = new matriks();
-        int i, j, k, sum;
+        int i, j, k;
+        double sum;
         //Algoritma
         MOut.jumlahKolom = M2.jumlahKolom;
         MOut.jumlahBaris = M1.jumlahBaris;
@@ -479,15 +480,47 @@ public class operasiMatriks{
         return MOut;
     }
 
+    static matriks sliceLastRow(matriks MIn) {
+        // buang kolom terakhir
+        matriks MOut = new matriks();
+        MOut.jumlahBaris = MIn.jumlahBaris - 1;
+        MOut.jumlahKolom = MIn.jumlahKolom;
+        for (int i = 0; i < MOut.jumlahBaris; i++) {
+            for (int j = 0; j < MOut.jumlahKolom; j++) {
+                MOut.Mat[i][j] = MIn.Mat[i][j];
+            }
+        }
+        return MOut;
+    }
+
     static matriks takeLastCol(matriks MIn) {
         // ambil kolom terakhir
         matriks MOut = new matriks();
         MOut.jumlahBaris = MIn.jumlahBaris;
         MOut.jumlahKolom = 1;
         for (int i = 0; i < MOut.jumlahBaris; i++) {
-            MOut.Mat[i][0] = MIn.Mat[i][0];
+            MOut.Mat[i][0] = MIn.Mat[i][MIn.jumlahKolom-1];
         }
         return MOut;
+    }
+
+    static matriks concatKolom (matriks m1, matriks m2) {
+        // Menyatukan m1 dan m2
+        // PREKONDISI: m1.jumlahBaris = m2.jumlahBaris
+        matriks m3 = new matriks();
+        m3.jumlahBaris = m1.jumlahBaris;
+        m3.jumlahKolom = m1.jumlahKolom + m2.jumlahKolom;
+        int i, j;
+        for (i = 0; i <= m3.jumlahBaris; i++) {
+            for (j = 0; j <= m3.jumlahKolom; j++) {
+                if (j < m1.jumlahKolom) {
+                    m3.Mat[i][j] = m1.Mat[i][j];
+                } else {
+                    m3.Mat[i][j] = m2.Mat[i][j - m1.jumlahKolom];
+                }
+            }
+        }
+        return m3;
     }
     
     // for finding inverse w adj method and determinant w cofactor expansion method
@@ -541,8 +574,6 @@ public class operasiMatriks{
         double det;
         if (MIn.jumlahBaris == 1) {
             det = MIn.Mat[0][0];
-        } else if (MIn.jumlahBaris == 2) {
-            det = MIn.Mat[0][0] * MIn.Mat[1][1] - MIn.Mat[1][0] * MIn.Mat[0][1];
         } else {
             det = 0;
             for (int j = 0; j < MIn.jumlahBaris; j++) {
@@ -561,8 +592,6 @@ public class operasiMatriks{
         double det;
         if (MIn.jumlahKolom == 1) {
             det = MIn.Mat[0][0];
-        } else if (MIn.jumlahKolom == 2) {
-            det = MIn.Mat[0][0] * MIn.Mat[1][1] - MIn.Mat[1][0] * MIn.Mat[0][1];
         } else {
             det = 0;
             for (int i = 0; i < MIn.jumlahKolom; i++) {
@@ -590,4 +619,14 @@ public class operasiMatriks{
         return MOut;
     }
 
+    static matriks cramerSwap(matriks a, matriks fx, int col){
+        matriks temp = new matriks();
+        temp = cloneMatriks(a);
+
+        for (int i = 0; i < a.jumlahBaris; i++){
+            temp.Mat[i][col] = fx.Mat[i][0];
+        }
+
+        return temp;
+    }
 }
