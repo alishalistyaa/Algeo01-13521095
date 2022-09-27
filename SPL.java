@@ -43,7 +43,6 @@ public class SPL {
             System.out.print(", \n");
         }
     }
-
     // blm jadi
     static void SolusiBanyak(matriks MIn){
     /* Mencari hasil solusi unik dari persamaan Gauss */
