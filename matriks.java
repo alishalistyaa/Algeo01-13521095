@@ -117,4 +117,13 @@ public class matriks {
             System.out.print("|\n");
         }  
     }  
+
+    void resetCap(int newCap){
+        //mengubah kapasitas matrix
+        //matrix dikosongkan
+        this.CAPACITY = newCap;
+        this.Mat = new double[CAPACITY][CAPACITY];
+        this.jumlahKolom = 0;
+        this.jumlahBaris = 0;
+    }
 }

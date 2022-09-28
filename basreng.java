@@ -5,7 +5,8 @@ public class basreng {
     public static void main(String[] args) {
         // Atribut
         Scanner in = new Scanner (System.in);
-        int a , b, x;
+        int a , b;
+        double x;
 
         // Method
         matriks M2 = new matriks();
@@ -17,14 +18,8 @@ public class basreng {
         M2.tulisMatriks();
         System.out.print("\n");
 
-        M2 = operasiMatriks.gauss(M2);
+        M2 = ImageUpsc.interpolate2x(M2);
         M2.tulisMatriks();
-        System.out.print("\n");
-
-        SPL.solveSPL(M2);
-
-        x = SPL.checkSPL(M2);
-        System.out.println(x);
 
         // Menutup scanner
         in.close();

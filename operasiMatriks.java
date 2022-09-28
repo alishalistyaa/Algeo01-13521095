@@ -463,7 +463,6 @@ public class operasiMatriks{
         }
 
         //dibuletin 5 angka dibelakang koma
-        det = Math.round(det *10000) / 10000;
         return det;
     }
 
