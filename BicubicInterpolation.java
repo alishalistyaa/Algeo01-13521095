@@ -10,6 +10,19 @@ public class BicubicInterpolation {
     Yang belom: 
     - Ngambil inputan matriks fxy, nilai a, b dari file
     - Nyesuain urutan f(x,y) sama yang di halaman 3 karena urutannya agak beda sama yang di halaman 3 jadi harus disesuain lagi */ 
+    static matriks fxy(matriks M) {
+        matriks fxy = new matriks();
+        fxy.jumlahBaris = 16;
+        fxy.jumlahKolom = 1;
+        int baris = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                fxy.Mat[baris][0] = M.Mat[i][j];
+                baris++;
+            }
+        }
+        return fxy;
+    }
 
     static matriks xiyj () {
         // Membuat matriks xiyj berdimensi 16 x 16
@@ -36,7 +49,7 @@ public class BicubicInterpolation {
     
     static matriks aij (matriks fxy) {
         // Membuat matriks aij berdimensi 16 x 1
-        return operasiMatriks.perkalianMatriks(operasiMatriks.invAdj(xiyj()), fxy);
+        return operasiMatriks.perkalianMatriks(operasiMatriks.invIdentitas(xiyj()), fxy);
     }
 
     static double bicIntpol (matriks aij, double a, double b) {
