@@ -31,9 +31,10 @@ LIST FUNGSI UTAMA:
     - OBE                   Done
 - Kaidah Cramer             Done
 
+IMPLEMENTASI
 - Interpolasi Polinom
 - Interpolasi Bicubic
 - Regresi Linear Berganda
 
-
-｢
+BONUS
+- Scaling Image (2/3 DONE)

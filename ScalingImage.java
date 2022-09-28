@@ -6,11 +6,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ScalingImage {
-    matriks valuePixel = new matriks();
+    // matriks valuePixel = new matriks();
 
     // Load Image
-    matriks loadImage(String filename){
+    static matriks loadImage(String filename){
     /* Membaca Value dari setiap pixel dalam image */
+    matriks valuePixel = new matriks();
         try{
             // Read file
             BufferedImage image = ImageIO.read(new File(filename));
@@ -22,11 +23,12 @@ public class ScalingImage {
             valuePixel.jumlahKolom = width;
 
             // Scanning Value
-            for(int x = 0; x < width; x++){
-                for(int y = 0; y < height; y++){
+            for(int x = 0; x < height; x++){
+                for(int y = 0; y < width; y++){
+                    // Alternatif Satu
                     Color color = new Color(image.getRGB(y,x));
-                    double gray = color.getRed();
-                    valuePixel.Mat[x][y] = (gray / 255d);
+                    double gray = (color.getRed() + color.getGreen()+ color.getBlue())/3;
+                    valuePixel.Mat[x][y] = (double) gray;
                 }
             }
                 System.out.println("Reading complete.");
@@ -37,7 +39,7 @@ public class ScalingImage {
         return (valuePixel);
     }
 
-    matriks scaleImage(int perbesaran){
+    matriks scaleImage(matriks m, int skala){
         /* Menscaling image menggunakan bicubic interpolation */
         // Kamus Lokal
 
@@ -45,28 +47,36 @@ public class ScalingImage {
         return(null);
     }
 
-    void writeImage(String filename, matriks m){
-        // /* Membaca matriks hasil perbesaran dan mewrite image berdasarkan matriks tersebut */
-        // // Kamus Lokal
-        // int height, width;
-        // matriks m
+    static void writeImage(String filename, matriks m){
+        /* Membaca matriks hasil perbesaran dan mewrite image berdasarkan matriks tersebut */
+        // Kamus Lokal
+        int height, width;
 
-        // // Algoritma
-        // // Inisialisasi height dan width
-        // height = m.jumlahBaris;
-        // width = m.jumlahKolom;
-        // // Inisialisasi buffer image
-        // BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        // Algoritma
+        // Inisialisasi height dan width
+        height = m.jumlahBaris;
+        width = m.jumlahKolom;
+        // Inisialisasi buffer image
+        BufferedImage image = null;
+        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        // for(int x=0; x<height; x++){
-        //     for(int y=0; y<width; y++){
-        //         Color color = new Color(m.Mat[x][y]);
-        //         image.setRGB(x,y, color.getRGB());
-        //     }
-        // }
-        // ImageIO.write(image, "jpg", new File("////image path.jpg"));
+        // Rendering Image
+        for(int x=0; x < height; x++){
+            for(int y=0; y < width; y++){
+                Color color = new Color((int)m.Mat[x][y], (int)m.Mat[x][y], (int)m.Mat[x][y]);
+                image.setRGB(y,x, color.getRGB());
+            }
+        }
 
-        // // Algoritma
-        
+        try{
+        // Saving file
+        File output_file = new File(filename);
+        ImageIO.write(image, "png", output_file);
+        System.out.println("Writing complete.");
+
+        // Error Handling
+        } catch(IOException e){
+            System.out.println("Error: " + e);
+        } 
     
 } }
