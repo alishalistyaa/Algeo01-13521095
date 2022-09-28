@@ -7,17 +7,28 @@ public class BicubicInterpolation {
     METODE PENCARIAN matriks aij: inverse
     matriks aij dipake lagi buat ngitung f(a,b)
 
-    Yang belom: 
-    - Ngambil inputan matriks fxy, nilai a, b dari file
-    - Nyesuain urutan f(x,y) sama yang di halaman 3 karena urutannya agak beda sama yang di halaman 3 jadi harus disesuain lagi */ 
-    static matriks fxy(matriks M) {
+    /* INPUT HANDLING */
+    static double getA (matriks input) {
+        return input.Mat[4][0];
+    }
+
+    static double getB (matriks input) {
+        return input.Mat[4][1];
+    }
+    
+    static matriks stdInput (matriks input) {
+        return operasiMatriks.transpose(operasiMatriks.sliceLastRow(input));
+    }
+    
+    /* PROCESS */
+    static matriks fxy(matriks stdInput) {
         matriks fxy = new matriks();
         fxy.jumlahBaris = 16;
         fxy.jumlahKolom = 1;
         int baris = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                fxy.Mat[baris][0] = M.Mat[i][j];
+                fxy.Mat[baris][0] = stdInput.Mat[i][j];
                 baris++;
             }
         }

@@ -87,8 +87,8 @@ public class operasiMatriks{
     /* Mengeluarkan matriks transpose */
         // Kamus Lokal
         matriks MOut = new matriks();
-        MOut.jumlahKolom = MIn.jumlahKolom;
-        MOut.jumlahBaris = MIn.jumlahBaris;
+        MOut.jumlahKolom = MIn.jumlahBaris;
+        MOut.jumlahBaris = MIn.jumlahKolom;
 
         // Algoritma
         for(int i=0; i<MIn.jumlahBaris; i++){
@@ -544,8 +544,8 @@ public class operasiMatriks{
     static double cof(matriks MIn, int i, int j) {
         // cof dari mat minor, MIn harus matriks persegi
         double cof;
-        cof = detOBE(slice(MIn, i, j)); //ril quesyen: utk ekspansi kofaktor brti determinannya gblh pake ini
-        if ((i + j) % 2 != 0) { // sbnrny i + 1 + j + 1 karna i j di mtk itu mulai dr 1, tp 2 % 2 = 0 jd g ngaruh
+        cof = detOBE(slice(MIn, i, j));
+        if ((i + j) % 2 != 0) {
             cof *= (-1);
         }
         return cof;
@@ -608,8 +608,6 @@ public class operasiMatriks{
     static matriks invAdj(matriks MIn) {
         // PREKONDISI: MIn matriks persegi, DET MIn != 0
         matriks MOut = new matriks();
-        MOut.jumlahKolom = MIn.jumlahKolom;
-        MOut.jumlahBaris = MIn.jumlahBaris;
         MOut = transpose(matCof(MIn));
         for (int i = 0; i < MIn.jumlahKolom; i++){
             for (int j = 0; j < MIn.jumlahBaris; j++) {
