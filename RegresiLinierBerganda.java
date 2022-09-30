@@ -43,14 +43,14 @@ public class RegresiLinierBerganda {
             for (int j = 0; j < stdInput.jumlahKolom; j++) {
                 if (i != stdInput.jumlahBaris - 1) {
                     if (j != stdInput.jumlahKolom - 1) {
-                        System.out.print("Masukkan nilai x" + (j + 1) + "sampel ke-" + (i + 1) + ": ");
+                        System.out.print("Masukkan nilai x" + (j + 1) + " sampel ke-" + (i + 1) + ": ");
                     } else {
                         System.out.print("Masukkan nilai y sampel ke-" + (i + 1) + ": ");
                     }
                     stdInput.Mat[i][j] = in.nextDouble();
                 } else {
                     if (j != stdInput.jumlahKolom - 1) {
-                        System.out.print("Masukkan nilai x" + (j + 1) + "yang akan diregresi: ");
+                        System.out.print("Masukkan nilai x" + (j + 1) + " yang akan diregresi: ");
                         stdInput.Mat[i][j] = in.nextDouble();
                     }
                 }

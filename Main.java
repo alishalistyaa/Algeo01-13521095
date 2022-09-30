@@ -155,14 +155,17 @@ public class Main {
 
                 //Interpolasi Polinom
                 case 4:
+                InterPolin();
                 break;
 
                 //Interpolasi Bicubic
                 case 5:
+                BicInter();
                 break;
 
                 //Regresi Linear Berganda
                 case 6:
+                RegLinBerganda();
                 break;
 
                 //Keluar
@@ -505,7 +508,90 @@ public class Main {
         }
     }
 
-    //interpolasi polinom
-    //interpolasi bicubic
-    //regresi linear berganda
+    //INTERPOLASI POLINOM
+    public static void InterPolin() {
+        System.out.println("\nPilih metode masukan:");
+        System.out.println("1. Dari file");
+        System.out.println("2. Dari keyboard");
+
+        int metodeInput;
+        matriks stdInput = new matriks();
+
+        do{
+            metodeInput = in.nextInt();
+            if (metodeInput <= 0 || metodeInput > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (metodeInput <= 0 || metodeInput > 2);
+
+        switch (metodeInput) {
+            case 1:
+            System.out.print("\nNama file (.txt): ");
+            String namaFile = in.nextLine();
+            stdInput.bacaFileMatriksBolong(namaFile, 1);
+            break;
+
+            case 2:
+            stdInput = InterpolasiPolinom.stdInputKeyboard();
+            break;
+        }
+
+        if (!(stdInput.jumlahBaris == 0 && stdInput.jumlahKolom == 0)) {
+            matriks ai = InterpolasiPolinom.ai(InterpolasiPolinom.xi(InterpolasiPolinom.x(stdInput)),InterpolasiPolinom.fx(stdInput));
+            double a = InterpolasiPolinom.a(stdInput);
+            System.out.println("\nHasil Interpolasi Polinom");
+            InterpolasiPolinom.printFx(ai);
+            System.out.println("f("+ a +") = " + InterpolasiPolinom.fa(ai, a));
+        }
+    }
+
+    //INTERPOLASI BICUBIC
+    public static void BicInter() {
+        matriks stdInput = new matriks();
+        System.out.print("\nNama file (.txt): ");
+        String namaFile = in.nextLine();
+        stdInput.bacaFileMatriksBolong(namaFile, 2);
+        if (!(stdInput.jumlahBaris == 0 && stdInput.jumlahKolom == 0)) {
+            matriks aij = BicubicInterpolation.aij(BicubicInterpolation.fxy(BicubicInterpolation.fxy4x4(stdInput)));
+            double a = BicubicInterpolation.a(stdInput);
+            double b = BicubicInterpolation.b(stdInput);
+            System.out.println("\nHasil Bicubic Interpolation");
+            System.out.println("f(" + a + "," + b + ") = " + BicubicInterpolation.bicIntpol(aij, a, b));
+        }
+    }
+
+    //REGRESI LINEAR BERGANDA
+    public static void RegLinBerganda() {
+        System.out.println("\nPilih metode masukan:");
+        System.out.println("1. Dari file");
+        System.out.println("2. Dari keyboard");
+
+        int metodeInput;
+        matriks stdInput = new matriks();
+
+        do{
+            metodeInput = in.nextInt();
+            if (metodeInput <= 0 || metodeInput > 2) {
+                System.out.println("Input tidak valid");
+            } 
+        } while (metodeInput <= 0 || metodeInput > 2);
+
+        switch (metodeInput) {
+            case 1:
+            System.out.print("\nNama file (.txt): ");
+            String namaFile = in.nextLine();
+            stdInput.bacaFileMatriksBolong(namaFile, 1);
+            break;
+
+            case 2:
+            stdInput = RegresiLinierBerganda.stdInputKeyboard();
+            break;
+        }
+
+        if (!(stdInput.jumlahBaris == 0 && stdInput.jumlahKolom == 0)) {
+            System.out.println("\nHasil Regresi Linear Berganda");
+            RegresiLinierBerganda.printFxk(RegresiLinierBerganda.b(RegresiLinierBerganda.xnm(stdInput), RegresiLinierBerganda.ym(stdInput)));
+            System.out.println("f(xk) = " + RegresiLinierBerganda.fxk(RegresiLinierBerganda.xk(stdInput), RegresiLinierBerganda.b(RegresiLinierBerganda.xnm(stdInput), RegresiLinierBerganda.ym(stdInput))));
+        }
+    }
 }

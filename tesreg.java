@@ -26,6 +26,6 @@ public class tesreg {
         RegresiLinierBerganda.printFxk(b);
         matriks xk = new matriks();
         xk.bacaMatriks(1, 3);
-        System.out.println(RegresiLinierBerganda.Fxk(xk, b));
+        System.out.println(RegresiLinierBerganda.fxk(xk, b));
     }
 }
