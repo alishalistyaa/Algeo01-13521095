@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class ScalingImage {
+public class ImageUtil {
     // matriks valuePixel = new matriks();
 
     // Load Image
@@ -37,14 +37,6 @@ public class ScalingImage {
             System.out.println("Error: " + e);
         }
         return (valuePixel);
-    }
-
-    matriks scaleImage(matriks m, int skala){
-        /* Menscaling image menggunakan bicubic interpolation */
-        // Kamus Lokal
-
-        // Algoritma
-        return(null);
     }
 
     static void writeImage(String filename, matriks m){
