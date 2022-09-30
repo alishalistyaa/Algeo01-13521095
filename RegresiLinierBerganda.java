@@ -1,69 +1,158 @@
+import java.util.*;
+
 public class RegresiLinierBerganda {
     /* Problem Regresi Linear Berganda
-    Persamaannya (transpose(matriks xnk)) x (matriks xnk) x (matriks b) = (transpose(matriks xnk)) x (matriks y)
-    Keterangan: matriks y berdimensi n x 1, matriks xnk berdimensi n x (k + 1), matriks b berdimensi (k + 1) x 1
-        y = y1          xnk = 1  x11  x12  ...  x1k             b = b0
-            y2                1  x21  x22  ...  x2k                 b1
-            ...               ...          ...  ...                 ...
-            yn                1  xn1  xn2  ...  xnk                 bk
-    
-    METODE PENCARIAN matriks b: GAUSS
-    Matriks b dipake lagi buat ngitung f(x1, x2, ..., xk)
-    
-    Yang belom:
-    - Ngambil inputan
-    - Split inputan jadi 2 matriks, matriks xnk sama matriks y */
 
-    static matriks b (matriks xnk, matriks y) {
+    ISTILAH
+    Tipe Integer
+    n               : jumlah peubah x
+    m               : jumlah sampel/observasi
+    Tipe Matriks
+    stdInput ((m + 1) x (n + 1)) : standar masukan pengguna, baris 0..(m - 1) berisi titik sampel, baris m berisi data yang akan diregresi
+    xnm (m x (n + 1))            : data nilai x1, x2, ..., xn untuk setiap sampel, diconcat di depan dengan kolom berisi 1
+    ym (m x 1)                   : data nilai y dari titik sampel
+    xk (1 x n)                   : data nilai x1, x2, ..., xn yang akan diregresi
+    b ((n + 1) x 1)              : koefisien 1, x1, x2, ..., xn
+    stdInput = x11  x21  ...  xn1  y1      xnm = 1  x11  x21  ...  xn1      ym = y1      xk = x1  x2 ... xn      b = b0        
+               x12  x22  ...  xn2  y2            1  x12  x22  ...  xn2           y2                                  b1
+               ...  ...  ...  ...  ...           .. ...  ...  ...  ...           ...                                 ...
+               x1m  x2m  ...  xnm  ym            1  x1m  x2m  ...  xnm           ym                                  bn
+               x1   x2   ...  xn   *
+    
+    METODE
+    Gauss, dengan matriks augmented (transpose(xnm)) x (xnm) | (transpose(xnm)) x (ym), dari persamaan (transpose(xnm)) x (xnm) x (b) = (transpose(xnm)) x (ym)
+    
+    /* INPUT */
+    /* Input dari Keyboard */
+    static Scanner in = new Scanner (System.in);
+
+    static matriks stdInputKeyboard() {
+        /* Mengambil masukan dari keyboard, menghasilkan matriks stdInput */
+        int n, m;
+
+        System.out.print("Masukkan jumlah peubah x (n): ");
+        n = in.nextInt();
+        System.out.print("Masukkan jumlah sampel (m): ");
+        m = in.nextInt();
+
+        matriks stdInput = new matriks();
+        stdInput.jumlahBaris = m + 1;
+        stdInput.jumlahKolom = n + 1;
+
+        for (int i = 0; i < stdInput.jumlahBaris; i++) {
+            for (int j = 0; j < stdInput.jumlahKolom; j++) {
+                if (i != stdInput.jumlahBaris - 1) {
+                    if (j != stdInput.jumlahKolom - 1) {
+                        System.out.print("Masukkan nilai x" + (j + 1) + "sampel ke-" + (i + 1) + ": ");
+                    } else {
+                        System.out.print("Masukkan nilai y sampel ke-" + (i + 1) + ": ");
+                    }
+                    stdInput.Mat[i][j] = in.nextDouble();
+                } else {
+                    if (j != stdInput.jumlahKolom - 1) {
+                        System.out.print("Masukkan nilai x" + (j + 1) + "yang akan diregresi: ");
+                        stdInput.Mat[i][j] = in.nextDouble();
+                    }
+                }
+            }
+        }
+        stdInput.Mat[stdInput.jumlahBaris - 1][stdInput.jumlahKolom - 1] = -999.0;
+        
+        return stdInput;
+    }
+
+    /* Input dari File */
+    /* Cukup menggunakan bacaFileMatriksBolong(namafile, 1) untuk mendapatkan stdInput, deklarasikan di main */
+
+    /* INPUT EXTRACTING */
+    /* I.S. stdInput sudah dideklarasikan
+       F.S. dari stdInput, diekstrak matriks xnm, ym, dan xk */
+    static matriks xnm(matriks stdInput) {
+        /* Mengekstrak matriks xnm dari matriks stdInput */
+        matriks ones = new matriks();
+        ones.jumlahBaris = stdInput.jumlahBaris - 1;
+        ones.jumlahKolom = 1;
+
+        for (int i = 0; i < ones.jumlahBaris; i++) {
+            ones.Mat[i][0] = 1;
+        }
+
+        matriks xnm = operasiMatriks.sliceLastCol(operasiMatriks.concatKolom(ones, operasiMatriks.sliceLastRow(stdInput)));
+        
+        return xnm;
+    }
+
+    static matriks ym (matriks stdInput) {
+        /* Mengekstrak matriks ym dari matriks stdInput */
+        return operasiMatriks.takeLastCol(operasiMatriks.sliceLastRow(stdInput));
+    }
+    
+    static matriks xk (matriks stdInput) {
+        /* Mengekstrak matriks xk dari matriks stdInput */
+        return operasiMatriks.takeLastRow(operasiMatriks.sliceLastCol(stdInput));
+    }
+
+    /* MATH */
+    static matriks b (matriks xnm, matriks ym) {
+        /* Membuat matriks ai dengan metode gauss dari matriks augmented (transpose(xnm)) x (xnm) | (transpose(xnm)) x (ym) */
         matriks b = new matriks();
-        b.jumlahBaris = xnk.jumlahKolom;
+        b.jumlahBaris = xnm.jumlahKolom;
         b.jumlahKolom = 1;
-        matriks augmented = operasiMatriks.concatKolom(operasiMatriks.perkalianMatriks(operasiMatriks.transpose(xnk), xnk),operasiMatriks.perkalianMatriks(operasiMatriks.transpose(xnk), y));
+
+        matriks augmented = operasiMatriks.concatKolom(operasiMatriks.perkalianMatriks(operasiMatriks.transpose(xnm), xnm),operasiMatriks.perkalianMatriks(operasiMatriks.transpose(xnm), ym));
         matriks gaussed = operasiMatriks.gauss(augmented);
         
-        int i, j;
         double cache;
         
-        for(i = 0; i < gaussed.jumlahKolom - 1; i++){
+        for(int i = 0; i < gaussed.jumlahKolom - 1; i++){
             b.Mat[i][0] = 0;
         }
 
-        for(i = gaussed.jumlahBaris - 1; i >= 0; i--){
-
+        for(int i = gaussed.jumlahBaris - 1; i >= 0; i--){
             cache = gaussed.Mat[i][gaussed.jumlahKolom-1];
-            for(j = i; j < gaussed.jumlahKolom-1; j++){
+            for(int j = i; j < gaussed.jumlahKolom-1; j++){
                 cache -= b.Mat[j][0] * gaussed.Mat[i][j];
             }
-
             b.Mat[i][0] = cache;
         }
 
         return b;
     }
+
+    static double fxk (matriks xk, matriks b) {
+        /* Menghasilkan f(xk) */
+        double hasil;
+        hasil = b.Mat[0][0];
+
+        for (int i = 0; i < xk.jumlahKolom; i++) {
+            hasil += xk.Mat[0][i] * b.Mat[i + 1][0];
+        }
+
+        return hasil;
+    }
+
+    /* PRINTING */
     static void printFxk(matriks b) {
-        /* Print Fxk, contohnya f(x) = -9.5872 + 1.0732x1
-        Beberapa constraint untuk koefisien:
-        - Kalo semua koefisiennya bernilai nol, maka ditulis f(x) = 0
-        - Kalo koefisien dari suatu suku bernilai 0, sukunya ga ditulis
-        - Kalo koefisien dari suatu suku bernilai positif, digunakan tanda +, kalau negatif, digunakan tanda -
-        - Kalo koefisien bernilai 1 atau -1, koefisien tidak ditulis
-        Untuk xk:
-        - Kalo k dari suatu suku bernilai 0, xk tidak ditulis
-        */
+        /* Print f(xk), contohnya f(xk) = -0.0064 + 0.2266x1 - 0.6762x2, dengan beberapa aturan.
+        Aturan untuk koefisien:
+        - Jika semua koefisiennya bernilai nol, maka ditulis f(xk) = 0
+        - Jika koefisien dari suatu suku bernilai 0, sukunya tidak ditulis
+        - Jika koefisien dari suatu suku bernilai positif, digunakan tanda +, jika negatif, digunakan tanda -
+        - Jika koefisien bernilai 1 atau -1, koefisien tidak ditulis, kecuali jika koefisien tersebut adalah konstanta dari f(xk) */
 
-        System.out.print("f(x) =");
+        System.out.print("f(xk) =");
 
-        int a, i, firstNonZeroIdx;
+        int firstNonZeroIdx;
         boolean found;
 
         if (b.isAllZero()) {
-            /* Kalo semua koefisiennya bernilai nol, maka ditulis f(x) = 0 */
+            /* Jika semua koefisiennya bernilai nol, maka ditulis f(xk) = 0 */
             System.out.print(" 0");
         } else {
-            /* Mencari indeks baris pertama di matriks ai yang tidak bernilai nol */
+            /* Mencari indeks baris pertama di matriks b yang tidak bernilai nol */
             firstNonZeroIdx = 0;
             found = false;
-            for (a = firstNonZeroIdx; a <= b.jumlahBaris - 1 && !found; a++) {
+            for (int a = firstNonZeroIdx; a <= b.jumlahBaris - 1 && !found; a++) {
                 if (b.Mat[a][0] != 0) {
                     found = true;
                     firstNonZeroIdx = a;
@@ -99,7 +188,7 @@ public class RegresiLinierBerganda {
             }
 
             /* Print suku-suku selanjutnya */
-            for (i = firstNonZeroIdx + 1; i <= b.jumlahBaris - 1; i++) {
+            for (int i = firstNonZeroIdx + 1; i <= b.jumlahBaris - 1; i++) {
                 if (b.Mat[i][0] != 0) {
                     /* Print koefisien dari suku */
                     if (b.Mat[i][0] > 0) {
@@ -124,7 +213,7 @@ public class RegresiLinierBerganda {
                         }
                     }
 
-                    /* Print xk dari suku */
+                    /* Print xk dari suku-suku selanjutnya*/
                     if (i != 0) {
                         System.out.print("x" + i);
                     }
@@ -133,19 +222,5 @@ public class RegresiLinierBerganda {
         }
         System.out.print("\n");  
     }
-    static double Fxk(matriks xk, matriks b) {
-        // Matriks xk: masukan user, bentuk [x1, x2, ..., xk], ukuran 1 x k
-        /* Matriks b: dari perhitungan sebelumnya, bentuk b0 , ukuran (k + 1) x k
-                                                          b1
-                                                          ...
-                                                          bk
-        */ 
-        int i;
-        double hasil;
-        hasil = b.Mat[0][0];
-        for (i = 0; i < xk.jumlahKolom; i++) {
-            hasil += xk.Mat[0][i] * b.Mat[i + 1][0];
-        }
-        return hasil;
-    }
+    
 }

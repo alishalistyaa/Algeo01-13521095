@@ -504,6 +504,17 @@ public class operasiMatriks{
         return MOut;
     }
 
+    static matriks takeLastRow(matriks MIn) {
+        // ambil baris terakhir
+        matriks MOut = new matriks();
+        MOut.jumlahBaris = 1;
+        MOut.jumlahKolom = MIn.jumlahKolom;
+        for (int j = 0; j < MOut.jumlahKolom; j++) {
+            MOut.Mat[0][j] = MIn.Mat[MIn.jumlahBaris - 1][j];
+        }
+        return MOut;
+    }
+    
     static matriks concatKolom (matriks m1, matriks m2) {
         // Menyatukan m1 dan m2
         // PREKONDISI: m1.jumlahBaris = m2.jumlahBaris
