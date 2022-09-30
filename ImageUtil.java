@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class ScalingImage {
+public class ImageUtil {
     // matriks valuePixel = new matriks();
 
     // Load Image
@@ -39,14 +39,6 @@ public class ScalingImage {
         return (valuePixel);
     }
 
-    matriks scaleImage(matriks m, int skala){
-        /* Menscaling image menggunakan bicubic interpolation */
-        // Kamus Lokal
-
-        // Algoritma
-        return(null);
-    }
-
     static void writeImage(String filename, matriks m){
         /* Membaca matriks hasil perbesaran dan mewrite image berdasarkan matriks tersebut */
         // Kamus Lokal
@@ -63,7 +55,7 @@ public class ScalingImage {
         // Rendering Image
         for(int x=0; x < height; x++){
             for(int y=0; y < width; y++){
-                Color color = new Color((int)m.Mat[x][y], (int)m.Mat[x][y], (int)m.Mat[x][y]);
+                Color color = new Color((int)(Math.abs(m.Mat[x][y]%252)), (int)(Math.abs(m.Mat[x][y]%252)), (int)(Math.abs(m.Mat[x][y]%252)));
                 image.setRGB(y,x, color.getRGB());
             }
         }
