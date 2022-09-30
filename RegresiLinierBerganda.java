@@ -63,7 +63,7 @@ public class RegresiLinierBerganda {
             /* Mencari indeks baris pertama di matriks ai yang tidak bernilai nol */
             firstNonZeroIdx = 0;
             found = false;
-            for (a = 1; a <= b.jumlahBaris - 1 && !found; a++) {
+            for (a = firstNonZeroIdx; a <= b.jumlahBaris - 1 && !found; a++) {
                 if (b.Mat[a][0] != 0) {
                     found = true;
                     firstNonZeroIdx = a;
@@ -75,13 +75,21 @@ public class RegresiLinierBerganda {
                 if (b.Mat[firstNonZeroIdx][0] != 1) {
                     System.out.print(" " + b.Mat[firstNonZeroIdx][0]);
                 } else {
-                    System.out.print(" ");
+                    if (firstNonZeroIdx == 0) {
+                        System.out.print(" " + b.Mat[firstNonZeroIdx][0]);
+                    } else {
+                        System.out.print(" ");
+                    }
                 }
             } else {
                 if (b.Mat[firstNonZeroIdx][0] != -1) {
                     System.out.print(" - " + (-1) * b.Mat[firstNonZeroIdx][0]);
                 } else {
-                    System.out.print(" - ");
+                    if (firstNonZeroIdx == 0) {
+                        System.out.print(" - " + (-1) * b.Mat[firstNonZeroIdx][0]);
+                    } else {
+                        System.out.print(" - ");
+                    }
                 }    
             }
             
@@ -98,13 +106,21 @@ public class RegresiLinierBerganda {
                         if (b.Mat[i][0] != 1) {
                             System.out.print(" + " + b.Mat[i][0]);
                         } else {
-                            System.out.print(" + ");
+                            if (i == 0) {
+                                System.out.print(" + " + b.Mat[i][0]);
+                            } else {
+                                System.out.print(" + ");
+                            }
                         }
                     } else {
                         if (b.Mat[i][0] != -1) {
                             System.out.print(" - " + (-1) * b.Mat[i][0]);
                         } else {
-                            System.out.print(" - ");
+                            if (i == 0) {
+                                System.out.print(" - " + (-1) * b.Mat[i][0]);
+                            } else {
+                                System.out.print(" - ");
+                            }
                         }
                     }
 

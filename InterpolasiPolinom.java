@@ -15,12 +15,13 @@ public class InterpolasiPolinom {
     Yang belom:
     - Ngambil inputan
     - Split inputan jadi 2 matriks, matriks x sama matriks fx */
-
+    /* INPUT HANDLING */
+    
     static matriks xi (matriks x) {
         /* Menghasilkan matriks xi */
         matriks xi = new matriks();
-        xi.jumlahBaris = x.jumlahKolom;
-        xi.jumlahKolom = x.jumlahKolom;
+        xi.jumlahBaris = x.jumlahBaris;
+        xi.jumlahKolom = x.jumlahBaris;
         int i, j;
         for (i = 0; i < xi.jumlahBaris; i++) {
             for (j = 0; j < xi.jumlahKolom; j++) {
@@ -64,7 +65,7 @@ public class InterpolasiPolinom {
         - Kalo semua koefisiennya bernilai nol, maka ditulis f(x) = 0
         - Kalo koefisien dari suatu suku bernilai 0, sukunya ga ditulis
         - Kalo koefisien dari suatu suku bernilai positif, digunakan tanda +, kalau negatif, digunakan tanda -
-        - Kalo koefisien bernilai 1 atau -1, koefisien tidak ditulis
+        - Kalo koefisien bernilai 1 atau -1, koefisien tidak ditulis, kecuali jika konstanta
         Untuk x^:
         - Kalo derajat x dari suatu suku bernilai 1, ditulis x aja
         - Kalo derajat x dari suatu suku bernilai 0, x tidak ditulis
@@ -82,7 +83,7 @@ public class InterpolasiPolinom {
             /* Mencari indeks baris terakhir di matriks ai yang tidak bernilai nol */
             lastNonZeroIdx = ai.jumlahBaris - 1;
             found = false;
-            for (a = ai.jumlahBaris - 2; a >= 0 && !found; a--) {
+            for (a = lastNonZeroIdx; a >= 0 && !found; a--) {
                 if (ai.Mat[a][0] != 0) {
                     found = true;
                     lastNonZeroIdx = a;
@@ -94,13 +95,21 @@ public class InterpolasiPolinom {
                 if (ai.Mat[lastNonZeroIdx][0] != 1) {
                     System.out.print(" " + ai.Mat[lastNonZeroIdx][0]);
                 } else {
-                    System.out.print(" ");
+                    if (lastNonZeroIdx == 0) {
+                        System.out.print(" " + ai.Mat[lastNonZeroIdx][0]);
+                    } else {
+                        System.out.print(" ");
+                    }
                 }
             } else {
                 if (ai.Mat[lastNonZeroIdx][0] != -1) {
                     System.out.print(" - " + (-1) * ai.Mat[lastNonZeroIdx][0]);
                 } else {
-                    System.out.print(" - ");
+                    if (lastNonZeroIdx == 0) {
+                        System.out.print(" - " + (-1) * ai.Mat[lastNonZeroIdx][0]);
+                    } else {
+                        System.out.print(" - ");
+                    }
                 }    
             }
             
@@ -119,13 +128,21 @@ public class InterpolasiPolinom {
                         if (ai.Mat[i][0] != 1) {
                             System.out.print(" + " + ai.Mat[i][0]);
                         } else {
-                            System.out.print(" + ");
+                            if (i == 0) {
+                                System.out.print(" + " + ai.Mat[i][0]);
+                            } else {
+                                System.out.print(" + ");
+                            }
                         }
                     } else {
                         if (ai.Mat[i][0] != -1) {
                             System.out.print(" - " + (-1) * ai.Mat[i][0]);
                         } else {
-                            System.out.print(" - ");
+                            if (i == 0) {
+                                System.out.print(" - " + (-1) * ai.Mat[i][0]);
+                            } else {
+                                System.out.print(" - ");
+                            }
                         }
                     }
 

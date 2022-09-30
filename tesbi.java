@@ -7,6 +7,12 @@ public class tesbi {
         M.bacaMatriks(4, 4);
         M.tulisMatriks();
         System.out.print("\n");
+        // matriks m2 = operasiMatriks.invAdj(M);
+        // m2.tulisMatriks();
+        // System.out.print("\n");
+        // matriks m3 = operasiMatriks.invIdentitas(M);
+        // m3.tulisMatriks();
+        System.out.print("\n");
         matriks fxy = BicubicInterpolation.fxy(M);
         fxy.tulisMatriks();
         System.out.print("\n");
