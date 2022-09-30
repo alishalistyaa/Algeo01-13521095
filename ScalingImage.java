@@ -63,7 +63,7 @@ public class ScalingImage {
         // Rendering Image
         for(int x=0; x < height; x++){
             for(int y=0; y < width; y++){
-                Color color = new Color((int)m.Mat[x][y], (int)m.Mat[x][y], (int)m.Mat[x][y]);
+                Color color = new Color((int)(Math.abs(m.Mat[x][y]%252)), (int)(Math.abs(m.Mat[x][y]%252)), (int)(Math.abs(m.Mat[x][y]%252)));
                 image.setRGB(y,x, color.getRGB());
             }
         }
