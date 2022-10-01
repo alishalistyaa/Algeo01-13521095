@@ -35,7 +35,6 @@ public class matriks {
         }
     }
 
-    // blm jadi
     /* Baca Matriks dari File */
     public void bacaFileMatriks(String filename){
         // Kamus Lokal
@@ -138,6 +137,35 @@ public class matriks {
         } catch (FileNotFoundException e) {
         System.out.println(e.getMessage());}
     }
+
+    /* Write File dari Matriks */
+    public void writeMatrixFile( matriks m){
+        // Kamus Lokal
+        int i, j;
+        String filename;
+
+        // Algoritma
+        System.out.println("Masukkan nama file: ");
+        filename = in.nextLine() + ".txt";
+        try {
+            // Buat file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+
+            // Write Perline
+            for (i= 0; i<m.jumlahBaris; i++){
+                for (j=0; j<jumlahKolom; j++){
+                    bw.write(m.Mat[i][j] + ((j == jumlahKolom-1) ? "" : " "));
+                }
+            bw.newLine();
+            }
+        bw.flush();
+
+        // Handling Error
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     /* sebenernya ini gaperlu sih */
     public double getComponent(int n, int m){

@@ -30,6 +30,7 @@ public class Main {
         boolean jalan = true;
         int input = 0;
 
+        // Pilih Menu
         while (jalan) {
             System.out.println("\nMENU");
             System.out.println("1. Sistem Persamaan Linear");
@@ -335,7 +336,6 @@ public class Main {
         }
     }
 
-
     //DETERMINAN
     public static void DeterminanOBE(){
         matriks M = new matriks();
@@ -474,10 +474,11 @@ public class Main {
     
             switch (input){
                 case 1:
-                //belum jadi
+                inverse.writeMatrixFile(inverse);
                 break;
     
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -514,10 +515,12 @@ public class Main {
     
             switch (input){
                 case 1:
-                //belum jadi
+                // Menyimpan file
+                inverse.writeMatrixFile(inverse);
                 break;
     
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -632,7 +635,7 @@ public class Main {
         MAkhir = ImageUpsc.interpolate2x(MAwal);
 
         // Nama file yang telah diupscale
-        newfilename = "./test" + filename + "_upscaled2x.png";
+        newfilename = filename + "_upscaled2x.png";
         ImageUtil.writeImage(newfilename, MAkhir);
 
         // Menghitung time elapsed
