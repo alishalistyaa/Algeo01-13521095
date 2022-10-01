@@ -1,5 +1,14 @@
 import java.util.*;
 
+import src.BicubicInterpolation;
+import src.InterpolasiPolinom;
+import src.RegresiLinierBerganda;
+import src.SPL;
+import src.matriks;
+import src.operasiMatriks;
+import src.ImageUtil;
+import src.ImageUpsc;
+
 /*
  * Ini buat main program utamanya
  * Inputtan masuk ke variabel input
@@ -29,14 +38,15 @@ public class Main {
             System.out.println("4. Interpolasi Polinom");
             System.out.println("5. Interpolasi Bicubic");
             System.out.println("6. Regresi Linear Berganda");
-            System.out.println("7. Keluar");
+            System.out.println("7. Perbesar Gambar");
+            System.out.println("8. Keluar");
 
             do{
                 input = in.nextInt();
-                if (input <= 0 && input > 7) {
+                if (input <= 0 && input > 8) {
                     System.out.println("Input tidak valid");
                 } 
-            } while (input <= 0 && input > 7);
+            } while (input <= 0 && input > 8);
 
             switch (input) {
                 //SPL
@@ -170,6 +180,11 @@ public class Main {
 
                 //Keluar
                 case 7:
+                ImageScaling();
+                break;
+
+                //Keluar
+                case 8:
                 jalan = false;
                 System.out.println("\nTerima kasih sudah menggungakan aplikasi.");
                 break;
@@ -593,5 +608,37 @@ public class Main {
             RegresiLinierBerganda.printFxk(RegresiLinierBerganda.b(RegresiLinierBerganda.xnm(stdInput), RegresiLinierBerganda.ym(stdInput)));
             System.out.println("f(xk) = " + RegresiLinierBerganda.fxk(RegresiLinierBerganda.xk(stdInput), RegresiLinierBerganda.b(RegresiLinierBerganda.xnm(stdInput), RegresiLinierBerganda.ym(stdInput))));
         }
+    }
+
+    // Image Scaling
+    public static void ImageScaling(){
+        
+        // Kamus Lokal
+        long startTime = System.nanoTime();
+        String filename, filepath, newfilename;
+        matriks MAwal = new matriks();
+        matriks MAkhir = new matriks();
+
+        // Algoritma
+        System.out.println("\nHalo! Selamat datang ke Image Scaling.");
+        System.out.println("\nPastikan file gambar yang akan diperbesar sudah dimasukkan ke dalam folder test!");
+
+        // Nama File yang ingin di upscale
+        System.out.println("\nMasukkan nama file yang ingin di upscale: ");
+        filename = in.nextLine();
+
+        filepath = "./test/" + filename;
+        MAwal = ImageUtil.loadImage(filepath);
+        MAkhir = ImageUpsc.interpolate2x(MAwal);
+
+        // Nama file yang telah diupscale
+        newfilename = "./test" + filename + "_upscaled2x.png";
+        ImageUtil.writeImage(newfilename, MAkhir);
+
+        // Menghitung time elapsed
+        long elapsedTime = System.nanoTime() - startTime;
+        System.out.println("Total execution time in millis: "
+        + elapsedTime/1000000);
+        
     }
 }

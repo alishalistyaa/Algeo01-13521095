@@ -1,5 +1,7 @@
+package src;
+
 public class SPL {
-    static void solveSPL(matriks m){
+    public static void solveSPL(matriks m){
         //utama, menerima matriks gauss/gauss jordan spl (tidak terslice)
         int condition;
         condition = checkSPL(m);
@@ -24,7 +26,7 @@ public class SPL {
     }
 
     /* Persamaan SPL dari Gauss atau Gauss Jordan */
-    static int checkSPL(matriks m) {
+    public static int checkSPL(matriks m) {
         // PREKONDISI: matriks m adalah matriks gauss/gauss jordan spl (tidak terslice)
         // 0 = Matriks kosong (semua 0)
         // 1 = Solusi unik
@@ -58,7 +60,7 @@ public class SPL {
         return x;
     }
 
-    static void SolusiKosong(matriks MIn){
+    public static void SolusiKosong(matriks MIn){
         char var = 'S';
         char arrayChar[] = new char[MIn.jumlahKolom-1];
         int i;
@@ -83,7 +85,7 @@ public class SPL {
         }
     }
 
-    static void SolusiUnik(matriks MIn){
+    public static void SolusiUnik(matriks MIn){
     /* Mencari hasil solusi unik dari persamaan Gauss */
     //prekondisi matriks yang masuk adalah matriks gauss/gauss jordan
         // Kamus Lokal
@@ -116,7 +118,7 @@ public class SPL {
         }
     }
     // blm jadi
-    static void SolusiBanyak(matriks MIn){
+    public static void SolusiBanyak(matriks MIn){
     /* Mencari hasil solusi unik dari persamaan Gauss */
     //prekondisi matriks yang masuk adalah matriks gauss/gauss jordan
         // Kamus Lokal
@@ -233,13 +235,13 @@ public class SPL {
         }
     }
 
-    static void SolusiNone(){
+    public static void SolusiNone(){
         // Kamus Lokal
         // Algoritma
         System.out.println("Persamaan linear tidak memiliki solusi.");
     }
 
-    static int cari1(matriks MIn, int baris){
+    public static int cari1(matriks MIn, int baris){
         //buat nyari 1 pertama di suatu baris
         //dipake di solusi banyak
         int kolom;
@@ -313,7 +315,7 @@ public class SPL {
         return solvable;
     }
 
-    static void SolveInverse(matriks M){
+    public static void SolveInverse(matriks M){
         matriks fx = new matriks();
         matriks a = new matriks();
 
@@ -338,7 +340,7 @@ public class SPL {
         }
     }
 
-    static void SolveCramer(matriks M){
+    public static void SolveCramer(matriks M){
         matriks fx = new matriks();
         matriks a = new matriks();
         matriks temp = new matriks();

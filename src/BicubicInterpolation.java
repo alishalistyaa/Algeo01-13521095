@@ -1,3 +1,5 @@
+package src;
+
 import java.lang.Math;
 
 public class BicubicInterpolation {
@@ -27,22 +29,22 @@ public class BicubicInterpolation {
        I.S. stdInput sudah dideklarasikan dan merupakan hasil dari bacaFileMatriksBolong(namafile, 2) 
        F.S. dari stdInput, diekstrak matriks fxy4x4, nilai a, dan b */
     
-       static double a (matriks stdInput) {
+    public static double a (matriks stdInput) {
         /* Mengekstrak nilai a matriks stdInput */
         return stdInput.Mat[4][0];
     }
 
-    static double b (matriks stdInput) {
+    public static double b (matriks stdInput) {
         /* Mengekstrak nilai b matriks stdInput */
         return stdInput.Mat[4][1];
     }
     
-    static matriks fxy4x4 (matriks stdInput) {
+    public static matriks fxy4x4 (matriks stdInput) {
         /* Mengekstrak matriks fxy4x4 dari matriks stdInput */
         return operasiMatriks.transpose(operasiMatriks.sliceLastRow(stdInput));
     }
     
-    static matriks fxy(matriks fxy4x4) {
+    public static matriks fxy(matriks fxy4x4) {
         /* Membuat matriks fxy dari matriks fxy4x4 */
         matriks fxy = new matriks();
         fxy.jumlahBaris = 16;
@@ -60,7 +62,7 @@ public class BicubicInterpolation {
 
     /* MATH */
 
-    static matriks xiyj () {
+    public static matriks xiyj () {
         /* Membuat matriks xiyj */
         matriks xiyj = new matriks();
         xiyj.jumlahBaris = 16;
@@ -83,12 +85,12 @@ public class BicubicInterpolation {
         return xiyj;
     }
     
-    static matriks aij (matriks fxy) {
+    public static matriks aij (matriks fxy) {
         /* Mencari matriks aij dari matriks xiji dan fxy dengan metode inverse */
         return operasiMatriks.perkalianMatriks(operasiMatriks.invIdentitas(xiyj()), fxy);
     }
 
-    static double bicIntpol (matriks aij, double a, double b) {
+    public static double bicIntpol (matriks aij, double a, double b) {
         /* Menghasilkan nilai f(a,b) */ 
         int i, j, baris;
         double fab;

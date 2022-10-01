@@ -1,3 +1,5 @@
+package src;
+
 import java.lang.Math;
 import java.util.*;
 
@@ -29,7 +31,7 @@ public class InterpolasiPolinom {
     /* Input dari Keyboard */
     static Scanner in = new Scanner (System.in);
 
-    static matriks stdInputKeyboard() {
+    public static matriks stdInputKeyboard() {
         /* Mengambil masukan dari keyboard, menghasilkan matriks stdInput */
         int n;
         System.out.print("Masukkan derajat polinom (n): ");
@@ -68,7 +70,7 @@ public class InterpolasiPolinom {
     /* I.S. stdInput sudah dideklarasikan
        F.S. dari stdInput, diekstrak matriks x, y, dan nilai a */
 
-    static matriks x (matriks stdInput) {
+    public static matriks x (matriks stdInput) {
         /* Mengekstrak matriks x dari matriks stdInput */
         matriks x = new matriks();
         x.jumlahBaris = stdInput.jumlahBaris - 1;
@@ -81,7 +83,7 @@ public class InterpolasiPolinom {
         return x;
     }
 
-    static matriks fx (matriks stdInput) {
+    public static matriks fx (matriks stdInput) {
         /* Mengekstrak matriks fx dari matriks stdInput */
         matriks fx = new matriks();
         fx.jumlahBaris = stdInput.jumlahBaris - 1;
@@ -93,13 +95,13 @@ public class InterpolasiPolinom {
         return fx;
     }
 
-    static double a (matriks stdInput) {
+    public static double a (matriks stdInput) {
         /* Mengekstrak nilai a dari matriks stdInput */
         return stdInput.Mat[stdInput.jumlahBaris - 1][0];
     }
 
     /* MATH */
-    static matriks xi (matriks x) {
+    public static matriks xi (matriks x) {
         /* Membuat matriks xi dari matriks x */
         matriks xi = new matriks();
         xi.jumlahBaris = x.jumlahBaris;
@@ -114,7 +116,7 @@ public class InterpolasiPolinom {
         return xi;
     }
 
-    static matriks ai (matriks xi, matriks fx) {
+    public static matriks ai (matriks xi, matriks fx) {
         /* Membuat matriks ai dengan metode gauss dari matriks augmented xi|fx */ 
         matriks ai = new matriks();
         ai.jumlahBaris = fx.jumlahBaris;
@@ -140,7 +142,7 @@ public class InterpolasiPolinom {
         return ai;
     }
 
-    static double fa (matriks ai, double a) {
+    public static double fa (matriks ai, double a) {
         /* Menghasilkan f(a) */
         double fa;
         int baris;
@@ -156,7 +158,7 @@ public class InterpolasiPolinom {
     }
 
     /* PRINTING */
-    static void printFx(matriks ai) {
+    public static void printFx(matriks ai) {
         /* Print f(x), contohnya f(x) = -0.0064x^2 + 0.2266x - 0.6762, dengan beberapa aturan.
         Aturan untuk koefisien:
         - Jika semua koefisiennya bernilai nol, maka ditulis f(x) = 0

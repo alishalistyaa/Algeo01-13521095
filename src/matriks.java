@@ -1,3 +1,5 @@
+package src;
+
 /* Kelas ADT Matriks */
 // Import library
 import java.util.*;
@@ -12,12 +14,12 @@ public class matriks {
     double[][] Mat = new double[CAPACITY][CAPACITY];
     
     
-    int jumlahKolom = 0;
-    int jumlahBaris = 0;
+    public int jumlahKolom = 0;
+    public int jumlahBaris = 0;
 
 
     // Method:
-    void bacaMatriks(int m, int n){
+    public void bacaMatriks(int m, int n){
         /* Fungsi untuk mengisi elemen Matriks */
         // Kamus Lokal
         int i, j;
@@ -35,7 +37,7 @@ public class matriks {
 
     // blm jadi
     /* Baca Matriks dari File */
-    void bacaFileMatriks(String filename){
+    public void bacaFileMatriks(String filename){
         // Kamus Lokal
         File file = new File(filename);
         int i,j;
@@ -80,7 +82,7 @@ public class matriks {
         System.out.println(e.getMessage());}
     }
     
-    void bacaFileMatriksBolong(String filename, int nKosong){
+    public void bacaFileMatriksBolong(String filename, int nKosong){
         // Membuat matriks dengan bagian baris terbawah tidak lengkap sebanyak nbBolong element
         /* DEFAULT nKosong
          * Interpolasi Polinom: 1
@@ -138,7 +140,7 @@ public class matriks {
     }
 
     /* sebenernya ini gaperlu sih */
-    double getComponent(int n, int m){
+    public double getComponent(int n, int m){
         /* Fungsi untuk mendapatkan komponen matriks */
         // Kamus Lokal
 
@@ -147,14 +149,14 @@ public class matriks {
     }
 
     /* Apakah matriks penuh */
-    boolean penuhRow() {
+    public boolean penuhRow() {
         return (this.jumlahKolom == CAPACITY);
     }
-    boolean penuhCol() {
+    public boolean penuhCol() {
         return (this.jumlahBaris == CAPACITY);
     }
 
-    boolean isAllZero() {
+    public boolean isAllZero() {
         // Mengecek apakah semua elemen dalam matriks bernilai nol
         int i, j;
         boolean foundNonZero;
@@ -167,7 +169,7 @@ public class matriks {
         return !foundNonZero;
     }
     
-    void tulisMatriks(){
+    public void tulisMatriks(){
         /* I.S. Matriks terdefinisi */
         /* Menuliskan matriks pada layar */
         // Kamus Lokal
@@ -183,7 +185,7 @@ public class matriks {
         }  
     }  
 
-    void resetCap(int newCap){
+    public void resetCap(int newCap){
         //mengubah kapasitas matrix
         //matrix dikosongkan
         this.CAPACITY = newCap;

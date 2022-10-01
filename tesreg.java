@@ -1,3 +1,8 @@
+
+import src.RegresiLinierBerganda;
+import src.matriks;
+import src.operasiMatriks;
+
 public class tesreg {
     public static void main(String[] args) {
         matriks xnk = new matriks();

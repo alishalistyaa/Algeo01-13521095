@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 public class RegresiLinierBerganda {
@@ -26,7 +28,7 @@ public class RegresiLinierBerganda {
     /* Input dari Keyboard */
     static Scanner in = new Scanner (System.in);
 
-    static matriks stdInputKeyboard() {
+    public static matriks stdInputKeyboard() {
         /* Mengambil masukan dari keyboard, menghasilkan matriks stdInput */
         int n, m;
 
@@ -67,7 +69,7 @@ public class RegresiLinierBerganda {
     /* INPUT EXTRACTING */
     /* I.S. stdInput sudah dideklarasikan
        F.S. dari stdInput, diekstrak matriks xnm, ym, dan xk */
-    static matriks xnm(matriks stdInput) {
+    public static matriks xnm(matriks stdInput) {
         /* Mengekstrak matriks xnm dari matriks stdInput */
         matriks ones = new matriks();
         ones.jumlahBaris = stdInput.jumlahBaris - 1;
@@ -82,18 +84,18 @@ public class RegresiLinierBerganda {
         return xnm;
     }
 
-    static matriks ym (matriks stdInput) {
+    public static matriks ym (matriks stdInput) {
         /* Mengekstrak matriks ym dari matriks stdInput */
         return operasiMatriks.takeLastCol(operasiMatriks.sliceLastRow(stdInput));
     }
     
-    static matriks xk (matriks stdInput) {
+    public static matriks xk (matriks stdInput) {
         /* Mengekstrak matriks xk dari matriks stdInput */
         return operasiMatriks.takeLastRow(operasiMatriks.sliceLastCol(stdInput));
     }
 
     /* MATH */
-    static matriks b (matriks xnm, matriks ym) {
+    public static matriks b (matriks xnm, matriks ym) {
         /* Membuat matriks ai dengan metode gauss dari matriks augmented (transpose(xnm)) x (xnm) | (transpose(xnm)) x (ym) */
         matriks b = new matriks();
         b.jumlahBaris = xnm.jumlahKolom;
@@ -119,7 +121,7 @@ public class RegresiLinierBerganda {
         return b;
     }
 
-    static double fxk (matriks xk, matriks b) {
+    public static double fxk (matriks xk, matriks b) {
         /* Menghasilkan f(xk) */
         double hasil;
         hasil = b.Mat[0][0];
@@ -132,7 +134,7 @@ public class RegresiLinierBerganda {
     }
 
     /* PRINTING */
-    static void printFxk(matriks b) {
+    public static void printFxk(matriks b) {
         /* Print f(xk), contohnya f(xk) = -0.0064 + 0.2266x1 - 0.6762x2, dengan beberapa aturan.
         Aturan untuk koefisien:
         - Jika semua koefisiennya bernilai nol, maka ditulis f(xk) = 0
