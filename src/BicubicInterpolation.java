@@ -1,6 +1,8 @@
 package src;
 
 import java.lang.Math;
+import java.util.*;
+import java.io.*;
 
 public class BicubicInterpolation {
     /* Problem Bicubic Interpolation (Acuan: Halaman 3)
@@ -29,6 +31,8 @@ public class BicubicInterpolation {
        I.S. stdInput sudah dideklarasikan dan merupakan hasil dari bacaFileMatriksBolong(namafile, 2) 
        F.S. dari stdInput, diekstrak matriks fxy4x4, nilai a, dan b */
     
+    static Scanner in = new Scanner (System.in);
+
     public static double a (matriks stdInput) {
         /* Mengekstrak nilai a matriks stdInput */
         return stdInput.Mat[4][0];
@@ -104,5 +108,31 @@ public class BicubicInterpolation {
             }
         }
         return fab;
+    }
+
+    /* OUTPUT */
+    public static void BIFile(matriks aij, double a, double b) {
+        // Kamus Lokal
+        String filename;
+
+        // Algoritma
+        System.out.print("\nMasukkan nama file: ");
+        filename = in.nextLine() + ".txt";
+        try {
+            // Buat file
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
+
+            // Write
+            bw.write("Hasil Perhitungan Bicubic Interpolation");
+            bw.newLine();
+            bw.write(("f("+ a + ", " + b + ") = " + bicIntpol(aij, a, b)));
+            
+            bw.flush();
+            bw.close();
+
+        // Handling Error
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
