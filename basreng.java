@@ -13,7 +13,7 @@ public class basreng {
         matriks M = new matriks();
         matriks M2 = new matriks();
 
-        M = ImageUtil.loadImage("C:/Users/Muhamad/Desktop/tubes1/Algeo01-13521095/kecilbet.png");
+        M = ImageUtil.loadImage("C:/Users/Muhamad/Desktop/tubes1/Algeo01-13521095/imagefile.png");
 
         M2 = ImageUpsc.interpolate2x(M);
         ImageUtil.writeImage("Bwasrweng.png", M2);
