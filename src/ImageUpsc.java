@@ -68,12 +68,12 @@ public class ImageUpsc {
         temp.jumlahKolom = 3;
         fxy = zoning(MIn, 4, 4, startx, starty);
         fxy = linearize(fxy);
-        fxy = aij(fxy, inversedXiYj);
+        fxy = aijOptimized(fxy, inversedXiYj);
         float pointX = 0;
         float pointY = 0;
         for (int i = 0; i < temp.jumlahBaris; i++){
             for (int j = 0; j < temp.jumlahKolom; j++){
-                temp.Mat[i][j] = bicIntpol(fxy, pointX, pointY);
+                temp.Mat[i][j] = BicubicInterpolation.bicIntpol(fxy, pointX, pointY);
                 pointX += 0.5;
             }
             pointY += 0.5;
@@ -88,12 +88,12 @@ public class ImageUpsc {
         temp.jumlahKolom = 4;
         fxy = zoning(MIn, 4, 4, startx, starty);
         fxy = linearize(fxy);
-        fxy = aij(fxy, inversedXiYj);
+        fxy = aijOptimized(fxy, inversedXiYj);
         float pointX = 0;
         float pointY = 0;
         for (int i = 0; i < temp.jumlahBaris; i++){
             for (int j = 0; j < temp.jumlahKolom; j++){
-                temp.Mat[i][j] = bicIntpol(fxy, pointX, pointY);
+                temp.Mat[i][j] = BicubicInterpolation.bicIntpol(fxy, pointX, pointY);
                 pointX += 0.33;
             }
             pointY += 0.5;
@@ -108,12 +108,12 @@ public class ImageUpsc {
         temp.jumlahKolom = 3;
         fxy = zoning(MIn, 4, 4, startx, starty);
         fxy = linearize(fxy);
-        fxy = aij(fxy, inversedXiYj);
+        fxy = aijOptimized(fxy, inversedXiYj);
         float pointX = 0;
         float pointY = 0;
         for (int i = 0; i < temp.jumlahBaris; i++){
             for (int j = 0; j < temp.jumlahKolom; j++){
-                temp.Mat[i][j] = bicIntpol(fxy, pointX, pointY);
+                temp.Mat[i][j] = BicubicInterpolation.bicIntpol(fxy, pointX, pointY);
                 pointX += 0.5;
             }
             pointY += 0.33;
@@ -128,12 +128,12 @@ public class ImageUpsc {
         temp.jumlahKolom = 4;
         fxy = zoning(MIn, 4, 4, startx, starty);
         fxy = linearize(fxy);
-        fxy = aij(fxy, inversedXiYj);
+        fxy = aijOptimized(fxy, inversedXiYj);
         float pointX = 0;
         float pointY = 0;
         for (int i = 0; i < temp.jumlahBaris; i++){
             for (int j = 0; j < temp.jumlahKolom; j++){
-                temp.Mat[i][j] = bicIntpol(fxy, pointX, pointY);
+                temp.Mat[i][j] = BicubicInterpolation.bicIntpol(fxy, pointX, pointY);
                 pointX += 0.33;
             }
             pointY += 0.33;
@@ -231,23 +231,8 @@ public class ImageUpsc {
         return temp;
     }
 
-    static matriks aij (matriks fxy, matriks inversedXiYj) {
+    static matriks aijOptimized (matriks fxy, matriks inversedXiYj) {
         return operasiMatriks.perkalianMatriks(inversedXiYj, fxy);
-    }
-
-    static double bicIntpol (matriks aij, double a, double b) {
-        // Menghasilkan nilai f(a,b)
-        int i, j, baris;
-        double fab;
-        fab = 0;
-        baris = 0;
-        for (j = 0; j <= 3; j++) {
-            for (i = 0; i <= 3; i++) {
-                fab += aij.Mat[baris][0] * Math.pow(a, i) * Math.pow(b, j);
-                baris++;
-            }
-        }
-        return fab;
     }
 
     static void tidyUp(matriks MIn){
