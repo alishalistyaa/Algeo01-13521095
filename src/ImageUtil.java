@@ -1,3 +1,5 @@
+package src;
+
 // Import utilities
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,7 +11,7 @@ public class ImageUtil {
     // matriks valuePixel = new matriks();
 
     // Load Image
-    static matriks loadImage(String filename){
+    public static matriks loadImage(String filename){
     /* Membaca Value dari setiap pixel dalam image */
     matriks valuePixel = new matriks();
         try{
@@ -39,7 +41,7 @@ public class ImageUtil {
         return (valuePixel);
     }
 
-    static void writeImage(String filename, matriks m){
+    public static void writeImage(String filename, matriks m){
         /* Membaca matriks hasil perbesaran dan mewrite image berdasarkan matriks tersebut */
         // Kamus Lokal
         int height, width;

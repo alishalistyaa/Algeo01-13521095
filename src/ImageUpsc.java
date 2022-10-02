@@ -1,12 +1,9 @@
-
-
-
-
+package src;
 
 public class ImageUpsc {
     //BAKAL MAKE MEMORI BANYAK, KEEP IN MIND!
 
-    static matriks XiYj () {
+    public static matriks XiYj () {
         // Membuat matriks XiYj berdimensi 16 x 16
         matriks XiYj = new matriks();
         XiYj.jumlahBaris = 16;
@@ -29,7 +26,7 @@ public class ImageUpsc {
         return XiYj;
     }
 
-    static matriks zoning(matriks MIn, int sizex, int sizey, int startx, int starty){
+    public static matriks zoning(matriks MIn, int sizex, int sizey, int startx, int starty){
         //memotong daerah matriks
         matriks temp = new matriks();
         int baris, kolom;
@@ -170,7 +167,7 @@ public class ImageUpsc {
     }
     //akhir library interpolasi
     //fungsi interpolasi utama
-    static matriks interpolate2x(matriks MIn){
+    public static matriks interpolate2x(matriks MIn){
         matriks temp = new matriks();
         matriks mover = new matriks();
         matriks inversedXiYj = new matriks();

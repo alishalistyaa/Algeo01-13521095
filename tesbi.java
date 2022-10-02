@@ -1,4 +1,8 @@
-import java.util.*;
+import src.BicubicInterpolation;
+import src.matriks;
+import src.operasiMatriks;
+
+
 public class tesbi {
     public static void main(String[] args) {
 

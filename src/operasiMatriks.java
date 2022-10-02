@@ -1,15 +1,16 @@
+package src;
 
 public class operasiMatriks{
 
     // jujur yg dibawah ini bingung mau di operasi ato di matriks.java
     
     /*** VALIDASI MATRIKS ***/
-    static boolean isEqual(matriks M1, matriks M2){
+    public static boolean isEqual(matriks M1, matriks M2){
     /* Mendapatkan true jika Matriks 1 berdimensi sama dengan Matriks 2 */
         return ((M1.jumlahBaris == M2.jumlahBaris) && (M1.jumlahKolom == M2.jumlahKolom));
     }
 
-    static matriks cloneMatriks(matriks MIn){
+    public static matriks cloneMatriks(matriks MIn){
     /* Menduplikasi matriks */
         // Kamus Lokal
         matriks MOut = new matriks();
@@ -25,7 +26,7 @@ public class operasiMatriks{
     }
 
     /*** OPERASI MATRIKS ***/
-    static matriks pertambahanMatriks(matriks M1, matriks M2){
+    public static matriks pertambahanMatriks(matriks M1, matriks M2){
     /* Menambahkan matriks*/
         //prekondisi ukuran M1 == ukuran M2
         // Kamus Lokal
@@ -42,7 +43,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks penguranganMatriks(matriks M1, matriks M2){
+    public static matriks penguranganMatriks(matriks M1, matriks M2){
     /* Pengurangan dua matriks*/
         //prekondisi ukuran M1 == ukuran M2
         // Kamus Lokal
@@ -57,7 +58,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks perkalianMatriks(matriks M1, matriks M2){
+    public static matriks perkalianMatriks(matriks M1, matriks M2){
     /* Perkalian dua matriks*/
         //prekondisi ukuran M1 aXb == ukuran M2 bXc
         //jumlah kolom M1 = jumlah baris M2
@@ -83,7 +84,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks transpose(matriks MIn){
+    public static matriks transpose(matriks MIn){
     /* Mengeluarkan matriks transpose */
         // Kamus Lokal
         matriks MOut = new matriks();
@@ -100,7 +101,7 @@ public class operasiMatriks{
     }
 
     /*** OPERASI BARIS ELEMENTER (OBE) ***/
-    static matriks swapBaris(matriks MIn, int b1, int b2){
+    public static matriks swapBaris(matriks MIn, int b1, int b2){
         matriks MOut = new matriks();
 
         MOut = cloneMatriks(MIn);
@@ -111,7 +112,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks barisXkonstanta(matriks MIn, int baris, double konstanta){
+    public static matriks barisXkonstanta(matriks MIn, int baris, double konstanta){
         matriks MOut = new matriks();
 
 
@@ -124,7 +125,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks barisMinKaliBaris(matriks MIn, int barisTujuan, int barisPengurang, double konstanta){
+    public static matriks barisMinKaliBaris(matriks MIn, int barisTujuan, int barisPengurang, double konstanta){
         matriks MOut = new matriks();
 
         MOut = cloneMatriks(MIn);
@@ -137,7 +138,7 @@ public class operasiMatriks{
     }
 
 
-    static matriks compact0(matriks MIn){
+    public static matriks compact0(matriks MIn){
         //Madetin 0 ke bagian bawah
         matriks MOut = new matriks();
         int kolom = 0;
@@ -178,7 +179,7 @@ public class operasiMatriks{
     }
 
 
-    static matriks gauss(matriks MIn){
+    public static matriks gauss(matriks MIn){
         matriks MOut = new matriks();
         int kolom = 0;
         int baris = 0;
@@ -206,9 +207,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-
-
-    static matriks gaussJordan(matriks MIn){
+    public static matriks gaussJordan(matriks MIn){
         matriks MOut = new matriks();
         int kolom = 0;
         int baris = 0;
@@ -238,7 +237,7 @@ public class operasiMatriks{
     }
 
 
-    static matriks invIdentitas(matriks MIn){
+    public static matriks invIdentitas(matriks MIn){
         matriks MTemp = new matriks();
         matriks MId = new matriks();
         double cache = 0;
@@ -371,7 +370,7 @@ public class operasiMatriks{
     }
 
 
-    static double detOBE(matriks MIn){
+    public static double detOBE(matriks MIn){
     /* Mengembalikan determinan matriks */
         //prekondisi berukuran aXa
         //determinan dicari menggunakan metode segitiga atas
@@ -467,7 +466,7 @@ public class operasiMatriks{
         return det;
     }
 
-    static matriks sliceLastCol(matriks MIn) {
+    public static matriks sliceLastCol(matriks MIn) {
         // buang kolom terakhir
         matriks MOut = new matriks();
         MOut.jumlahBaris = MIn.jumlahBaris;
@@ -480,7 +479,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks sliceLastRow(matriks MIn) {
+    public static matriks sliceLastRow(matriks MIn) {
         // buang kolom terakhir
         matriks MOut = new matriks();
         MOut.jumlahBaris = MIn.jumlahBaris - 1;
@@ -493,7 +492,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks takeLastCol(matriks MIn) {
+    public static matriks takeLastCol(matriks MIn) {
         // ambil kolom terakhir
         matriks MOut = new matriks();
         MOut.jumlahBaris = MIn.jumlahBaris;
@@ -504,7 +503,18 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks concatKolom (matriks m1, matriks m2) {
+    public static matriks takeLastRow(matriks MIn) {
+        // ambil baris terakhir
+        matriks MOut = new matriks();
+        MOut.jumlahBaris = 1;
+        MOut.jumlahKolom = MIn.jumlahKolom;
+        for (int j = 0; j < MOut.jumlahKolom; j++) {
+            MOut.Mat[0][j] = MIn.Mat[MIn.jumlahBaris - 1][j];
+        }
+        return MOut;
+    }
+    
+    public static matriks concatKolom (matriks m1, matriks m2) {
         // Menyatukan m1 dan m2
         // PREKONDISI: m1.jumlahBaris = m2.jumlahBaris
         matriks m3 = new matriks();
@@ -524,7 +534,7 @@ public class operasiMatriks{
     }
     
     // for finding inverse w adj method and determinant w cofactor expansion method
-    static matriks slice(matriks MIn, int i, int j) {
+    public static matriks slice(matriks MIn, int i, int j) {
         // mengambil elemen matriks yang BUKAN berbaris i atau BUKAN berkolom j
         matriks MOut = new matriks();
         MOut.jumlahBaris = MIn.jumlahBaris - 1;
@@ -541,7 +551,7 @@ public class operasiMatriks{
         return MOut;
     }
     
-    static double cof(matriks MIn, int i, int j) {
+    public static double cof(matriks MIn, int i, int j) {
         // cof dari mat minor, MIn harus matriks persegi
         double cof;
         cof = detOBE(slice(MIn, i, j));
@@ -551,7 +561,7 @@ public class operasiMatriks{
         return cof;
     }
 
-    static matriks matCof(matriks MIn) {
+    public static matriks matCof(matriks MIn) {
         // matriks isinya matriks kofaktor tiap elemen i, j
         matriks MOut = new matriks();
         MOut.jumlahBaris = MIn.jumlahBaris;
@@ -569,7 +579,7 @@ public class operasiMatriks{
        sedangkan si fungsi slice() itu bakal ngebuang bbrp baris dan kolom. satu2nya yang bisa dipastiin dari setiap matriks
        yang diinput ke fungsi ini ya yang pasti punya baris 0 (gabisa milih baris mana karna takutnya dia ngakses baris di luar 
        indeks yang valid) */
-    static double detExCofRow0 (matriks MIn) {
+    public static double detExCofRow0 (matriks MIn) {
         // PREKONDISI: MIn matriks persegi
         double det;
         if (MIn.jumlahBaris == 1) {
@@ -587,7 +597,7 @@ public class operasiMatriks{
         return det;
     }
 
-    static double detExCofCol0 (matriks MIn) {
+    public static double detExCofCol0 (matriks MIn) {
         // PREKONDISI: MIn matriks persegi
         double det;
         if (MIn.jumlahKolom == 1) {
@@ -605,7 +615,7 @@ public class operasiMatriks{
         return det;
     }
 
-    static matriks invAdj(matriks MIn) {
+    public static matriks invAdj(matriks MIn) {
         // PREKONDISI: MIn matriks persegi, DET MIn != 0
         matriks MOut = new matriks();
         MOut = transpose(matCof(MIn));
@@ -617,7 +627,7 @@ public class operasiMatriks{
         return MOut;
     }
 
-    static matriks cramerSwap(matriks a, matriks fx, int col){
+    public static matriks cramerSwap(matriks a, matriks fx, int col){
         matriks temp = new matriks();
         temp = cloneMatriks(a);
 
