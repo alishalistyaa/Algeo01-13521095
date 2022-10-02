@@ -213,7 +213,7 @@ public class Main {
                 //Keluar
                 case 8:
                 jalan = false;
-                System.out.println("\nTerima kasih sudah menggungakan aplikasi.");
+                System.out.println("\nTerima kasih sudah menggunakan aplikasi.\nSalam basreng xixixixi <3 <3\n");
                 break;
             }
             
@@ -265,11 +265,34 @@ public class Main {
             break;
 
             case 2:
-            System.out.print("\nMasukkan jumlah persamaan: ");
-            baris = in.nextInt();
+            do{
+                System.out.print("\nMasukkan jumlah persamaan: ");
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    baris = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    baris = 0;
+                }
+                if (baris <= 0) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (baris <= 0);
 
-            System.out.print("Masukkan jumlah variabel: ");
-            kolom = in.nextInt() + 1;
+            do{
+                System.out.print("Masukkan jumlah variabel: ");
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    kolom = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    kolom = 0;
+                }
+                if (kolom <= 0) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (kolom <= 0);
+            kolom = kolom + 1;
 
             System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
             M.bacaMatriks(baris , kolom);
@@ -347,11 +370,34 @@ public class Main {
             break;
 
             case 2:
-            System.out.print("\nMasukkan jumlah persamaan: ");
-            baris = in.nextInt();
-    
-            System.out.print("Masukkan jumlah variabel: ");
-            kolom = in.nextInt() + 1;
+            do{
+                System.out.print("\nMasukkan jumlah persamaan: ");
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    baris = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    baris = 0;
+                }
+                if (baris <= 0) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (baris <= 0);
+
+            do{
+                System.out.print("Masukkan jumlah variabel: ");
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    kolom = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    kolom = 0;
+                }
+                if (kolom <= 0) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (kolom <= 0);
+            kolom = kolom + 1;
     
             System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
             M.bacaMatriks(baris , kolom);
@@ -398,7 +444,7 @@ public class Main {
         String line;
         String[] row;
         matriks M = new matriks();
-        int dimensi, input;
+        int input, baris, kolom;
         Boolean notFirst = false;
 
         System.out.println("\nPilih metode masukan:");
@@ -433,17 +479,32 @@ public class Main {
                 line = in.nextLine();
                 row = line.split(" ");
                 try {
-                    dimensi = Integer.parseInt(row[0]);
+                    baris = Integer.parseInt(row[0]);
                 } catch (NumberFormatException e) {
-                    dimensi = 0;
+                    baris = 0;
                 }
-                if (dimensi <= 0) {
+                if (baris <= 0) {
                     System.out.println("Input tidak valid");
                 } 
-            } while (dimensi <= 0);
+            } while (baris <= 0);
+
+            do{
+                System.out.print("Masukkan jumlah variabel: ");
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    kolom = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    kolom = 0;
+                }
+                if (kolom <= 0) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (kolom <= 0);
+            kolom = kolom + 1;
     
             System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
-            M.bacaMatriks(dimensi, dimensi+1);
+            M.bacaMatriks(baris, kolom);
             break;
         }
         
@@ -486,7 +547,7 @@ public class Main {
         String line;
         String[] row;
         matriks M = new matriks();
-        int dimensi, input;
+        int input, baris, kolom;
         Boolean notFirst = false;
 
         System.out.println("\nPilih metode masukan:");
@@ -521,17 +582,32 @@ public class Main {
                 line = in.nextLine();
                 row = line.split(" ");
                 try {
-                    dimensi = Integer.parseInt(row[0]);
+                    baris = Integer.parseInt(row[0]);
                 } catch (NumberFormatException e) {
-                    dimensi = 0;
+                    baris = 0;
                 }
-                if (dimensi <= 0) {
+                if (baris <= 0) {
                     System.out.println("Input tidak valid");
                 } 
-            } while (dimensi <= 0);
+            } while (baris <= 0);
+
+            do{
+                System.out.print("Masukkan jumlah variabel: ");
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    kolom = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    kolom = 0;
+                }
+                if (kolom <= 0) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (kolom <= 0);
+            kolom = kolom + 1;
     
             System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
-            M.bacaMatriks(dimensi, dimensi+1);
+            M.bacaMatriks(baris, kolom);
             break;
         }
 
