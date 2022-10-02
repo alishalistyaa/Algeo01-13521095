@@ -43,11 +43,11 @@ public class Main {
             System.out.println("8. Keluar");
 
             do{
-                input = in.nextInt();
-                if (input <= 0 && input > 8) {
+                input = Integer.parseInt(in.nextLine());
+                if (input <= 0 || input > 8) {
                     System.out.println("Input tidak valid");
                 } 
-            } while (input <= 0 && input > 8);
+            } while (input <= 0 || input > 8);
 
             switch (input) {
                 //SPL
@@ -61,10 +61,10 @@ public class Main {
 
                 do{
                     input = in.nextInt();
-                    if (input <= 0 && input > 5) {
+                    if (input <= 0 || input > 5) {
                         System.out.println("Input tidak valid");
                     } 
-                } while (input <= 0 && input > 5);
+                } while (input <= 0 || input > 5);
                 
                 switch (input){
                     //Metode Eliminasi Gauss
@@ -104,10 +104,10 @@ public class Main {
 
                 do{
                     input = in.nextInt();
-                    if (input <= 0 && input > 4) {
+                    if (input <= 0 || input > 4) {
                         System.out.println("Input tidak valid");
                     } 
-                } while (input <= 0 && input > 4);
+                } while (input <= 0 || input > 4);
                 
                 switch (input){
                     //Metode OBE
@@ -141,10 +141,10 @@ public class Main {
 
                 do{
                     input = in.nextInt();
-                    if (input <= 0 && input > 7) {
+                    if (input <= 0 || input > 3) {
                         System.out.println("Input tidak valid");
                     } 
-                } while (input <= 0 && input > 5);
+                } while (input <= 0 || input > 3);
                 
                 switch (input){
                     //Metode Identitas
@@ -221,10 +221,10 @@ public class Main {
         System.out.println("2. Tidak");
         do{
             input = in.nextInt();
-            if (input <= 0 && input > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (input <= 0 && input > 2);
+        } while (input <= 0 || input > 2);
 
         switch (input){
             case 1:
@@ -257,10 +257,10 @@ public class Main {
         System.out.println("2. Tidak");
         do{
             input = in.nextInt();
-            if (input <= 0 && input > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (input <= 0 && input > 2);
+        } while (input <= 0 || input > 2);
 
         switch (input){
             case 1:
@@ -289,10 +289,10 @@ public class Main {
         System.out.println("2. Tidak");
         do{
             input = in.nextInt();
-            if (input <= 0 && input > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (input <= 0 && input > 2);
+        } while (input <= 0 || input > 2);
 
         switch (input){
             case 1:
@@ -321,10 +321,10 @@ public class Main {
         System.out.println("2. Tidak");
         do{
             input = in.nextInt();
-            if (input <= 0 && input > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (input <= 0 && input > 2);
+        } while (input <= 0 || input > 2);
 
         switch (input){
             case 1:
@@ -357,10 +357,10 @@ public class Main {
         System.out.println("2. Tidak");
         do{
             input = in.nextInt();
-            if (input <= 0 && input > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (input <= 0 && input > 2);
+        } while (input <= 0 || input > 2);
 
         switch (input){
             case 1:
@@ -392,10 +392,10 @@ public class Main {
         System.out.println("2. Tidak");
         do{
             input = in.nextInt();
-            if (input <= 0 && input > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (input <= 0 && input > 2);
+        } while (input <= 0 || input > 2);
 
         switch (input){
             case 1:
@@ -427,10 +427,10 @@ public class Main {
         System.out.println("2. Tidak");
         do{
             input = in.nextInt();
-            if (input <= 0 && input > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (input <= 0 && input > 2);
+        } while (input <= 0 || input > 2);
 
         switch (input){
             case 1:
@@ -467,10 +467,10 @@ public class Main {
             System.out.println("2. Tidak");
             do{
                 input = in.nextInt();
-                if (input <= 0 && input > 2) {
+                if (input <= 0 || input > 2) {
                     System.out.println("Input tidak valid");
                 } 
-            } while (input <= 0 && input > 2);
+            } while (input <= 0 || input > 2);
     
             switch (input){
                 case 1:
@@ -508,10 +508,10 @@ public class Main {
             System.out.println("2. Tidak");
             do{
                 input = in.nextInt();
-                if (input <= 0 && input > 2) {
+                if (input <= 0 || input > 2) {
                     System.out.println("Input tidak valid");
                 } 
-            } while (input <= 0 && input > 2);
+            } while (input <= 0 || input > 2);
     
             switch (input){
                 case 1:
@@ -536,7 +536,7 @@ public class Main {
         matriks stdInput = new matriks();
 
         do{
-            metodeInput = in.nextInt();
+            metodeInput = Integer.parseInt(in.nextLine());
             if (metodeInput <= 0 || metodeInput > 2) {
                 System.out.println("Input tidak valid");
             } 
@@ -588,7 +588,7 @@ public class Main {
         matriks stdInput = new matriks();
 
         do{
-            metodeInput = in.nextInt();
+            metodeInput = Integer.parseInt(in.nextLine());
             if (metodeInput <= 0 || metodeInput > 2) {
                 System.out.println("Input tidak valid");
             } 
