@@ -1,6 +1,7 @@
 package src;
 
 import java.util.*;
+import java.io.*; 
 
 public class RegresiLinierBerganda {
     /* Problem Regresi Linear Berganda
@@ -133,23 +134,21 @@ public class RegresiLinierBerganda {
         return hasil;
     }
 
-    /* PRINTING */
-    public static void printFxk(matriks b) {
-        /* Print f(xk), contohnya f(xk) = -0.0064 + 0.2266x1 - 0.6762x2, dengan beberapa aturan.
+    /* OUTPUT */
+    public static String fxkString (matriks b) {
+        /* Menghasilkan string penjabaran f(xk), contohnya "f(xk) = -0.0064 + 0.2266x1 - 0.6762x2", dengan beberapa aturan.
         Aturan untuk koefisien:
         - Jika semua koefisiennya bernilai nol, maka ditulis f(xk) = 0
         - Jika koefisien dari suatu suku bernilai 0, sukunya tidak ditulis
         - Jika koefisien dari suatu suku bernilai positif, digunakan tanda +, jika negatif, digunakan tanda -
         - Jika koefisien bernilai 1 atau -1, koefisien tidak ditulis, kecuali jika koefisien tersebut adalah konstanta dari f(xk) */
-
-        System.out.print("f(xk) =");
-
+        String fxk = "f(xk) =";
         int firstNonZeroIdx;
         boolean found;
 
         if (b.isAllZero()) {
             /* Jika semua koefisiennya bernilai nol, maka ditulis f(xk) = 0 */
-            System.out.print(" 0");
+            fxk += " 0";
         } else {
             /* Mencari indeks baris pertama di matriks b yang tidak bernilai nol */
             firstNonZeroIdx = 0;
@@ -161,68 +160,97 @@ public class RegresiLinierBerganda {
                 }
             }
 
-            /* Print koefisien dari suku pertama */
+            /* Add koefisien dari suku pertama */
             if (b.Mat[firstNonZeroIdx][0] > 0) {
                 if (b.Mat[firstNonZeroIdx][0] != 1) {
-                    System.out.print(" " + b.Mat[firstNonZeroIdx][0]);
+                    fxk += (" " + (b.Mat[firstNonZeroIdx][0]));
                 } else {
                     if (firstNonZeroIdx == 0) {
-                        System.out.print(" " + b.Mat[firstNonZeroIdx][0]);
+                        fxk += (" " + (b.Mat[firstNonZeroIdx][0]));
                     } else {
-                        System.out.print(" ");
+                        fxk += (" ");
                     }
                 }
             } else {
                 if (b.Mat[firstNonZeroIdx][0] != -1) {
-                    System.out.print(" - " + (-1) * b.Mat[firstNonZeroIdx][0]);
+                    fxk += (" - " + ((-1) * b.Mat[firstNonZeroIdx][0]));
                 } else {
                     if (firstNonZeroIdx == 0) {
-                        System.out.print(" - " + (-1) * b.Mat[firstNonZeroIdx][0]);
+                        fxk += (" - " + ((-1) * b.Mat[firstNonZeroIdx][0]));
                     } else {
-                        System.out.print(" - ");
+                        fxk += (" - ");
                     }
                 }    
             }
             
-            /* Print xk dari suku pertama */
+            /* Add xk dari suku pertama */
             if (firstNonZeroIdx != 0) {
-                System.out.print("x" + firstNonZeroIdx);
+                fxk += ("x" + (firstNonZeroIdx));
             }
 
-            /* Print suku-suku selanjutnya */
+            /* Add suku-suku selanjutnya */
             for (int i = firstNonZeroIdx + 1; i <= b.jumlahBaris - 1; i++) {
                 if (b.Mat[i][0] != 0) {
                     /* Print koefisien dari suku */
                     if (b.Mat[i][0] > 0) {
                         if (b.Mat[i][0] != 1) {
-                            System.out.print(" + " + b.Mat[i][0]);
+                            fxk += (" + " + (b.Mat[i][0]));
                         } else {
                             if (i == 0) {
-                                System.out.print(" + " + b.Mat[i][0]);
+                                fxk += (" + " + (b.Mat[i][0]));
                             } else {
-                                System.out.print(" + ");
+                                fxk += (" + ");
                             }
                         }
                     } else {
                         if (b.Mat[i][0] != -1) {
-                            System.out.print(" - " + (-1) * b.Mat[i][0]);
+                            fxk += (" - " + ((-1) * b.Mat[i][0]));
                         } else {
                             if (i == 0) {
-                                System.out.print(" - " + (-1) * b.Mat[i][0]);
+                                fxk += (" - " + ((-1) * b.Mat[i][0]));
                             } else {
-                                System.out.print(" - ");
+                                fxk += (" - ");
                             }
                         }
                     }
 
-                    /* Print xk dari suku-suku selanjutnya*/
+                    /* Add xk dari suku-suku selanjutnya*/
                     if (i != 0) {
-                        System.out.print("x" + i);
+                        fxk += ("x" + (i));
                     }
                 }
             }
         }
-        System.out.print("\n");  
+        return fxk;
     }
     
+    public static void RLBFile(matriks xk, matriks b) {
+        // Kamus Lokal
+        String filename;
+
+        // Algoritma
+        System.out.print("\nMasukkan nama file: ");
+        filename = in.nextLine() + ".txt";
+        try {
+            // Buat file
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
+
+            // Write
+            bw.write("Hasil Perhitungan Regresi Linear Berganda");
+            bw.newLine();
+            bw.write("Penjabaran f(xk):");
+            bw.newLine();
+            bw.write(fxkString(b));
+            bw.newLine();
+            bw.write("Hasil substitusi dengan nilai xk dari masukan:");
+            bw.newLine();
+            bw.write(("f(xk) = " + fxk(xk, b)));
+            bw.flush();
+            bw.close();
+
+        // Handling Error
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

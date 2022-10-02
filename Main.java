@@ -1023,27 +1023,30 @@ public class Main {
     public static void InterPolin() {
         String line;
         String[] row;
+
+        /* Memilih metode input */
         System.out.println("\nPilih metode masukan:");
         System.out.println("1. Dari file");
         System.out.println("2. Dari keyboard");
 
-        int metodeInput;
+        int input;
         matriks stdInput = new matriks();
 
         do{
             line = in.nextLine();
             row = line.split(" ");
             try {
-                metodeInput = Integer.parseInt(row[0]);
+                input = Integer.parseInt(row[0]);
             } catch (NumberFormatException e) {
-                metodeInput = 0;
+                input = 0;
             }
-            if (metodeInput <= 0 || metodeInput > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (metodeInput <= 0 || metodeInput > 2);
+        } while (input <= 0 || input > 2);
 
-        switch (metodeInput) {
+        /* Memberi masukan */
+        switch (input) {
             case 1:
             System.out.print("\nPastikan file masukan sudah dimasukkan ke folder test.");
             System.out.print("\nNama file (.txt): ");
@@ -1057,29 +1060,102 @@ public class Main {
             break;
         }
 
-        if (!(stdInput.jumlahBaris == 0 && stdInput.jumlahKolom == 0)) {
+        /* Proses */
+        if (!(stdInput.jumlahBaris == 0 || stdInput.jumlahKolom == 0)) {
             matriks ai = InterpolasiPolinom.ai(InterpolasiPolinom.xi(InterpolasiPolinom.x(stdInput)),InterpolasiPolinom.fx(stdInput));
             double a = InterpolasiPolinom.a(stdInput);
+            
+            /* Output terminal */
             System.out.println("\nHasil Interpolasi Polinom");
-            InterpolasiPolinom.printFx(ai);
+            System.out.println(InterpolasiPolinom.fxString(ai));
             System.out.println("f("+ a +") = " + InterpolasiPolinom.fa(ai, a));
+            
+            /* Output file */
+            System.out.println("\nApakah ingin dalam bentuk file?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            do{
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    input = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    input = 0;
+                }
+                if (input <= 0 || input > 2) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (input <= 0 || input > 2);
+        
+            switch (input){
+                case 1:
+                InterpolasiPolinom.IPFile(ai, a);
+                break;
+        
+                case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
+                break;
+            }
+
+        } else {
+            System.out.println("\nOperasi gagal, kembali ke menu utama...");
         }
     }
 
     //INTERPOLASI BICUBIC
     public static void BicInter() {
+        String line;
+        String[] row;
+        int input;
+
         matriks stdInput = new matriks();
+    
+        /* Menerima masukan dari file */
         System.out.print("\nPastikan file masukan sudah dimasukkan ke folder test.");
         System.out.print("\nNama file (.txt): ");
         String namaFile = in.nextLine();
         String pathFile = "./test/" + namaFile;
         stdInput.bacaFileMatriksBolong(pathFile, 2);
-        if (!(stdInput.jumlahBaris == 0 && stdInput.jumlahKolom == 0)) {
+
+        /* Proses */
+        if (!(stdInput.jumlahBaris == 0 || stdInput.jumlahKolom == 0)) {
             matriks aij = BicubicInterpolation.aij(BicubicInterpolation.fxy(BicubicInterpolation.fxy4x4(stdInput)));
             double a = BicubicInterpolation.a(stdInput);
             double b = BicubicInterpolation.b(stdInput);
+
+            /* Output terminal */
             System.out.println("\nHasil Bicubic Interpolation");
             System.out.println("f(" + a + "," + b + ") = " + BicubicInterpolation.bicIntpol(aij, a, b));
+            
+            /* Output file */
+            System.out.println("\nApakah ingin dalam bentuk file?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            do{
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    input = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    input = 0;
+                }
+                if (input <= 0 || input > 2) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (input <= 0 || input > 2);
+        
+            switch (input){
+                case 1:
+                BicubicInterpolation.BIFile(aij, a, b);
+                break;
+        
+                case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
+                break;
+            }
+
+        } else {
+            System.out.println("\nOperasi gagal, kembali ke menu utama...");
         }
     }
 
@@ -1087,27 +1163,30 @@ public class Main {
     public static void RegLinBerganda() {
         String line;
         String[] row;
+        int input;
+
+        matriks stdInput = new matriks();
+
+        /* Pilih metode masukan */
         System.out.println("\nPilih metode masukan:");
         System.out.println("1. Dari file");
         System.out.println("2. Dari keyboard");
-
-        int metodeInput;
-        matriks stdInput = new matriks();
 
         do{
             line = in.nextLine();
             row = line.split(" ");
             try {
-                metodeInput = Integer.parseInt(row[0]);
+                input = Integer.parseInt(row[0]);
             } catch (NumberFormatException e) {
-                metodeInput = 0;
+                input = 0;
             }
-            if (metodeInput <= 0 || metodeInput > 2) {
+            if (input <= 0 || input > 2) {
                 System.out.println("Input tidak valid");
             } 
-        } while (metodeInput <= 0 || metodeInput > 2);
+        } while (input <= 0 || input > 2);
 
-        switch (metodeInput) {
+        /* Menerima masukan */
+        switch (input) {
             case 1:
             System.out.print("\nPastikan file masukan sudah dimasukkan ke folder test.");
             System.out.print("\nNama file (.txt): ");
@@ -1121,10 +1200,45 @@ public class Main {
             break;
         }
 
-        if (!(stdInput.jumlahBaris == 0 && stdInput.jumlahKolom == 0)) {
-            System.out.println("\nHasil Regresi Linear Berganda");
-            RegresiLinierBerganda.printFxk(RegresiLinierBerganda.b(RegresiLinierBerganda.xnm(stdInput), RegresiLinierBerganda.ym(stdInput)));
+        /* Proses */
+        if (!(stdInput.jumlahBaris == 0 || stdInput.jumlahKolom == 0)) {
+            matriks xk = RegresiLinierBerganda.xk(stdInput);
+            matriks b = RegresiLinierBerganda.b(RegresiLinierBerganda.xnm(stdInput), RegresiLinierBerganda.ym(stdInput));
+            
+            /* Output terminal */
+            System.out.println("\nHasil Perhitungan Regresi Linear Berganda");
+            System.out.println("Penjabaran f(xk):");
+            System.out.println(RegresiLinierBerganda.fxkString(b));
+            System.out.println("Hasil substitusi dengan nilai xk dari masukan:");
             System.out.println("f(xk) = " + RegresiLinierBerganda.fxk(RegresiLinierBerganda.xk(stdInput), RegresiLinierBerganda.b(RegresiLinierBerganda.xnm(stdInput), RegresiLinierBerganda.ym(stdInput))));
+            
+            /* Output file */
+            System.out.println("\nApakah ingin dalam bentuk file?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            do{
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    input = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    input = 0;                    }
+                    if (input <= 0 || input > 2) {
+                        System.out.println("Input tidak valid");
+                    } 
+            } while (input <= 0 || input > 2);
+    
+            switch (input){
+                case 1:
+                RegresiLinierBerganda.RLBFile(xk, b);;
+                break;
+    
+                case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
+                break;
+            }
+        } else {
+            System.out.println("\nOperasi gagal, kembali ke menu utama...");
         }
     }
 

@@ -2,6 +2,7 @@ package src;
 
 import java.lang.Math;
 import java.util.*;
+import java.io.*; 
 
 public class InterpolasiPolinom {
     /* Problem Interpolasi Polinom
@@ -157,9 +158,9 @@ public class InterpolasiPolinom {
         return fa;
     }
 
-    /* PRINTING */
-    public static void printFx(matriks ai) {
-        /* Print f(x), contohnya f(x) = -0.0064x^2 + 0.2266x - 0.6762, dengan beberapa aturan.
+    /* OUTPUT */
+    public static String fxString(matriks ai) {
+        /* Membuat string penjabaran f(x), contohnya "f(x) = -0.0064x^2 + 0.2266x - 0.6762", dengan beberapa aturan.
         Aturan untuk koefisien:
         - Jika semua koefisiennya bernilai nol, maka ditulis f(x) = 0
         - Jika koefisien dari suatu suku bernilai 0, sukunya tidak ditulis
@@ -168,15 +169,14 @@ public class InterpolasiPolinom {
         Aturan untuk x^:
         - Jika derajat x dari suatu suku bernilai 1, pangkat tidak ditulis
         - Jika derajat x dari suatu suku bernilai 0, x dan pangkatnya tidak ditulis */
-
-        System.out.print("f(x) =");
+        String fx = "f(x) =";
 
         int lastNonZeroIdx;
         boolean found;
 
         if (ai.isAllZero()) {
             /* Jika semua koefisiennya bernilai nol, maka ditulis f(x) = 0 */
-            System.out.print(" 0");
+            fx += (" 0");
         } else {
             /* Mencari indeks baris terakhir di matriks ai yang tidak bernilai nol */
             lastNonZeroIdx = ai.jumlahBaris - 1;
@@ -188,73 +188,101 @@ public class InterpolasiPolinom {
                 }
             }
 
-            /* Print koefisien dari suku pertama */
+            /* Add koefisien dari suku pertama */
             if (ai.Mat[lastNonZeroIdx][0] > 0) {
                 if (ai.Mat[lastNonZeroIdx][0] != 1) {
-                    System.out.print(" " + ai.Mat[lastNonZeroIdx][0]);
+                    fx += (" " + (ai.Mat[lastNonZeroIdx][0]));
                 } else {
                     if (lastNonZeroIdx == 0) {
-                        System.out.print(" " + ai.Mat[lastNonZeroIdx][0]);
+                        fx += (" " + (ai.Mat[lastNonZeroIdx][0]));
                     } else {
-                        System.out.print(" ");
+                        fx += (" ");
                     }
                 }
             } else {
                 if (ai.Mat[lastNonZeroIdx][0] != -1) {
-                    System.out.print(" - " + (-1) * ai.Mat[lastNonZeroIdx][0]);
+                    fx += (" - " + ((-1) * ai.Mat[lastNonZeroIdx][0]));
                 } else {
                     if (lastNonZeroIdx == 0) {
-                        System.out.print(" - " + (-1) * ai.Mat[lastNonZeroIdx][0]);
+                        fx += (" - " + ((-1) * ai.Mat[lastNonZeroIdx][0]));
                     } else {
-                        System.out.print(" - ");
+                        fx += (" - ");
                     }
                 }    
             }
             
-            /* Print x^ dari suku pertama */
+            /* Add x^ dari suku pertama */
             if (lastNonZeroIdx == 1) {
-                System.out.print("x");
+                fx += ("x");
             } else if (lastNonZeroIdx != 0) {
-                System.out.print("x^" + lastNonZeroIdx);
+                fx += ("x^" + (lastNonZeroIdx));
             }
 
-            /* Print suku-suku selanjutnya */
+            /* Add suku-suku selanjutnya */
             for (int i = lastNonZeroIdx - 1; i >= 0; i--) {
                 if (ai.Mat[i][0] != 0) {
                     /* Print koefisien dari suku */
                     if (ai.Mat[i][0] > 0) {
                         if (ai.Mat[i][0] != 1) {
-                            System.out.print(" + " + ai.Mat[i][0]);
+                            fx += (" + " + (ai.Mat[i][0]));
                         } else {
                             if (i == 0) {
-                                System.out.print(" + " + ai.Mat[i][0]);
+                                fx += (" + " + (ai.Mat[i][0]));
                             } else {
-                                System.out.print(" + ");
+                                fx += (" + ");
                             }
                         }
                     } else {
                         if (ai.Mat[i][0] != -1) {
-                            System.out.print(" - " + (-1) * ai.Mat[i][0]);
+                            fx += (" - " + ((-1) * ai.Mat[i][0]));
                         } else {
                             if (i == 0) {
-                                System.out.print(" - " + (-1) * ai.Mat[i][0]);
+                                fx += (" - " + ((-1) * ai.Mat[i][0]));
                             } else {
-                                System.out.print(" - ");
+                                fx += (" - ");
                             }
                         }
                     }
 
                     /* Print x^ dari suku-suku selanjutnya */
                     if (i == 1) {
-                        System.out.print("x");
+                        fx += ("x");
                     } else if (i != 0) {
-                        System.out.print("x^" + i);
+                        fx += ("x^" + (i));
                     }
                 }
             }
         }
+        return fx;
+    }
+    
+    public static void IPFile(matriks ai, double a) {
+        // Kamus Lokal
+        String filename;
 
-        System.out.print("\n");    
-            
-    } 
+        // Algoritma
+        System.out.print("\nMasukkan nama file: ");
+        filename = in.nextLine() + ".txt";
+        try {
+            // Buat file
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
+
+            // Write
+            bw.write("Hasil Perhitungan Interpolasi Polinom");
+            bw.newLine();
+            bw.write("Penjabaran f(x):");
+            bw.newLine();
+            bw.write(fxString(ai));
+            bw.newLine();
+            bw.write(("Hasil substitusi dengan nilai x = " + a + ":"));
+            bw.newLine();
+            bw.write(("f("+ a + ") = " + fa(ai, a)));
+            bw.flush();
+            bw.close();
+
+        // Handling Error
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
