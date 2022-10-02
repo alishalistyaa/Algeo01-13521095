@@ -145,7 +145,7 @@ public class matriks {
         String filename;
 
         // Algoritma
-        System.out.println("Masukkan nama file: ");
+        System.out.print("\nMasukkan nama file: ");
         filename = in.nextLine() + ".txt";
         try {
             // Buat file
@@ -153,12 +153,13 @@ public class matriks {
 
             // Write Perline
             for (i= 0; i<m.jumlahBaris; i++){
-                for (j=0; j<jumlahKolom; j++){
-                    bw.write(m.Mat[i][j] + ((j == jumlahKolom-1) ? "" : " "));
+                for (j=0; j<m.jumlahKolom; j++){
+                    bw.write(m.Mat[i][j] + ((j == m.jumlahKolom-1) ? "" : " "));
                 }
             bw.newLine();
             }
-        bw.flush();
+            bw.flush();
+            bw.close();
 
         // Handling Error
         } catch(IOException e){

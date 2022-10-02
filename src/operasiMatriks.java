@@ -1,9 +1,10 @@
 package src;
 
-public class operasiMatriks{
+import java.util.*;
+import java.io.*; 
 
-    // jujur yg dibawah ini bingung mau di operasi ato di matriks.java
-    
+public class operasiMatriks{
+    static Scanner in = new Scanner (System.in);    
     /*** VALIDASI MATRIKS ***/
     public static boolean isEqual(matriks M1, matriks M2){
     /* Mendapatkan true jika Matriks 1 berdimensi sama dengan Matriks 2 */
@@ -636,5 +637,41 @@ public class operasiMatriks{
         }
 
         return temp;
+    }
+
+    public static void detFile(matriks MIn, double Det){
+        // Kamus Lokal
+        int i, j;
+        String filename;
+
+        // Algoritma
+        System.out.print("\nMasukkan nama file: ");
+        filename = in.nextLine() + ".txt";
+        try {
+            // Buat file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+
+            // Write Perline
+
+            bw.write("Matriks:");
+            bw.newLine();
+            for (i= 0; i<MIn.jumlahBaris; i++){
+                for (j=0; j<MIn.jumlahKolom; j++){
+                    bw.write(MIn.Mat[i][j] + ((j == MIn.jumlahKolom-1) ? "" : " "));
+                }
+            bw.newLine();
+            }
+
+            bw.newLine();
+            bw.write("Determinannya adalah = " + Det);
+            bw.newLine();
+
+            bw.flush();
+            bw.close();
+
+        // Handling Error
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

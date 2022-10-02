@@ -14,5 +14,7 @@ public class basreng {
         matriks M = new matriks();
         M.bacaMatriks(4, 3);
         M.writeMatrixFile(M);
+
+        in.close();
     }
 }

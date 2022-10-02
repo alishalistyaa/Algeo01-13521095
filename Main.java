@@ -235,9 +235,12 @@ public class Main {
         String[] row;
         matriks M = new matriks();
         int baris, kolom, input = 0;
+        Boolean notFirst = false;
+
         System.out.println("\nPilih metode masukan:");
         System.out.println("1. Dari file");
         System.out.println("2. Dari keyboard");
+        
         
         do{
             line = in.nextLine();
@@ -278,6 +281,7 @@ public class Main {
             System.out.println("Apakah ingin dalam bentuk file?");
             System.out.println("1. Ya");
             System.out.println("2. Tidak");
+
             do{
                 line = in.nextLine();
                 row = line.split(" ");
@@ -286,17 +290,18 @@ public class Main {
                 } catch (NumberFormatException e) {
                     input = 0;
                 }
-                if (input <= 0 || input > 2) {
+                if ((input <= 0 || input > 2) && notFirst) {
                     System.out.println("Input tidak valid");
-                } 
+                }
+                notFirst = true;
             } while (input <= 0 || input > 2);
 
             switch (input){
                 case 1:
-                //belum jadi
-                break;
+                SPL.solveSPLFile(M);
 
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -310,6 +315,8 @@ public class Main {
         String[] row;
         matriks M = new matriks();
         int baris, kolom, input;
+        Boolean notFirst = false;
+
         System.out.println("\nPilih metode masukan:");
         System.out.println("1. Dari file");
         System.out.println("2. Dari keyboard");
@@ -353,6 +360,7 @@ public class Main {
             System.out.println("Apakah ingin dalam bentuk file?");
             System.out.println("1. Ya");
             System.out.println("2. Tidak");
+
             do{
                 line = in.nextLine();
                 row = line.split(" ");
@@ -361,17 +369,18 @@ public class Main {
                 } catch (NumberFormatException e) {
                     input = 0;
                 }
-                if (input <= 0 || input > 2) {
+                if ((input <= 0 || input > 2) && notFirst) {
                     System.out.println("Input tidak valid");
-                } 
+                }
+                notFirst = true;
             } while (input <= 0 || input > 2);
 
             switch (input){
                 case 1:
-                //belum jadi
-                break;
+                SPL.solveSPLFile(M);
 
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -385,6 +394,8 @@ public class Main {
         String[] row;
         matriks M = new matriks();
         int dimensi, input;
+        Boolean notFirst = false;
+
         System.out.println("\nPilih metode masukan:");
         System.out.println("1. Dari file");
         System.out.println("2. Dari keyboard");
@@ -424,6 +435,7 @@ public class Main {
             System.out.println("Apakah ingin dalam bentuk file?");
             System.out.println("1. Ya");
             System.out.println("2. Tidak");
+
             do{
                 line = in.nextLine();
                 row = line.split(" ");
@@ -432,17 +444,18 @@ public class Main {
                 } catch (NumberFormatException e) {
                     input = 0;
                 }
-                if (input <= 0 || input > 2) {
+                if ((input <= 0 || input > 2) && notFirst) {
                     System.out.println("Input tidak valid");
-                } 
+                }
+                notFirst = true;
             } while (input <= 0 || input > 2);
 
             switch (input){
                 case 1:
-                //belum jadi
-                break;
+                SPL.SolveInverseFile(M);
 
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -456,6 +469,8 @@ public class Main {
         String[] row;
         matriks M = new matriks();
         int dimensi, input;
+        Boolean notFirst = false;
+
         System.out.println("\nPilih metode masukan:");
         System.out.println("1. Dari file");
         System.out.println("2. Dari keyboard");
@@ -496,6 +511,7 @@ public class Main {
             System.out.println("Apakah ingin dalam bentuk file?");
             System.out.println("1. Ya");
             System.out.println("2. Tidak");
+
             do{
                 line = in.nextLine();
                 row = line.split(" ");
@@ -504,17 +520,18 @@ public class Main {
                 } catch (NumberFormatException e) {
                     input = 0;
                 }
-                if (input <= 0 || input > 2) {
+                if ((input <= 0 || input > 2) && notFirst) {
                     System.out.println("Input tidak valid");
-                } 
+                }
+                notFirst = true;
             } while (input <= 0 || input > 2);
 
             switch (input){
                 case 1:
-                //belum jadi
-                break;
+                SPL.SolveCramerFile(M);
 
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -597,10 +614,10 @@ public class Main {
 
             switch (input){
                 case 1:
-                //belum jadi
-                break;
+                operasiMatriks.detFile(M, det);
 
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -682,12 +699,10 @@ public class Main {
 
             switch (input){
                 case 1:
-                System.out.print("\nNama file (.txt): ");
-                String namaFile = in.nextLine();
-                M.bacaFileMatriks(namaFile);
-                break;
+                operasiMatriks.detFile(M, det);
 
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -769,10 +784,10 @@ public class Main {
 
             switch (input){
                 case 1:
-                //belum jadi
-                break;
+                operasiMatriks.detFile(M, det);
 
                 case 2:
+                System.out.println("\nOk! Kembali ke menu utama...");
                 break;
             }
         }
@@ -860,7 +875,6 @@ public class Main {
                 switch (input){
                     case 1:
                     inverse.writeMatrixFile(inverse);
-                    break;
         
                     case 2:
                     System.out.println("\nOk! Kembali ke menu utama...");
@@ -952,7 +966,6 @@ public class Main {
                     case 1:
                     // Menyimpan file
                     inverse.writeMatrixFile(inverse);
-                    break;
         
                     case 2:
                     System.out.println("\nOk! Kembali ke menu utama...");
