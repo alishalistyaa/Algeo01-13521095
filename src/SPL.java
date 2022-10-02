@@ -157,6 +157,7 @@ public class SPL {
         // Kamus Lokal
         int i, j;
         boolean trivial;
+        boolean nolbeneran;
         double cache;
         double arrayHasil[] = new double[MIn.jumlahKolom-1];
         char arrayChar[] = new char[MIn.jumlahKolom-1];
@@ -247,17 +248,28 @@ public class SPL {
             System.out.print(i+1);
             System.out.print(" = ");
             if (arrayHasil[i] == 0){
-                if (arrayChar[i] == '/'){
-                    arrayChar[i] = var;
-                    if (var == 'Z'){
-                        var = 'A';
+                nolbeneran = true;
+                for(j = i; j < MIn.jumlahKolom-1; j++){
+                    if (arrayChar[j] != '/'){
+                        nolbeneran = false;
                     }
-                    else if (var == 'R'){
-                        var = 'a';
-                    }
-                    else var += 1;
                 }
-                System.out.print(arrayChar[i]);
+                if (nolbeneran){
+                    System.out.print(arrayHasil[i]);
+                }
+                else{
+                    if (arrayChar[i] == '/'){
+                        arrayChar[i] = var;
+                        if (var == 'Z'){
+                            var = 'A';
+                        }
+                        else if (var == 'R'){
+                            var = 'a';
+                        }
+                        else var += 1;
+                    }
+                    System.out.print(arrayChar[i]);
+                }
             }
             else {
                 System.out.print(arrayHasil[i]);
@@ -390,6 +402,7 @@ public class SPL {
         // Kamus Lokal
         int i, j;
         boolean trivial;
+        boolean nolbeneran;
         double cache;
         double arrayHasil[] = new double[MIn.jumlahKolom-1];
         char arrayChar[] = new char[MIn.jumlahKolom-1];
@@ -489,17 +502,28 @@ public class SPL {
             for(i = 0; i < MIn.jumlahKolom-1; i++){
                 bw.write("x" + (i+1) + " = ");
                 if (arrayHasil[i] == 0){
-                    if (arrayChar[i] == '/'){
-                        arrayChar[i] = var;
-                        if (var == 'Z'){
-                            var = 'A';
+                    nolbeneran = true;
+                    for(j = i; j < MIn.jumlahKolom-1; j++){
+                        if (arrayChar[j] != '/'){
+                            nolbeneran = false;
                         }
-                        else if (var == 'R'){
-                            var = 'a';
-                        }
-                        else var += 1;
                     }
-                    bw.write(arrayChar[i]);
+                    if (nolbeneran){
+                        bw.write(arrayHasil[i] + "");
+                    }
+                    else{
+                        if (arrayChar[i] == '/'){
+                            arrayChar[i] = var;
+                            if (var == 'Z'){
+                                var = 'A';
+                            }
+                            else if (var == 'R'){
+                                var = 'a';
+                            }
+                            else var += 1;
+                        }
+                        bw.write(arrayChar[i]);
+                    }
                 }
                 else {
                     bw.write(arrayHasil[i] + "");
@@ -627,7 +651,10 @@ public class SPL {
         a = operasiMatriks.sliceLastCol(M);
 
         System.out.print("\n");
-        if (operasiMatriks.detExCofRow0(a) == 0){
+        if (a.jumlahBaris != a.jumlahKolom){
+            System.out.println("Matriks memerlukan " + a.jumlahKolom + " persamaan untuk dapat disolusikan.");
+        }
+        else if (operasiMatriks.detExCofRow0(a) == 0){
             System.out.println("Matriks tidak memiliki inverse sehingga tidak dapat disolusikan.");
         }
         else{
@@ -670,7 +697,11 @@ public class SPL {
             }
 
             bw.newLine();
-            if (operasiMatriks.detExCofRow0(a) == 0){
+            if (a.jumlahBaris != a.jumlahKolom){
+                bw.write("Matriks memerlukan " + a.jumlahKolom + " persamaan untuk dapat disolusikan.");
+                bw.newLine();
+            }
+            else if (operasiMatriks.detExCofRow0(a) == 0){
                 bw.write("Matriks tidak memiliki inverse sehingga tidak dapat disolusikan.");
                 bw.newLine();
             }
@@ -709,7 +740,10 @@ public class SPL {
         temp = operasiMatriks.cloneMatriks(a);
 
         System.out.print("\n");
-        if (operasiMatriks.detExCofRow0(a) == 0){
+        if (a.jumlahBaris != a.jumlahKolom){
+            System.out.println("Matriks memerlukan " + a.jumlahKolom + " persamaan untuk dapat disolusikan.");
+        }
+        else if (operasiMatriks.detExCofRow0(a) == 0){
             System.out.println("Matriks tidak memiliki inverse sehingga tidak dapat disolusikan.");
         }
 
@@ -754,7 +788,11 @@ public class SPL {
             }
 
             bw.newLine();
-            if (operasiMatriks.detExCofRow0(a) == 0){
+            if (a.jumlahBaris != a.jumlahKolom){
+                bw.write("Matriks memerlukan " + a.jumlahKolom + " persamaan untuk dapat disolusikan.");
+                bw.newLine();
+            }
+            else if (operasiMatriks.detExCofRow0(a) == 0){
                 bw.write("Matriks tidak memiliki inverse sehingga tidak dapat disolusikan.");
                 bw.newLine();
             }
