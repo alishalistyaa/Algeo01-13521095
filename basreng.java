@@ -12,8 +12,10 @@ public class basreng {
 
         // Method
         matriks M = new matriks();
-        M.bacaMatriks(4, 3);
-        M.writeMatrixFile(M);
+        M.bacaMatriks(4, 4);
+        M.tulisMatriks();
+        M = ImageUpsc.interpolate2x(M);
+        M.tulisMatriks();
 
         in.close();
     }

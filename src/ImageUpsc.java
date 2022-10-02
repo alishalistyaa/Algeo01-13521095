@@ -1,31 +1,6 @@
 package src;
 
 public class ImageUpsc {
-    //BAKAL MAKE MEMORI BANYAK, KEEP IN MIND!
-
-    public static matriks XiYj () {
-        // Membuat matriks XiYj berdimensi 16 x 16
-        matriks XiYj = new matriks();
-        XiYj.jumlahBaris = 16;
-        XiYj.jumlahKolom = 16;
-        
-        int y, x, i, j, baris, kolom;
-        baris = 0;
-        for (y = -1; y <= 2; y++){
-            for (x = -1; x <= 2; x++) {
-                kolom = 0;
-                for (j = 0; j <= 3; j++) {
-                    for (i = 0; i <= 3; i++) {
-                        XiYj.Mat[baris][kolom] = Math.pow (x, i) * Math.pow (y, j);
-                        kolom++;
-                    }
-                }
-            baris++;
-            }
-        }
-        return XiYj;
-    }
-
     public static matriks zoning(matriks MIn, int sizex, int sizey, int startx, int starty){
         //memotong daerah matriks
         matriks temp = new matriks();
@@ -173,7 +148,7 @@ public class ImageUpsc {
         matriks inversedXiYj = new matriks();
 
         System.out.print("Initializing.");
-        inversedXiYj = operasiMatriks.invIdentitas(XiYj());
+        inversedXiYj = operasiMatriks.invIdentitas(BicubicInterpolation.xiyj());
         System.out.print(".");
         tidyUp(inversedXiYj);
 
