@@ -649,7 +649,7 @@ public class operasiMatriks{
         filename = in.nextLine() + ".txt";
         try {
             // Buat file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
 
             // Write Perline
 

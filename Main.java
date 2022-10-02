@@ -30,7 +30,7 @@ public class Main {
         boolean jalan = true;
         int input = 0;
         String line;
-        String[] row;
+        String[] row = new String[100];
 
         // Pilih Menu
         while (jalan) {
@@ -273,6 +273,7 @@ public class Main {
             M.bacaMatriks(baris , kolom);
             break;
         }
+
         if (M.jumlahBaris > 0 && M.jumlahKolom > 0){
 
             M = operasiMatriks.gauss(M);
@@ -421,8 +422,19 @@ public class Main {
             break;
 
             case 2:
-            System.out.print("\nMasukkan jumlah persamaan: ");
-            dimensi = in.nextInt();
+            do{
+                System.out.print("\nMasukkan jumlah persamaan: ");
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    dimensi = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    dimensi = 0;
+                }
+                if (dimensi <= 0) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (dimensi <= 0);
     
             System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
             M.bacaMatriks(dimensi, dimensi+1);
@@ -496,8 +508,19 @@ public class Main {
             break;
 
             case 2:
-            System.out.print("\nMasukkan jumlah persamaan: ");
-            dimensi = in.nextInt();
+            do{
+                System.out.print("\nMasukkan jumlah persamaan: ");
+                line = in.nextLine();
+                row = line.split(" ");
+                try {
+                    dimensi = Integer.parseInt(row[0]);
+                } catch (NumberFormatException e) {
+                    dimensi = 0;
+                }
+                if (dimensi <= 0) {
+                    System.out.println("Input tidak valid");
+                } 
+            } while (dimensi <= 0);
     
             System.out.print("Masukkan nilai koefisien dan hasil dari tiap variabel di tiap persamaan: \n");
             M.bacaMatriks(dimensi, dimensi+1);
@@ -1103,7 +1126,7 @@ public class Main {
         MAkhir = ImageUpsc.interpolate2x(MAwal);
 
         // Nama file yang telah diupscale
-        newfilename = filename + "_upscaled2x.png";
+        newfilename = filepath + "_upscaled2x.png";
         ImageUtil.writeImage(newfilename, MAkhir);
 
         // Menghitung time elapsed

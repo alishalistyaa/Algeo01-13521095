@@ -292,7 +292,7 @@ public class SPL {
 
         try {
             // Buat file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
 
             //nulis hasil matriks
             bw.write("Hasil pengolahan matriks:");
@@ -350,7 +350,7 @@ public class SPL {
             arrayHasil[i] = cache;
         }
             // Buat file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
 
 
             //nulis hasil matriks
@@ -463,7 +463,7 @@ public class SPL {
 
         try {
             // Buat file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
 
             //nulis hasil matriks
             bw.write("Hasil pengolahan matriks:");
@@ -520,7 +520,7 @@ public class SPL {
 
         try {
             // Buat file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
 
             //nulis hasil matriks
             bw.write("Hasil pengolahan matriks:");
@@ -657,7 +657,7 @@ public class SPL {
         filename = in.nextLine() + ".txt";
         try {
             // Buat file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
 
             // Write Perline
             bw.write("Matriks:");
@@ -741,7 +741,7 @@ public class SPL {
         filename = in.nextLine() + ".txt";
         try {
             // Buat file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
 
             // Write Perline
             bw.write("Matriks:");

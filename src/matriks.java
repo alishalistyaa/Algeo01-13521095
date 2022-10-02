@@ -21,17 +21,46 @@ public class matriks {
     // Method:
     public void bacaMatriks(int m, int n){
         /* Fungsi untuk mengisi elemen Matriks */
+        // untuk baca matriks maksimal input 50 kolom, walaupun agak gila kalo mau masukin segitu pake terminal
         // Kamus Lokal
+        String line;
+        String[] row  = new String[100];
+        double[] cache = new double[50];
+
         int i, j;
+        boolean valid = false;
         // Algoritma
         
         this.jumlahBaris = m;
         this.jumlahKolom = n;
 
         for(i=0; i<m; i++){
-            for(j=0; j<n; j++) {
-                this.Mat[i][j] = in.nextDouble();
-            }
+            do {
+                valid = false;
+                line = in.nextLine();
+                row = line.split(" ");
+
+                try {
+                    for(j = 0; j < row.length; j++){
+                        cache[j] = Double.parseDouble(row[j]);
+                    }
+
+                    if (row.length == jumlahKolom){
+                        for (j = 0; j < row.length; j++){
+                            this.Mat[i][j] = cache[j];
+                        }
+                        valid = true;
+                    }
+                    else{
+                        System.out.println("Jumlah input tidak valid, masukkan " + n + " buah bilangan.");
+                    }
+
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Terdapat input yang tidak valid, mohon ulangi input");
+                    valid = false;
+                }
+            } while (!valid);
         }
     }
 
@@ -149,7 +178,7 @@ public class matriks {
         filename = in.nextLine() + ".txt";
         try {
             // Buat file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + filename));
 
             // Write Perline
             for (i= 0; i<m.jumlahBaris; i++){
