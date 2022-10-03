@@ -38,6 +38,8 @@ Contributors:
 
 ```
 ├── README.md
+├── Algeo01-21095.jar
+│ 
 ├── bin
 │   ├── BicubicInterpolation.class
 │   ├── ImageUpsc.class
@@ -51,8 +53,7 @@ Contributors:
 │       
 ├── doc
 │   └── Algeo01-21095.pdf
-├── lib
-│   └── Algeo01-21095.jar
+│ 
 ├── src
 │   ├── BicubicInterpolation.java
 │   ├── ImageUpsc.java
@@ -63,6 +64,7 @@ Contributors:
 │   ├── operasiMatriks.java
 │   ├── RegresiLinierBerganda.java
 │   └── SPL.java
+│ 
 └── test
     ├── 1_A.txt
     ├── 1_B.txt
