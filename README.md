@@ -166,7 +166,7 @@ Contributors:
 
 ### Program Execution
     git clone https://github.com/alishalistyaa/Algeo01-21095
-    cd Algeo01-20083/bin
+    cd Algeo01-21095/bin
     java Main
 This repo also includes a jar file that you can set up and run more practically!
 
