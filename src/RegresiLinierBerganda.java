@@ -33,9 +33,9 @@ public class RegresiLinierBerganda {
         int n, m;
 
         System.out.print("Masukkan jumlah peubah x (n): ");
-        n = in.nextInt();
+        n = Integer.parseInt(in.nextLine());
         System.out.print("Masukkan jumlah sampel (m): ");
-        m = in.nextInt();
+        m = Integer.parseInt(in.nextLine());
 
         matriks stdInput = new matriks();
         stdInput.jumlahBaris = m + 1;
@@ -49,11 +49,11 @@ public class RegresiLinierBerganda {
                     } else {
                         System.out.print("Masukkan nilai y sampel ke-" + (i + 1) + ": ");
                     }
-                    stdInput.Mat[i][j] = in.nextDouble();
+                    stdInput.Mat[i][j] = Double.parseDouble(in.nextLine());
                 } else {
                     if (j != stdInput.jumlahKolom - 1) {
                         System.out.print("Masukkan nilai x" + (j + 1) + " yang akan diregresi: ");
-                        stdInput.Mat[i][j] = in.nextDouble();
+                        stdInput.Mat[i][j] = Double.parseDouble(in.nextLine());
                     }
                 }
             }

@@ -35,7 +35,7 @@ public class InterpolasiPolinom {
         /* Mengambil masukan dari keyboard, menghasilkan matriks stdInput */
         int n;
         System.out.print("Masukkan derajat polinom (n): ");
-        n = in.nextInt();
+        n = Integer.parseInt(in.nextLine());
 
         matriks stdInput = new matriks();
         stdInput.jumlahBaris = n + 2;
@@ -49,11 +49,11 @@ public class InterpolasiPolinom {
                     } else {
                         System.out.print("Masukkan nilai y titik ke-" + i + ": ");
                     }
-                    stdInput.Mat[i][j] = in.nextDouble();
+                    stdInput.Mat[i][j] = Double.parseDouble(in.nextLine());
                 } else {
                     if (j != stdInput.jumlahKolom - 1) {
                         System.out.print("Masukkan nilai x yang akan diinterpolasi: ");
-                        stdInput.Mat[i][j] = in.nextDouble();
+                        stdInput.Mat[i][j] = Double.parseDouble(in.nextLine());
                     }
                 }
             }
