@@ -1,7 +1,6 @@
 
 import java.util.*;
 import java.io.*;
-import java.text.DecimalFormat; 
 
 public class operasiMatriks{
     static Scanner in = new Scanner (System.in);    
