@@ -1142,8 +1142,10 @@ public class Main {
             double a = InterpolasiPolinom.a(stdInput);
             
             /* Output terminal */
-            System.out.println("\nHasil Interpolasi Polinom");
+            System.out.println("\nHasil Perhitungan Interpolasi Polinom");
+            System.out.println("Penjabaran f(x):");
             System.out.println(InterpolasiPolinom.fxString(ai));
+            System.out.println("Hasil substitusi dengan nilai x dari masukan:");
             System.out.println("f("+ a +") = " + InterpolasiPolinom.fa(ai, a));
             
             /* Output file */
@@ -1201,6 +1203,7 @@ public class Main {
 
             /* Output terminal */
             System.out.println("\nHasil Bicubic Interpolation");
+            System.out.println("Hasil substitusi dengan nilai x dan y dari masukan:");
             System.out.println("f(" + a + "," + b + ") = " + BicubicInterpolation.bicIntpol(aij, a, b));
             
             /* Output file */

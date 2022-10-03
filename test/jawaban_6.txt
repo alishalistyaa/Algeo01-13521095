@@ -1,0 +1,5 @@
+Hasil Perhitungan Regresi Linear Berganda
+Penjabaran f(xk):
+f(xk) = - 3.507778140882833 - 0.002624990745878369x1 + 7.989410472204215E-4x2 + 0.1541550301982821x3
+Hasil substitusi dengan nilai xk dari masukan:
+f(xk) = 0.9384342262216663

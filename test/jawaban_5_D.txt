@@ -1,0 +1,2 @@
+Hasil Perhitungan Bicubic Interpolation
+f(0.1, 0.9) = 104.22911850000004
