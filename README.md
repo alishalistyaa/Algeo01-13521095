@@ -171,8 +171,9 @@ Contributors:
 This repo also includes a jar file that you can set up and run more practically!
 
 
-### Brought to you by 
+Brought to you by 
 world's biggest basreng fans x_X
+
 ![image](https://user-images.githubusercontent.com/73476678/193554021-50e4a709-9140-4676-99b4-e5b1f6588499.png)
 
 
