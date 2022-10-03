@@ -1,0 +1,5 @@
+Hasil Perhitungan Interpolasi Polinom
+Penjabaran f(x):
+f(x) = - 0.2697616840052167x^6 + 1.9061389717600785x^5 - 5.353641486105415x^4 + 7.601445186464517x^3 - 5.807817528895102x^2 + 2.4616365407811385x
+Hasil substitusi dengan nilai x = 1.0:
+f(1.0) = 0.5379999999999999
