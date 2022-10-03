@@ -6,8 +6,7 @@
     ],
     "java.dependency.packagePresentation": "hierarchical",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "Algeo01-13521095.jar"
+        "lib/**/*.jar"
     ],
     "java.project.outputPath": "bin"
 }
