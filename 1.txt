@@ -1,4 +1,0 @@
-Hasil pengolahan matriks:
-1.0 1.0
-
-x1 = 0.0

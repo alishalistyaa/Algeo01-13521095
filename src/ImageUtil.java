@@ -1,4 +1,3 @@
-package src;
 
 // Import utilities
 import java.awt.*;

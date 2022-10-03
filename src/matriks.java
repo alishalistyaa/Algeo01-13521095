@@ -1,4 +1,3 @@
-package src;
 
 /* Kelas ADT Matriks */
 // Import library

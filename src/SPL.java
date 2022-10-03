@@ -1,4 +1,3 @@
-package src;
 
 import java.util.*;
 import java.io.*; 
@@ -177,7 +176,7 @@ public class SPL {
         // Kamus Lokal
         int i, j, k;
         boolean trivial;
-        boolean nolbeneran, nolbeneran2;
+        boolean nolbeneran;
         double cache;
         double arrayHasil[] = new double[MIn.jumlahKolom-1];
         char arrayChar[] = new char[MIn.jumlahKolom-1];
@@ -252,7 +251,6 @@ public class SPL {
             try {
                 arrayHasil[cari1(MIn, i)] = cache;
             } catch (Exception e) {
-                // TODO: handle exception
             }
         }
         
@@ -441,7 +439,7 @@ public class SPL {
         // Kamus Lokal
         int i, j, k;
         boolean trivial;
-        boolean nolbeneran, nolbeneran2;
+        boolean nolbeneran;
         double cache;
         double arrayHasil[] = new double[MIn.jumlahKolom-1];
         char arrayChar[] = new char[MIn.jumlahKolom-1];
@@ -517,7 +515,6 @@ public class SPL {
             try {
                 arrayHasil[cari1(MIn, i)] = cache;
             } catch (Exception e) {
-                // TODO: handle exception
             }
             arrayHasil[cari1(MIn, i)] = cache;
         }

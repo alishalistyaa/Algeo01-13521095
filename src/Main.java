@@ -1,13 +1,5 @@
-import java.util.*;
 
-import src.BicubicInterpolation;
-import src.InterpolasiPolinom;
-import src.RegresiLinierBerganda;
-import src.SPL;
-import src.matriks;
-import src.operasiMatriks;
-import src.ImageUtil;
-import src.ImageUpsc;
+import java.util.*;
 
 /*
  * Ini buat main program utamanya

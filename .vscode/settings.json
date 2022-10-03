@@ -2,6 +2,12 @@
     "liveshare.notebooks.allowGuestExecuteCells": true,
     "liveshare.languages.allowGuestCommandControl": true,
     "java.project.sourcePaths": [
-        "."
-    ]
+        "src"
+    ],
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "Algeo01-13521095.jar"
+    ],
+    "java.project.outputPath": "bin"
 }

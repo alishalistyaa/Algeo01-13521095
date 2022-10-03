@@ -1,4 +1,3 @@
-package src;
 
 public class ImageUpsc {
     public static matriks zoning(matriks MIn, int sizex, int sizey, int startx, int starty){
