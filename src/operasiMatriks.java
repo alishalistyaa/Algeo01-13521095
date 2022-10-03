@@ -185,7 +185,8 @@ public class operasiMatriks{
         int kolom = 0;
         int baris = 0;
         int i;
-
+        
+        tidyUp(MOut);
         MOut = compact0(MIn);
         while (kolom < MOut.jumlahKolom-1) {
             if (MOut.Mat[baris][kolom] == 0) {
@@ -195,7 +196,6 @@ public class operasiMatriks{
                 for(i = baris + 1; i < MOut.jumlahBaris; i++){
                     MOut = barisMinKaliBaris(MOut, i, baris, MOut.Mat[i][kolom]/MOut.Mat[baris][kolom]);
                 }
-
                 MOut = barisXkonstanta(MOut, baris, 1/MOut.Mat[baris][kolom]);
 
                 MOut = compact0(MOut);
@@ -204,7 +204,6 @@ public class operasiMatriks{
                 baris += 1;
             }
         }
-
         return MOut;
     }
 
@@ -215,25 +214,21 @@ public class operasiMatriks{
         int i;
 
         MOut = gauss(MIn);
-
+        tidyUp(MOut);
         while (kolom < MOut.jumlahKolom-1) {
-
             if (MOut.Mat[baris][kolom] == 0) {
                 kolom += 1;
             }
-
             else{
                 for(i = 0; i < baris; i++){
                     if (i != baris){
                         MOut = barisMinKaliBaris(MOut, i, baris, MOut.Mat[i][kolom]/MOut.Mat[baris][kolom]);
                     }
                 }
-
                 kolom += 1;
                 baris += 1;
             }
         }
-
         return MOut;
     }
 
@@ -672,6 +667,16 @@ public class operasiMatriks{
         // Handling Error
         } catch(IOException e){
             System.out.println(e.getMessage());
+        }
+    }
+
+    static void tidyUp(matriks MIn){
+        for(int i =0; i < MIn.jumlahBaris; i++){
+            for(int j = 0; j < MIn.jumlahKolom; j++){
+                if (MIn.Mat[i][j] < 0.00000000001 && MIn.Mat[i][j] > -0.00000000001){
+                    MIn.Mat[i][j] = 0;
+                }
+            }
         }
     }
 }

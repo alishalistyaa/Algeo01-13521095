@@ -150,7 +150,7 @@ public class ImageUpsc {
         System.out.print("Initializing.");
         inversedXiYj = operasiMatriks.invIdentitas(BicubicInterpolation.xiyj());
         System.out.print(".");
-        tidyUp(inversedXiYj);
+        operasiMatriks.tidyUp(inversedXiYj);
 
         
         System.out.print(".\n");
@@ -233,15 +233,5 @@ public class ImageUpsc {
 
     static matriks aijOptimized (matriks fxy, matriks inversedXiYj) {
         return operasiMatriks.perkalianMatriks(inversedXiYj, fxy);
-    }
-
-    static void tidyUp(matriks MIn){
-        for(int i =0; i < MIn.jumlahBaris; i++){
-            for(int j = 0; j < MIn.jumlahKolom; j++){
-                if (MIn.Mat[i][j] < 0.0000001 && MIn.Mat[i][j] > -0.0000001){
-                    MIn.Mat[i][j] = 0;
-                }
-            }
-        }
     }
 }

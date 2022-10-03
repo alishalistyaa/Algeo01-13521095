@@ -8,6 +8,7 @@ public class SPL {
     public static void solveSPL(matriks m){
         //utama, menerima matriks gauss/gauss jordan spl (tidak terslice)
         int condition;
+        operasiMatriks.tidyUp(m);
         condition = checkSPL(m);
 
         System.out.print("\n");
@@ -35,6 +36,7 @@ public class SPL {
         int condition;
         String filename;
 
+        operasiMatriks.tidyUp(m);
         condition = checkSPL(m);
         System.out.print("\nMasukkan nama file: ");
         filename = in.nextLine() + ".txt";
@@ -151,13 +153,31 @@ public class SPL {
         }
     }
     // blm jadi
+
+
+    public static double recursion(int toplimit, int bottomlimit, int row, int varCol, double arrayHasil[], String arrayString[], matriks MIn){
+        double cacheConst = 0;
+        for (int k = toplimit; k > bottomlimit; k--){
+            if ((arrayHasil[k] != 0 || arrayString[k] != "") && MIn.Mat[row][k] != 0){
+                
+                int baris1 = MIn.jumlahBaris-1;
+                while (MIn.Mat[baris1][k] != 1) {
+                    baris1 -=1;
+                }
+    
+                cacheConst += MIn.Mat[row][k]*(MIn.Mat[baris1][varCol]) + recursion(toplimit, cari1(MIn, baris1), baris1, varCol, arrayHasil, arrayString, MIn);
+            }
+        }
+        return cacheConst;
+    }
+
     public static void SolusiBanyak(matriks MIn){
     /* Mencari hasil solusi unik dari persamaan Gauss */
     //prekondisi matriks yang masuk adalah matriks gauss/gauss jordan
         // Kamus Lokal
-        int i, j;
+        int i, j, k;
         boolean trivial;
-        boolean nolbeneran;
+        boolean nolbeneran, nolbeneran2;
         double cache;
         double arrayHasil[] = new double[MIn.jumlahKolom-1];
         char arrayChar[] = new char[MIn.jumlahKolom-1];
@@ -180,45 +200,60 @@ public class SPL {
             cache = MIn.Mat[i][MIn.jumlahKolom-1];
 
             for(j = cari1(MIn, i) + 1; j < MIn.jumlahKolom-1; j++){
-
-                if (arrayHasil[j] == 0 && MIn.Mat[i][j] != 0) {
-                    if  (arrayChar[j] == '/'){
-                        arrayChar[j] = var;
-                        if (var == 'Z'){
-                            var = 'A';
+                if (arrayHasil[j] == 0) {
+                    nolbeneran = true;
+                    for(k = j; k < MIn.jumlahKolom-1; k++){
+                        if (arrayChar[k] != '/'){
+                            nolbeneran = false;
                         }
-                        else if (var == 'R'){
-                            var = 'a';
-                        }
-                        else var += 1;
                     }
 
-                    double cacheConst = (-1)*MIn.Mat[i][j];
-
-                    for (int k = MIn.jumlahKolom-2; k > cari1(MIn, i); k--){
-                        if (arrayHasil[k] != 0){
-
-                            int baris1 = MIn.jumlahBaris-1;
-                            while (MIn.Mat[baris1][k] != 1) {
-                                baris1 -=1;
+                    if (j > 0){
+                        for(k = j-1; k > -1; k--){
+                            if (MIn.Mat[i][k] != 0){
+                                nolbeneran = false;
                             }
-                            cacheConst += (MIn.Mat[i][k])*(MIn.Mat[baris1][j]);
                         }
                     }
 
-                    if (cacheConst > 0){
-                        arrayString[cari1(MIn, i)] += String.format("+%.2f%c", cacheConst, arrayChar[j]);
+                    if (arrayString[j] != ""){
+                        nolbeneran = true;
                     }
-                    else if (cacheConst < 0) {
-                        arrayString[cari1(MIn, i)] += String.format("%.2f%c", cacheConst, arrayChar[j]);
+                    if (j == MIn.jumlahKolom-2){
+                        nolbeneran = false;
+                    }
+
+                    if (!nolbeneran){
+                        if  (arrayChar[j] == '/'){
+                            arrayChar[j] = var;
+                            if (var == 'Z'){
+                                var = 'A';
+                            }
+                            else if (var == 'R'){
+                                var = 'a';
+                            }
+                            else var += 1;
+                        }
+                        double cacheConst = (-1)*MIn.Mat[i][j];
+                        cacheConst += recursion(MIn.jumlahKolom-2, cari1(MIn, i), i, j, arrayHasil, arrayString, MIn);
+                        
+                        if (cacheConst > 0){
+                            arrayString[cari1(MIn, i)] += String.format("+%.2f%c", cacheConst, arrayChar[j]);
+                        }
+                        else if (cacheConst < 0) {
+                            arrayString[cari1(MIn, i)] += String.format("%.2f%c", cacheConst, arrayChar[j]);
+                        }
                     }
                 }
-
                 else{
                     cache -= arrayHasil[j] * MIn.Mat[i][j];
                 }
             }
-            arrayHasil[cari1(MIn, i)] = cache;
+            try {
+                arrayHasil[cari1(MIn, i)] = cache;
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
         }
         
         //cek kalo ada jawaban trivial
@@ -254,10 +289,11 @@ public class SPL {
                         nolbeneran = false;
                     }
                 }
-                if (nolbeneran){
-                    System.out.print(arrayHasil[i]);
+                if (arrayString[i] != ""){
+                    nolbeneran = true;
                 }
-                else{
+
+                if (!nolbeneran){
                     if (arrayChar[i] == '/'){
                         arrayChar[i] = var;
                         if (var == 'Z'){
@@ -268,7 +304,10 @@ public class SPL {
                         }
                         else var += 1;
                     }
-                    System.out.print(arrayChar[i]);
+                    System.out.print(arrayChar[i] + "");
+                }
+                if (nolbeneran && (arrayString[i] == "")){
+                    System.out.print(arrayHasil[i]);
                 }
             }
             else {
@@ -400,9 +439,9 @@ public class SPL {
     /* Mencari hasil solusi unik dari persamaan Gauss */
     //prekondisi matriks yang masuk adalah matriks gauss/gauss jordan
         // Kamus Lokal
-        int i, j;
+        int i, j, k;
         boolean trivial;
-        boolean nolbeneran;
+        boolean nolbeneran, nolbeneran2;
         double cache;
         double arrayHasil[] = new double[MIn.jumlahKolom-1];
         char arrayChar[] = new char[MIn.jumlahKolom-1];
@@ -425,43 +464,60 @@ public class SPL {
             cache = MIn.Mat[i][MIn.jumlahKolom-1];
 
             for(j = cari1(MIn, i) + 1; j < MIn.jumlahKolom-1; j++){
-
-                if (arrayHasil[j] == 0 && MIn.Mat[i][j] != 0) {
-                    if  (arrayChar[j] == '/'){
-                        arrayChar[j] = var;
-                        if (var == 'Z'){
-                            var = 'A';
+                if (arrayHasil[j] == 0) {
+                    nolbeneran = true;
+                    for(k = j; k < MIn.jumlahKolom-1; k++){
+                        if (arrayChar[k] != '/'){
+                            nolbeneran = false;
                         }
-                        else if (var == 'R'){
-                            var = 'a';
-                        }
-                        else var += 1;
                     }
 
-                    double cacheConst = (-1)*MIn.Mat[i][j];
-
-                    for (int k = MIn.jumlahKolom-2; k > cari1(MIn, i); k--){
-                        if (arrayHasil[k] != 0){
-
-                            int baris1 = MIn.jumlahBaris-1;
-                            while (MIn.Mat[baris1][k] != 1) {
-                                baris1 -=1;
+                    if (j > 0){
+                        System.out.println("element " + i + " " + j);
+                        for(k = j-1; k < -1; k--){
+                            if (MIn.Mat[i][k] != 0){
+                                nolbeneran = false;
                             }
-                            cacheConst += (MIn.Mat[i][k])*(MIn.Mat[baris1][j]);
                         }
                     }
 
-                    if (cacheConst > 0){
-                        arrayString[cari1(MIn, i)] += String.format("+%.2f%c", cacheConst, arrayChar[j]);
+                    if (arrayString[j] != ""){
+                        nolbeneran = true;
                     }
-                    else if (cacheConst < 0) {
-                        arrayString[cari1(MIn, i)] += String.format("%.2f%c", cacheConst, arrayChar[j]);
+                    if (j == MIn.jumlahKolom-2){
+                        nolbeneran = false;
+                    }
+
+                    if (!nolbeneran){
+                        if  (arrayChar[j] == '/'){
+                            arrayChar[j] = var;
+                            if (var == 'Z'){
+                                var = 'A';
+                            }
+                            else if (var == 'R'){
+                                var = 'a';
+                            }
+                            else var += 1;
+                        }
+                        double cacheConst = (-1)*MIn.Mat[i][j];
+                        cacheConst += recursion(MIn.jumlahKolom-2, cari1(MIn, i), i, j, arrayHasil, arrayString, MIn);
+                        
+                        if (cacheConst > 0){
+                            arrayString[cari1(MIn, i)] += String.format("+%.2f%c", cacheConst, arrayChar[j]);
+                        }
+                        else if (cacheConst < 0) {
+                            arrayString[cari1(MIn, i)] += String.format("%.2f%c", cacheConst, arrayChar[j]);
+                        }
                     }
                 }
-
                 else{
                     cache -= arrayHasil[j] * MIn.Mat[i][j];
                 }
+            }
+            try {
+                arrayHasil[cari1(MIn, i)] = cache;
+            } catch (Exception e) {
+                // TODO: handle exception
             }
             arrayHasil[cari1(MIn, i)] = cache;
         }
@@ -508,10 +564,19 @@ public class SPL {
                             nolbeneran = false;
                         }
                     }
-                    if (nolbeneran){
-                        bw.write(arrayHasil[i] + "");
+                    if (arrayString[i] != ""){
+                        nolbeneran = true;
                     }
-                    else{
+
+                    if (i > 0){
+                        for(j = i-1; j > -1; j--){
+                            if (MIn.Mat[i][j] != 0){
+                                nolbeneran = false;
+                            }
+                        }
+                    }
+    
+                    if (!nolbeneran){
                         if (arrayChar[i] == '/'){
                             arrayChar[i] = var;
                             if (var == 'Z'){
@@ -524,7 +589,13 @@ public class SPL {
                         }
                         bw.write(arrayChar[i]);
                     }
+
+                    if (nolbeneran && arrayString[i] == ""){
+                        bw.write(arrayHasil[i] + "");
+                    }
                 }
+
+                
                 else {
                     bw.write(arrayHasil[i] + "");
                 }
