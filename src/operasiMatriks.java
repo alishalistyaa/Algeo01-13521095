@@ -1,6 +1,7 @@
 
 import java.util.*;
-import java.io.*; 
+import java.io.*;
+import java.text.DecimalFormat; 
 
 public class operasiMatriks{
     static Scanner in = new Scanner (System.in);    
@@ -674,6 +675,9 @@ public class operasiMatriks{
             for(int j = 0; j < MIn.jumlahKolom; j++){
                 if (MIn.Mat[i][j] < 0.00000000001 && MIn.Mat[i][j] > -0.00000000001){
                     MIn.Mat[i][j] = 0;
+                }
+                else if (MIn.Mat[i][j] < 1.00000000001 && MIn.Mat[i][j] > 0.99999999999){
+                    MIn.Mat[i][j] = 1;
                 }
             }
         }

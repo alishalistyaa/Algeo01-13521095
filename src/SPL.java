@@ -158,13 +158,12 @@ public class SPL {
         double cacheConst = 0;
         for (int k = toplimit; k > bottomlimit; k--){
             if ((arrayHasil[k] != 0 || arrayString[k] != "") && MIn.Mat[row][k] != 0){
-                
                 int baris1 = MIn.jumlahBaris-1;
                 while (MIn.Mat[baris1][k] != 1) {
                     baris1 -=1;
                 }
     
-                cacheConst += MIn.Mat[row][k]*(MIn.Mat[baris1][varCol]) + recursion(toplimit, cari1(MIn, baris1), baris1, varCol, arrayHasil, arrayString, MIn);
+                cacheConst = cacheConst + MIn.Mat[row][k]*(MIn.Mat[baris1][varCol]) - MIn.Mat[row][k]*recursion(toplimit, cari1(MIn, baris1), baris1, varCol, arrayHasil, arrayString, MIn);
             }
         }
         return cacheConst;
@@ -251,6 +250,7 @@ public class SPL {
             try {
                 arrayHasil[cari1(MIn, i)] = cache;
             } catch (Exception e) {
+
             }
         }
         
@@ -471,7 +471,6 @@ public class SPL {
                     }
 
                     if (j > 0){
-                        System.out.println("element " + i + " " + j);
                         for(k = j-1; k < -1; k--){
                             if (MIn.Mat[i][k] != 0){
                                 nolbeneran = false;
@@ -515,8 +514,8 @@ public class SPL {
             try {
                 arrayHasil[cari1(MIn, i)] = cache;
             } catch (Exception e) {
+
             }
-            arrayHasil[cari1(MIn, i)] = cache;
         }
         
         //cek kalo ada jawaban trivial
