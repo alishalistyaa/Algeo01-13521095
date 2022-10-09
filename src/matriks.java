@@ -1,15 +1,19 @@
 
 /* Kelas ADT Matriks */
 // Import library
-import java.util.*;
-import java.io.*; 
+import java.util.Scanner;
+import java.io.File; 
+import java.io.BufferedWriter; 
+import java.io.FileWriter; 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class matriks {
     
     /* CreateMatriks dengan maximal CAPACITY */
     // Atribut
     Scanner in = new Scanner (System.in);
-    int CAPACITY = 2000;
+    int CAPACITY = 100;
     double[][] Mat = new double[CAPACITY][CAPACITY];
     
     

@@ -72,10 +72,9 @@ public class operasiMatriks{
         MOut.jumlahKolom = M2.jumlahKolom;
         MOut.jumlahBaris = M1.jumlahBaris;
         for (i = 0; i < M1.jumlahBaris; i++){
-            for (j =0; j < M2.jumlahKolom; j++){
+            for (k = 0; k < M1.jumlahKolom; k++){
                 sum = 0;
-
-                for (k = 0; k < M1.jumlahKolom; k++){
+                for (j =0; j < M2.jumlahKolom; j++){
                     sum += M1.Mat[i][k] * M2.Mat[k][j];
                 }   
                 MOut.Mat[i][j] = sum;

@@ -1,5 +1,5 @@
 
-import java.util.*;
+import java.util.Scanner;
 
 /*
  * Ini buat main program utamanya
@@ -1317,10 +1317,9 @@ public class Main {
     public static void ImageScaling(){
         
         // Kamus Lokal
-        long startTime = System.nanoTime();
         String filename, filepath, newfilename;
-        matriks MAwal = new matriks();
-        matriks MAkhir = new matriks();
+        ImageUpscMatriks MAwal = new ImageUpscMatriks();
+        ImageUpscMatriks MAkhir = new ImageUpscMatriks();
 
         // Algoritma
         System.out.println("\nHalo! Selamat datang ke Image Scaling.");
@@ -1331,8 +1330,10 @@ public class Main {
         filename = in.nextLine();
 
         filepath = "./test/" + filename;
+        System.out.println("Interpolating...");
+        long startTime = System.nanoTime();
         MAwal = ImageUtil.loadImage(filepath);
-        MAkhir = ImageUpsc.interpolate2x(MAwal);
+        MAkhir = ImageUpsc.interpolate2xParallel(MAwal);
 
         // Nama file yang telah diupscale
         newfilename = filepath + "_upscaled2x.png";
@@ -1340,8 +1341,7 @@ public class Main {
 
         // Menghitung time elapsed
         long elapsedTime = System.nanoTime() - startTime;
-        System.out.println("Total execution time in millis: "
-        + elapsedTime/1000000);
+        System.out.println("Done! Total execution time in millis: " + elapsedTime/1000000);
         
     }
 }

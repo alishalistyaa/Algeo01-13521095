@@ -1,6 +1,6 @@
 
 // Import utilities
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,9 +10,9 @@ public class ImageUtil {
     // matriks valuePixel = new matriks();
 
     // Load Image
-    public static matriks loadImage(String filename){
+    public static ImageUpscMatriks loadImage(String filename){
     /* Membaca Value dari setiap pixel dalam image */
-    matriks valuePixel = new matriks();
+    ImageUpscMatriks valuePixel = new ImageUpscMatriks();
         try{
             // Read file
             BufferedImage image = ImageIO.read(new File(filename));
@@ -20,6 +20,12 @@ public class ImageUtil {
             int height         = image.getHeight();
 
             // Get Values
+            if (height > width){
+                valuePixel.resetCap(height+2);
+            }
+            else{
+                valuePixel.resetCap(width+2);
+            }
             valuePixel.jumlahBaris = height;
             valuePixel.jumlahKolom = width;
 
@@ -32,7 +38,6 @@ public class ImageUtil {
                     valuePixel.Mat[x][y] = (double) gray;
                 }
             }
-                System.out.println("Reading complete.");
 
         } catch(IOException e){
             System.out.println("Error: " + e);
@@ -40,7 +45,7 @@ public class ImageUtil {
         return (valuePixel);
     }
 
-    public static void writeImage(String filename, matriks m){
+    public static void writeImage(String filename, ImageUpscMatriks m){
         /* Membaca matriks hasil perbesaran dan mewrite image berdasarkan matriks tersebut */
         // Kamus Lokal
         int height, width;
@@ -50,13 +55,18 @@ public class ImageUtil {
         height = m.jumlahBaris;
         width = m.jumlahKolom;
         // Inisialisasi buffer image
-        BufferedImage image = null;
-        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         // Rendering Image
         for(int x=0; x < height; x++){
             for(int y=0; y < width; y++){
-                Color color = new Color((int)(Math.abs(m.Mat[x][y]%252)), (int)(Math.abs(m.Mat[x][y]%252)), (int)(Math.abs(m.Mat[x][y]%252)));
+                if (m.Mat[x][y] > 255){
+                    m.Mat[x][y] = 255;
+                }
+                else if (m.Mat[x][y] < 0){
+                    m.Mat[x][y] = 0;
+                }
+                Color color = new Color((int)(m.Mat[x][y]), (int)(m.Mat[x][y]), (int)(m.Mat[x][y]));
                 image.setRGB(y,x, color.getRGB());
             }
         }
@@ -65,7 +75,6 @@ public class ImageUtil {
         // Saving file
         File output_file = new File(filename);
         ImageIO.write(image, "png", output_file);
-        System.out.println("Writing complete.");
 
         // Error Handling
         } catch(IOException e){
